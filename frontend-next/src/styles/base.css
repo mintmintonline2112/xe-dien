@@ -1,0 +1,132 @@
+/*
+ * Nền tảng giao diện site: design token (:root — màu thương hiệu, chữ, font, nhịp, hoa văn nền) và reset theo tên thẻ.
+ * Dùng bởi: styles/tailwind.css (@import vào @layer base, trước utilities nên class Tailwind luôn đè được).
+ * Lưu ý: không đặt rule theo .class ở đây. Chỉ cần đổi 4 biến --brand-* (Admin → Cài đặt chèn đè), mọi sắc độ tự suy ra bằng color-mix;
+ * tên `navy-*` / `gold-*` giữ từ khung cũ, giá trị thật là sắc độ của --brand-primary (xanh điện) / --brand-secondary (vàng volt).
+ * --sale là màu giá khuyến mãi, --zalo màu nút Zalo. Đổi font Google thì sửa cả link font trong src/app/layout.tsx.
+ */
+:root {
+  --brand-primary:   #0A7D4F;
+  --brand-secondary: #FFB81C;
+  --brand-black:     #1A2420;
+  --brand-white:     #FFFFFF;
+
+  --navy-900: color-mix(in oklab, var(--brand-primary) 58%, #000);
+  --navy-800: color-mix(in oklab, var(--brand-primary) 78%, #000);
+  --navy-700: var(--brand-primary);
+  --navy-600: color-mix(in oklab, var(--brand-primary) 80%, #fff);
+  --navy-100: color-mix(in oklab, var(--brand-primary) 14%, #fff);
+  --navy-50:  color-mix(in oklab, var(--brand-primary) 7%, #fff);
+
+  --cream:     #F3F6F4;
+  --cream-2:   #E8EFEA;
+  --paper:     var(--brand-white);
+  --line:      #DAE3DD;
+  --line-soft: #E6ECE8;
+
+  --gold-500:  color-mix(in oklab, var(--brand-secondary) 72%, #000);
+  --gold-400:  var(--brand-secondary);
+  --gold-300:  color-mix(in oklab, var(--brand-secondary) 82%, #fff);
+  --gold-100:  color-mix(in oklab, var(--brand-secondary) 22%, #fff);
+
+  --ink:       var(--brand-black);
+  --ink-soft:  color-mix(in oklab, var(--brand-black) 78%, #fff);
+  --ink-faint: color-mix(in oklab, var(--brand-black) 62%, #fff);
+  --light:     var(--brand-white);
+  --light-soft:color-mix(in oklab, var(--brand-white) 76%, var(--brand-primary));
+
+  --font-main: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
+  --font-display: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
+
+  --radius: 10px;
+  --radius-lg: 16px;
+  --container: 1240px;
+  --section-pad: clamp(2.75rem, 5.5vw, 4.5rem);
+  --shadow-soft: 0 1px 2px color-mix(in oklab, var(--navy-900) 5%, transparent), 0 12px 32px -16px color-mix(in oklab, var(--navy-900) 18%, transparent);
+  --shadow-lift: 0 2px 4px color-mix(in oklab, var(--navy-900) 6%, transparent), 0 20px 44px -20px color-mix(in oklab, var(--navy-900) 28%, transparent);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --danger: #B42318;
+  --sale:   #E5251B;
+  --zalo:   #0068FF;
+
+  --pattern-volt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cpath d='M46 14 30 46h12l-8 26 22-34H44l10-24z' fill='none' stroke='%23FFFFFF' stroke-opacity='0.05' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M124 92l-16 32h12l-8 26 22-34h-12l10-24z' fill='none' stroke='%23FFFFFF' stroke-opacity='0.04' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 140px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--ink);
+  background-color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 640px) {
+  body { font-size: 0.97rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+img, svg { display: block; max-width: 100%; }
+
+[hidden] { display: none !important; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-main);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  margin: 0 0 0.6em;
+  color: inherit;
+  text-wrap: balance;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 em, h2 em, h3 em {
+  font-style: normal;
+  color: var(--gold-400);
+}
+
+p { margin: 0 0 1em; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: var(--navy-700);
+  text-decoration: none;
+  transition: color 180ms var(--ease);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--navy-700);
+  color: var(--light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

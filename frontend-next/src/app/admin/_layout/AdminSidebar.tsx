@@ -1,0 +1,86 @@
+'use client';
+
+/**
+ * Thanh menu bên trái của admin: nhóm mục theo navigation.ts, ẩn mục không có quyền, tô sáng mục đang mở, thông tin tài khoản.
+ * Dùng bởi: AdminShell.tsx.
+ */
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useAdminAuth } from '@/app/admin/_auth/AuthProvider';
+import { AdminIcon } from '@/app/admin/_components/AdminIcon';
+import { adminNavigation, canSeeNavItem } from './navigation';
+import { isActivePath } from '@/utils/route';
+
+interface AdminSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
+  const pathname = usePathname();
+  const { hasPermission, user } = useAdminAuth();
+
+  return (
+    <>
+      <button
+        className={`admin-sidebar-backdrop ${isOpen ? 'is-open' : ''}`}
+        type="button"
+        onClick={onClose}
+        aria-label="Đóng menu quản trị"
+      />
+      <aside className={`admin-sidebar ${isOpen ? 'is-open' : ''}`}>
+        <div className="admin-sidebar-brand">
+          <span className="admin-sidebar-mark" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span>
+            <strong>Xe Điện Xanh</strong>
+            <small>Hệ thống quản trị</small>
+          </span>
+        </div>
+
+        <nav className="admin-sidebar-nav" aria-label="Quản trị">
+          {adminNavigation.map((group) => {
+            const visibleItems = group.items.filter(
+              (item) => canSeeNavItem(item, hasPermission),
+            );
+            if (visibleItems.length === 0) return null;
+
+            return (
+              <div className="admin-nav-group" key={group.label}>
+                <p>{group.label}</p>
+                {visibleItems.map((item) => {
+                  const isActive = isActivePath(pathname, item.href);
+                  return (
+                    <Link
+                      className={isActive ? 'is-active' : undefined}
+                      href={item.href}
+                      key={item.href}
+                      onClick={onClose}
+                    >
+                      <AdminIcon name={item.icon} />
+                      <span>{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </nav>
+
+        <div className="admin-sidebar-account">
+          <span className="admin-avatar">
+            {(user?.name || user?.email || 'A').charAt(0).toUpperCase()}
+          </span>
+          <span>
+            <strong>{user?.name || 'Quản trị viên'}</strong>
+            <small>{user?.role?.name || user?.email}</small>
+          </span>
+        </div>
+      </aside>
+    </>
+  );
+}

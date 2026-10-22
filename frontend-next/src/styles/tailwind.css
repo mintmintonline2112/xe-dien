@@ -1,0 +1,112 @@
+/*
+ * Điểm vào CSS của site: khai thứ tự layer (theme, base, components, utilities, effects), nạp base / components / effects, @theme token và thang thiết kế.
+ * Dùng bởi: src/app/layout.tsx (admin nạp thêm admin.css); prettier-plugin-tailwindcss và src/utils/cn.ts đọc các mốc ở đây.
+ * Lưu ý: layer sau thắng layer trước bất kể specificity; CỐ Ý không nạp preflight (base.css là reset riêng). Thêm / đổi mốc @theme thì cập nhật
+ * src/utils/cn.ts; không đặt tên utility `container` (trùng utility có sẵn của Tailwind); cỡ chữ cố ý không khai line-height.
+ */
+@layer theme, base, components, utilities, effects;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "./base.css" layer(base);
+@import "./components.css" layer(components);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./effects.css" layer(effects);
+
+@theme inline {
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-navy-600: var(--navy-600);
+  --color-navy-100: var(--navy-100);
+  --color-navy-50: var(--navy-50);
+
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  --color-gold-500: var(--gold-500);
+  --color-gold-400: var(--gold-400);
+  --color-gold-300: var(--gold-300);
+  --color-gold-100: var(--gold-100);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-light: var(--light);
+  --color-light-soft: var(--light-soft);
+
+  --color-danger: var(--danger);
+  --color-sale: var(--sale);
+  --color-zalo: var(--zalo);
+
+  --font-main: var(--font-main);
+  --font-display: var(--font-display);
+
+  --radius: var(--radius);
+  --radius-lg: var(--radius-lg);
+
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lift: var(--shadow-lift);
+
+  --ease-brand: var(--ease);
+
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+@theme static {
+  --text-*: initial;
+  --text-2xs: 0.65rem;
+  --text-xs: 0.8rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.4rem;
+  --text-3xl: 1.7rem;
+
+  --text-display: clamp(2rem, 4.4vw, 3.3rem);
+  --text-h1: clamp(1.9rem, 3.6vw, 2.75rem);
+  --text-h2: clamp(1.5rem, 2.6vw, 2.1rem);
+  --text-h3: clamp(1.3rem, 2.1vw, 1.7rem);
+  --text-h4: clamp(1.15rem, 1.7vw, 1.4rem);
+  --text-h5: clamp(1.02rem, 1.3vw, 1.15rem);
+
+  --tracking-*: initial;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-xs: 0.04em;
+  --tracking-sm: 0.08em;
+  --tracking-md: 0.14em;
+  --tracking-lg: 0.2em;
+  --tracking-xl: 0.26em;
+  --tracking-2xl: 0.32em;
+
+  --leading-*: initial;
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.25;
+  --leading-normal: 1.45;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.75;
+}
+
+@theme {
+  --shadow-badge: 0 8px 18px -10px color-mix(in oklab, var(--navy-900) 50%, transparent);
+  --shadow-float: 0 24px 48px -24px color-mix(in oklab, var(--navy-900) 40%, transparent);
+  --shadow-glow: 0 0 10px color-mix(in oklab, var(--gold-300) 70%, transparent);
+  --shadow-glow-lg: 0 0 18px color-mix(in oklab, var(--gold-300) 95%, transparent);
+}
+
+@utility site-container {
+  width: min(var(--container), 100% - 3rem);
+  margin-inline: auto;
+
+  @media (max-width: 640px) {
+    width: min(var(--container), 100% - 2rem);
+  }
+}

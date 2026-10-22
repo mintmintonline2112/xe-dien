@@ -1,0 +1,712 @@
+{
+  "home": {
+    "id": 1,
+    "title": "Trang chủ",
+    "slug": "home",
+    "status": "published",
+    "eyebrow": "Xe điện chính hãng",
+    "lead": "Xe đạp điện, xe máy điện, xe điện 3 bánh, ô tô điện, xe chuyên dụng và phụ tùng chính hãng — giá tận xưởng, trả góp 0%.",
+    "templateKey": "home",
+    "sortOrder": 1,
+    "metaTitle": "Xe Điện Xanh — Xe đạp điện, xe máy điện chính hãng, giá tận xưởng",
+    "metaDescription": "Hệ thống phân phối xe đạp điện, xe máy điện, xe điện 3 bánh, ô tô điện, xe chuyên dụng và phụ tùng chính hãng. Giao xe tận nhà, bảo hành toàn quốc, trả góp 0%.",
+    "ogImagePath": null,
+    "canonicalUrl": null,
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "deletedAt": null,
+    "translations": null,
+    "sections": [
+      {
+        "id": 2,
+        "pageId": 1,
+        "sectionKey": "banner",
+        "heading": "Xe Điện Xanh — xe điện chính hãng, giá tận xưởng, trả góp 0%",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "hero",
+          "layout": "banner",
+          "slides": [
+            {
+              "image": "/images/hero/hero-1.webp",
+              "title": "Xe máy điện chính hãng – giá tận xưởng",
+              "text": "Hơn 40 mẫu xe máy điện, xe đạp điện sẵn hàng. Giao xe tận nhà, lắp ráp và sạc sẵn miễn phí.",
+              "label": "Xem xe máy điện",
+              "href": "/danh-muc/xe-may-dien/",
+              "alt": "Xe máy điện chạy trên phố"
+            },
+            {
+              "image": "/images/hero/hero-2.webp",
+              "title": "Trả góp 0% – nhận xe chỉ từ 3 triệu",
+              "text": "Duyệt hồ sơ trong 30 phút chỉ với căn cước công dân, không cần chứng minh thu nhập.",
+              "label": "Đăng ký trả góp",
+              "href": "/mua-tra-gop/",
+              "alt": "Người đi xe điện trong thành phố"
+            },
+            {
+              "image": "/images/hero/hero-3.webp",
+              "title": "Xe điện du lịch, sân golf cho khu nghỉ dưỡng",
+              "text": "Giải pháp đưa đón khách 4–14 chỗ, bảo trì định kỳ tận nơi, giá tốt cho dự án.",
+              "label": "Nhận báo giá dự án",
+              "href": "/danh-muc/o-to-dien/",
+              "alt": "Đoàn xe điện sân golf"
+            },
+            {
+              "image": "/images/hero/hero-4.webp",
+              "title": "Trạm sạc, thay pin, sửa chữa xe điện tận nơi",
+              "text": "Kỹ thuật viên lưu động có mặt trong 60 phút ở nội thành — thay ắc quy, vá lốp, kiểm tra điện.",
+              "label": "Gọi kỹ thuật",
+              "href": "/sua-chua-tan-noi/",
+              "alt": "Trụ sạc xe điện"
+            }
+          ],
+          "ctaLabel": "Tư vấn ngay",
+          "ctaHref": "#tu-van"
+        },
+        "isActive": true,
+        "sortOrder": 1,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 3,
+        "pageId": 1,
+        "sectionKey": "uu-dai",
+        "heading": null,
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "promo-tiles",
+          "items": [
+            {
+              "icon": "gift",
+              "title": "Khuyến mãi!",
+              "text": "Mua xe nhận ngay quà tặng đến 2 triệu",
+              "href": "/tin-tuc/?category=khuyen-mai"
+            },
+            {
+              "icon": "card",
+              "title": "Mua trả góp 0%",
+              "text": "Áp dụng cho tất cả sản phẩm",
+              "href": "/mua-tra-gop/"
+            },
+            {
+              "icon": "briefcase",
+              "title": "Tuyển dụng",
+              "text": "Tư vấn bán hàng, kỹ thuật viên xe điện",
+              "href": "/tuyen-dung/"
+            }
+          ]
+        },
+        "isActive": true,
+        "sortOrder": 2,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 4,
+        "pageId": 1,
+        "sectionKey": "mua-nhieu",
+        "heading": "Sản phẩm mua nhiều",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "grid",
+          "source": "featured",
+          "limit": "10",
+          "ctaLabel": "Xem tất cả",
+          "ctaHref": "/san-pham/"
+        },
+        "isActive": true,
+        "sortOrder": 3,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 5,
+        "pageId": 1,
+        "sectionKey": "danh-muc",
+        "heading": "Danh mục sản phẩm",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "category-grid",
+          "layout": "tiles",
+          "limit": "12"
+        },
+        "isActive": true,
+        "sortOrder": 4,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 6,
+        "pageId": 1,
+        "sectionKey": "moi-ve",
+        "heading": "Sản phẩm mới về",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "rail",
+          "source": "newest",
+          "limit": "12",
+          "ctaLabel": "Xem thêm",
+          "ctaHref": "/san-pham/?sort=newest"
+        },
+        "isActive": true,
+        "sortOrder": 5,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 7,
+        "pageId": 1,
+        "sectionKey": "xe-dap-dien",
+        "heading": "Xe đạp điện",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "split",
+          "source": "category",
+          "categorySlug": "xe-dap-dien",
+          "limit": "8",
+          "ctaLabel": "Xem tất cả xe đạp điện"
+        },
+        "isActive": true,
+        "sortOrder": 6,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 8,
+        "pageId": 1,
+        "sectionKey": "xe-may-dien",
+        "heading": "Xe máy điện",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "split",
+          "source": "category",
+          "categorySlug": "xe-may-dien",
+          "limit": "8",
+          "ctaLabel": "Xem tất cả xe máy điện"
+        },
+        "isActive": true,
+        "sortOrder": 7,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 9,
+        "pageId": 1,
+        "sectionKey": "xe-dien-2-banh",
+        "heading": "Scooter điện & xe cân bằng",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "grid",
+          "source": "category",
+          "categorySlug": "xe-dien-2-banh",
+          "limit": "5",
+          "ctaLabel": "Xem tất cả"
+        },
+        "isActive": true,
+        "sortOrder": 8,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 10,
+        "pageId": 1,
+        "sectionKey": "o-to-dien",
+        "heading": "Ô tô điện – xe du lịch, sân golf",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "split",
+          "source": "category",
+          "categorySlug": "o-to-dien",
+          "limit": "8",
+          "ctaLabel": "Xem tất cả ô tô điện"
+        },
+        "isActive": true,
+        "sortOrder": 9,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 11,
+        "pageId": 1,
+        "sectionKey": "xe-chuyen-dung",
+        "heading": "Xe chuyên dụng & xe nâng điện",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "grid",
+          "source": "category",
+          "categorySlug": "xe-chuyen-dung",
+          "limit": "5",
+          "ctaLabel": "Xem tất cả"
+        },
+        "isActive": true,
+        "sortOrder": 10,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 12,
+        "pageId": 1,
+        "sectionKey": "phu-tung",
+        "heading": "Phụ tùng & pin sạc",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "rail",
+          "source": "category",
+          "categorySlug": "phu-tung",
+          "limit": "10",
+          "ctaLabel": "Xem tất cả phụ tùng"
+        },
+        "isActive": true,
+        "sortOrder": 11,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 13,
+        "pageId": 1,
+        "sectionKey": "cam-ket",
+        "heading": null,
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "service-strip",
+          "items": [
+            {
+              "icon": "truck",
+              "title": "Miễn phí vận chuyển",
+              "text": "Giao xe tận nhà nội thành"
+            },
+            {
+              "icon": "wallet",
+              "title": "Thanh toán khi nhận",
+              "text": "Kiểm tra xe rồi mới trả tiền"
+            },
+            {
+              "icon": "refresh",
+              "title": "Đổi trả 7 ngày",
+              "text": "Lỗi do nhà sản xuất"
+            },
+            {
+              "icon": "shield",
+              "title": "Bảo hành chính hãng",
+              "text": "Trên toàn quốc, tận nơi"
+            }
+          ]
+        },
+        "isActive": true,
+        "sortOrder": 12,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 14,
+        "pageId": 1,
+        "sectionKey": "vi-sao-chon",
+        "heading": "Vì sao khách hàng chọn Xe Điện Xanh",
+        "subheading": null,
+        "content": "<p>Hơn 10 năm phân phối xe điện, chúng tôi hiểu một chiếc xe tốt phải đi kèm dịch vụ sau bán hàng tốt.</p>",
+        "mediaPath": null,
+        "metadata": {
+          "_component": "feature-cards",
+          "items": [
+            {
+              "icon": "shield",
+              "title": "Hàng chính hãng 100%",
+              "text": "Nhập trực tiếp từ nhà máy, đầy đủ hoá đơn VAT, phiếu bảo hành và giấy tờ đăng ký."
+            },
+            {
+              "icon": "percent",
+              "title": "Giá tận xưởng",
+              "text": "Cam kết giá tốt khu vực. Thấy nơi khác rẻ hơn, chúng tôi hoàn lại phần chênh lệch."
+            },
+            {
+              "icon": "card",
+              "title": "Trả góp 0% lãi suất",
+              "text": "Duyệt nhanh trong 30 phút, chỉ cần căn cước công dân, trả trước từ 0%."
+            },
+            {
+              "icon": "wrench",
+              "title": "Sửa chữa tận nơi",
+              "text": "Đội kỹ thuật lưu động hỗ trợ thay pin, vá lốp, kiểm tra điện ngay tại nhà."
+            },
+            {
+              "icon": "truck",
+              "title": "Giao xe toàn quốc",
+              "text": "Miễn phí giao nội thành, đóng gói kỹ và hỗ trợ lắp ráp khi giao tỉnh."
+            },
+            {
+              "icon": "headset",
+              "title": "Tư vấn 8:00 – 21:00",
+              "text": "Tổng đài miễn phí, Zalo và Messenger luôn có người trả lời trong vài phút."
+            }
+          ]
+        },
+        "isActive": true,
+        "sortOrder": 13,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 15,
+        "pageId": 1,
+        "sectionKey": "thuong-hieu",
+        "heading": "Thương hiệu phân phối",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "marquee",
+          "items": [
+            "Vnbike",
+            "YAKA",
+            "Pega",
+            "DYLEXE",
+            "TAILG",
+            "Osakar",
+            "Asama",
+            "Yadea",
+            "VinFast",
+            "Dat Bike",
+            "SEALUP",
+            "Teverun",
+            "Santong",
+            "Smart"
+          ]
+        },
+        "isActive": true,
+        "sortOrder": 14,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 16,
+        "pageId": 1,
+        "sectionKey": "tin-tuc",
+        "heading": "Tin tức & kinh nghiệm",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "post-list",
+          "layout": "list",
+          "limit": "5",
+          "ctaLabel": "Xem tất cả tin tức",
+          "ctaHref": "/tin-tuc/"
+        },
+        "isActive": true,
+        "sortOrder": 15,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 17,
+        "pageId": 1,
+        "sectionKey": "hoi-dap",
+        "heading": "Câu hỏi thường gặp",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "faq",
+          "layout": "columns",
+          "headingAccent": "thường gặp",
+          "items": [
+            {
+              "question": "Mua xe điện trả góp cần giấy tờ gì?",
+              "answer": "Chỉ cần căn cước công dân gắn chip và số điện thoại chính chủ. Hồ sơ được duyệt online trong khoảng 30 phút, trả trước từ 0–30% tuỳ gói."
+            },
+            {
+              "question": "Xe máy điện có cần bằng lái và đăng ký biển số không?",
+              "answer": "Phần lớn xe máy điện thuộc loại xe gắn máy (tốc độ thiết kế không quá 50 km/h, động cơ không quá 4 kW): người lái từ đủ 16 tuổi, không cần bằng lái nhưng phải đăng ký biển số. Xe điện công suất lớn hơn được xếp vào mô tô và cần giấy phép lái xe hạng phù hợp.\n\nQuy định có thể thay đổi — chúng tôi hướng dẫn và hỗ trợ đăng ký biển số trọn gói khi mua xe."
+            },
+            {
+              "question": "Một lần sạc đi được bao xa?",
+              "answer": "Tuỳ dung lượng pin: xe đạp điện thường 50–80 km, xe máy điện 70–150 km mỗi lần sạc đầy. Quãng đường thực tế phụ thuộc tải trọng, tốc độ và địa hình."
+            },
+            {
+              "question": "Pin lithium hay ắc quy chì tốt hơn?",
+              "answer": "Pin lithium nhẹ, sạc nhanh, tuổi thọ 1.000–2.000 lần sạc nhưng giá cao hơn. Ắc quy chì rẻ, dễ thay thế, phù hợp nhu cầu đi lại ngắn. Nhân viên sẽ tư vấn loại phù hợp với quãng đường hằng ngày của bạn."
+            },
+            {
+              "question": "Bảo hành xe như thế nào?",
+              "answer": "Động cơ bảo hành 24–36 tháng, pin / ắc quy 12–24 tháng tuỳ mẫu. Bảo hành tại toàn bộ hệ thống showroom và có kỹ thuật viên hỗ trợ tận nhà trong nội thành."
+            },
+            {
+              "question": "Có giao xe và lắp ráp tận nhà không?",
+              "answer": "Có. Miễn phí giao xe nội thành các thành phố có showroom, giao toàn quốc qua đối tác vận chuyển. Xe được lắp ráp, kiểm tra và sạc sẵn trước khi bàn giao."
+            }
+          ]
+        },
+        "isActive": true,
+        "sortOrder": 16,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 18,
+        "pageId": 1,
+        "sectionKey": "showroom",
+        "heading": "Hệ thống showroom",
+        "subheading": null,
+        "content": "<p>Ghé showroom gần nhất để xem xe, lái thử và nhận ưu đãi trực tiếp.</p>",
+        "mediaPath": null,
+        "metadata": {
+          "_component": "store-list",
+          "layout": "grid",
+          "items": [
+            {
+              "title": "Showroom Quận 7",
+              "caption": "TP. Hồ Chí Minh",
+              "text": "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh",
+              "label": "0900 000 001",
+              "value": "8:00 – 21:00 hằng ngày",
+              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Quan+7",
+              "image": "/images/pages/showroom.webp"
+            },
+            {
+              "title": "Showroom Gò Vấp",
+              "caption": "TP. Hồ Chí Minh",
+              "text": "456 Quang Trung, Phường 10, Gò Vấp, TP. Hồ Chí Minh",
+              "label": "0900 000 002",
+              "value": "8:00 – 21:00 hằng ngày",
+              "href": "https://maps.google.com/?q=Quang+Trung+Go+Vap",
+              "image": "/images/pages/about.webp"
+            },
+            {
+              "title": "Showroom Biên Hòa",
+              "caption": "Đồng Nai",
+              "text": "789 Phạm Văn Thuận, Tân Mai, Biên Hòa, Đồng Nai",
+              "label": "0900 000 003",
+              "value": "8:00 – 20:30 hằng ngày",
+              "href": "https://maps.google.com/?q=Pham+Van+Thuan+Bien+Hoa",
+              "image": "/images/pages/service.webp"
+            }
+          ],
+          "mapLabel": "Xem bản đồ",
+          "ctaLabel": "Xem tất cả showroom",
+          "ctaHref": "/he-thong-showroom/"
+        },
+        "isActive": true,
+        "sortOrder": 17,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 19,
+        "pageId": 1,
+        "sectionKey": "tu-van",
+        "heading": "Đăng ký nhận tư vấn & báo giá",
+        "subheading": null,
+        "content": "<p>Chưa biết chọn mẫu xe nào? Để lại số điện thoại, chuyên viên sẽ gọi lại trong 15 phút.</p>",
+        "mediaPath": null,
+        "metadata": {
+          "_component": "quote-form",
+          "items": [
+            "Tư vấn đúng nhu cầu: đi học, đi làm, chở hàng hay kinh doanh dịch vụ",
+            "Báo giá tốt nhất kèm quà tặng đang áp dụng",
+            "Hỗ trợ thủ tục trả góp 0% và đăng ký biển số",
+            "Giao xe tận nhà, hướng dẫn sử dụng và bảo dưỡng"
+          ],
+          "defaultType": "consult",
+          "formTitle": "Đăng ký tư vấn miễn phí",
+          "formSubtitle": "Gọi lại trong 15 phút (8:00 – 21:00 hằng ngày).",
+          "submitLabel": "Gửi yêu cầu tư vấn",
+          "backdropImage": "/images/pages/charging.webp"
+        },
+        "isActive": true,
+        "sortOrder": 18,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      }
+    ]
+  },
+  "contact": {
+    "id": 20,
+    "title": "Liên hệ",
+    "slug": "contact",
+    "status": "published",
+    "eyebrow": "Liên hệ",
+    "lead": "Đội ngũ tư vấn trực 8:00 – 21:00 mỗi ngày. Gọi tổng đài miễn phí hoặc để lại lời nhắn, chúng tôi phản hồi ngay.",
+    "templateKey": "contact",
+    "sortOrder": 4,
+    "metaTitle": "Liên hệ Xe Điện Xanh",
+    "metaDescription": "Hotline, địa chỉ showroom và form liên hệ của Xe Điện Xanh. Tư vấn miễn phí 8:00 – 21:00 hằng ngày.",
+    "ogImagePath": null,
+    "canonicalUrl": null,
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "deletedAt": null,
+    "translations": null,
+    "sections": [
+      {
+        "id": 21,
+        "pageId": 20,
+        "sectionKey": "thong-tin",
+        "heading": "Thông tin liên hệ",
+        "subheading": null,
+        "content": "<p>Bạn cần tư vấn chọn xe, hỏi về bảo hành hay hợp tác đại lý? Liên hệ theo một trong các cách dưới đây.</p>",
+        "mediaPath": null,
+        "metadata": {
+          "_component": "contact",
+          "layout": "form",
+          "labelLocation": "Khu vực",
+          "labelAddress": "Văn phòng",
+          "labelEmail": "Email",
+          "labelPhone": "Hotline mua hàng",
+          "labelHours": "Giờ làm việc",
+          "note": "Khiếu nại về sản phẩm và dịch vụ, vui lòng gọi tổng đài miễn phí — chúng tôi xử lý trong 24 giờ."
+        },
+        "isActive": true,
+        "sortOrder": 1,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 22,
+        "pageId": 20,
+        "sectionKey": "showroom",
+        "heading": "Hệ thống showroom",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "store-list",
+          "layout": "list",
+          "items": [
+            {
+              "title": "Showroom Quận 7",
+              "caption": "TP. Hồ Chí Minh",
+              "text": "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh",
+              "label": "0900 000 001",
+              "value": "8:00 – 21:00 hằng ngày",
+              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Quan+7",
+              "image": "/images/pages/showroom.webp"
+            },
+            {
+              "title": "Showroom Gò Vấp",
+              "caption": "TP. Hồ Chí Minh",
+              "text": "456 Quang Trung, Phường 10, Gò Vấp, TP. Hồ Chí Minh",
+              "label": "0900 000 002",
+              "value": "8:00 – 21:00 hằng ngày",
+              "href": "https://maps.google.com/?q=Quang+Trung+Go+Vap",
+              "image": "/images/pages/about.webp"
+            },
+            {
+              "title": "Showroom Biên Hòa",
+              "caption": "Đồng Nai",
+              "text": "789 Phạm Văn Thuận, Tân Mai, Biên Hòa, Đồng Nai",
+              "label": "0900 000 003",
+              "value": "8:00 – 20:30 hằng ngày",
+              "href": "https://maps.google.com/?q=Pham+Van+Thuan+Bien+Hoa",
+              "image": "/images/pages/service.webp"
+            },
+            {
+              "title": "Showroom Cầu Giấy",
+              "caption": "Hà Nội",
+              "text": "12 Trần Thái Tông, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",
+              "label": "0900 000 004",
+              "value": "8:00 – 21:00 hằng ngày",
+              "href": "https://maps.google.com/?q=Tran+Thai+Tong+Cau+Giay",
+              "image": "/images/news/news-2.webp"
+            },
+            {
+              "title": "Showroom Hải Châu",
+              "caption": "Đà Nẵng",
+              "text": "34 Nguyễn Văn Linh, Nam Dương, Hải Châu, Đà Nẵng",
+              "label": "0900 000 005",
+              "value": "8:00 – 20:30 hằng ngày",
+              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Da+Nang",
+              "image": "/images/news/news-6.webp"
+            },
+            {
+              "title": "Showroom Ninh Kiều",
+              "caption": "Cần Thơ",
+              "text": "56 Ba Tháng Hai, Xuân Khánh, Ninh Kiều, Cần Thơ",
+              "label": "0900 000 006",
+              "value": "8:00 – 20:30 hằng ngày",
+              "href": "https://maps.google.com/?q=3+Thang+2+Ninh+Kieu",
+              "image": "/images/news/news-5.webp"
+            }
+          ],
+          "mapLabel": "Xem bản đồ"
+        },
+        "isActive": true,
+        "sortOrder": 2,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      }
+    ]
+  }
+}

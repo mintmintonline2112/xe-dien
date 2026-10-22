@@ -1,0 +1,138 @@
+/*
+ * Class thật cho HTML do CMS sinh ra (nút `.btn` admin chèn trong bài, nội dung bài viết `.post-content`) — thứ không mang được class Tailwind.
+ * Dùng bởi: styles/tailwind.css (@import vào @layer components, trước utilities).
+ * Lưu ý: giao diện còn lại viết bằng class Tailwind trong JSX; vì nằm trước utilities nên class Tailwind đè được, không cần hậu tố `!`.
+ */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: --spacing(3) --spacing(6);
+  font-family: var(--font-main);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: var(--tracking-normal);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 200ms var(--ease), color 200ms var(--ease),
+              border-color 200ms var(--ease), transform 200ms var(--ease),
+              box-shadow 200ms var(--ease);
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--navy-700);
+  color: var(--light);
+}
+.btn-primary:hover {
+  background: var(--navy-800);
+  color: var(--light);
+}
+
+.btn-sale {
+  background: var(--sale);
+  color: var(--light);
+}
+.btn-sale:hover {
+  background: color-mix(in oklab, var(--sale) 85%, #000);
+  color: var(--light);
+}
+
+.btn-zalo {
+  background: var(--zalo);
+  color: var(--light);
+}
+.btn-zalo:hover {
+  background: color-mix(in oklab, var(--zalo) 85%, #000);
+  color: var(--light);
+}
+
+.btn-gold {
+  background: var(--gold-400);
+  border-color: var(--gold-400);
+  color: var(--ink);
+  box-shadow: 0 10px 24px -12px --alpha(var(--color-gold-500) / 55%);
+}
+.btn-gold:hover {
+  background: var(--gold-300);
+  border-color: var(--gold-300);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -12px --alpha(var(--color-gold-500) / 60%);
+}
+
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -70%;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, --alpha(var(--color-white) / 45%), transparent);
+  transform: skewX(-20deg);
+  transition: left 650ms var(--ease);
+  pointer-events: none;
+}
+.btn-gold:hover::after { left: 115%; }
+
+.btn-ghost {
+  background: transparent;
+  border-color: --alpha(var(--color-light) / 45%);
+  color: var(--light);
+}
+.btn-ghost:hover {
+  border-color: var(--gold-300);
+  color: var(--gold-300);
+}
+
+.btn-ghost-dark {
+  background: transparent;
+  border-color: var(--navy-700);
+  color: var(--navy-700);
+}
+.btn-ghost-dark:hover {
+  background: var(--navy-700);
+  color: var(--light);
+}
+
+.btn-sm { padding: --spacing(2) --spacing(4); font-size: var(--text-sm); }
+.btn-lg { padding: --spacing(4) --spacing(8); font-size: var(--text-lg); }
+.btn-block { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn-gold::after { display: none; }
+}
+
+.post-content {
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+  color: var(--ink);
+}
+
+.post-content h2,
+.post-content h3 { margin-top: 1.6em; }
+.post-content p { margin-bottom: 1.1em; }
+.post-content img { border-radius: var(--radius-lg); margin: --spacing(6) auto; }
+.post-content a { color: var(--navy-700); border-bottom: 1px solid currentColor; }
+.post-content a:hover { color: var(--navy-800); }
+.post-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.1em; font-size: var(--text-sm); }
+.post-content th,
+.post-content td { border: 1px solid var(--line); padding: --spacing(2) --spacing(3); text-align: left; vertical-align: top; }
+.post-content th { background: var(--navy-50); }
+.post-content ul,
+.post-content ol { padding-left: --spacing(6); margin-bottom: 1.1em; }
+.post-content ul { list-style: disc; }
+.post-content ol { list-style: decimal; }
+.post-content blockquote {
+  margin: --spacing(6) 0;
+  padding: --spacing(3) --spacing(6);
+  border-left: 3px solid var(--navy-700);
+  background: var(--navy-50);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+}
