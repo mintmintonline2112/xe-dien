@@ -16,6 +16,7 @@
     "snapshot": "node scripts/snapshot-pages.mjs",
     "shot": "node scripts/shot-pages.mjs",
     "diff:png": "node scripts/diff-png.mjs",
+    "export:demo": "node scripts/export-demo-site.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
