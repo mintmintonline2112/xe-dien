@@ -37,7 +37,10 @@ export class PagesController extends BaseController<
   number
 > {
   constructor(private readonly pagesService: PagesService) {
-    super(pagesService, 'Page');
+    super(pagesService, 'Page', {
+      create: CreatePageDto,
+      update: UpdatePageDto,
+    });
   }
 
   protected getFilterableFields(): (keyof Page)[] {

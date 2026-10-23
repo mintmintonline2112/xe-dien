@@ -32,11 +32,11 @@ export class BaseService<
     const parsedSort = Number(sort);
 
     if (!Number.isInteger(parsedSort)) {
-      throw new BadRequestException('Sort must be an integer');
+      throw new BadRequestException('Thứ tự sắp xếp phải là số nguyên');
     }
 
     if (parsedSort < 1) {
-      throw new BadRequestException('Sort must be greater than or equal to 1');
+      throw new BadRequestException('Thứ tự sắp xếp phải từ 1 trở lên');
     }
 
     const entity = await this.repo.findOne({
@@ -44,11 +44,11 @@ export class BaseService<
     });
 
     if (!entity) {
-      throw new NotFoundException('Entity not found');
+      throw new NotFoundException('Không tìm thấy dữ liệu');
     }
 
     if (!('sort' in entity) && !('sortOrder' in entity)) {
-      throw new BadRequestException('Entity does not support sort field');
+      throw new BadRequestException('Dữ liệu này không hỗ trợ sắp xếp');
     }
 
     if ('sortOrder' in entity) {
@@ -104,7 +104,7 @@ export class BaseService<
     });
 
     if (!entity) {
-      throw new NotFoundException(`Entity with id ${id} not found`);
+      throw new NotFoundException(`Không tìm thấy dữ liệu có id ${id}`);
     }
 
     const updatedEntity = repo.merge(entity, data);
@@ -130,7 +130,7 @@ export class BaseService<
     });
 
     if (!entity) {
-      throw new NotFoundException(`Entity with id ${id} not found`);
+      throw new NotFoundException(`Không tìm thấy dữ liệu có id ${id}`);
     }
 
     if ('deletedAt' in entity) {
@@ -168,11 +168,11 @@ export class BaseService<
     limit = Number(limit);
 
     if (!Number.isInteger(page) || page < 1) {
-      throw new BadRequestException('Page must be a positive integer');
+      throw new BadRequestException('Số trang phải là số nguyên dương');
     }
 
     if (!Number.isInteger(limit) || limit < 1 || limit > 1000) {
-      throw new BadRequestException('Limit must be between 1 and 1000');
+      throw new BadRequestException('Số dòng mỗi trang phải từ 1 đến 1000');
     }
 
     let whereConditions: FindOptionsWhere<T>[] = [];
@@ -206,18 +206,18 @@ export class BaseService<
       const sortableColumns = this.getColumnNames();
       for (const item of orderBy) {
         if (!item || typeof item !== 'object') {
-          throw new BadRequestException('orderBy must be an array of objects');
+          throw new BadRequestException('orderBy phải là mảng các object');
         }
         for (const key in item) {
           if (!sortableColumns.has(key)) {
             throw new BadRequestException(
-              `Cannot sort by unknown column "${key}"`,
+              `Không sắp xếp được theo cột không tồn tại "${key}"`,
             );
           }
           const direction = String(item[key]).toUpperCase();
           if (direction !== 'ASC' && direction !== 'DESC') {
             throw new BadRequestException(
-              `Sort direction for "${key}" must be ASC or DESC`,
+              `Chiều sắp xếp của "${key}" phải là ASC hoặc DESC`,
             );
           }
           order[key] = direction;

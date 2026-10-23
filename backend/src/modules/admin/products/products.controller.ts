@@ -47,7 +47,10 @@ export class ProductsController extends BaseController<
   number
 > {
   constructor(private readonly productsService: ProductsService) {
-    super(productsService, 'Product');
+    super(productsService, 'Product', {
+      create: CreateProductDto,
+      update: UpdateProductDto,
+    });
   }
 
   protected override getFindAllOptions(): FindManyOptions<Product> {

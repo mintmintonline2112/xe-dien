@@ -1,8 +1,13 @@
 /**
- * API CRUD danh mục blog cho admin (/admin/blog-categories, tên cũ /admin/article-categories), ghi xong thì xoá cache blog.
+ * API CRUD danh mục blog cho admin (/admin/blog-categories), ghi xong thì xoá cache blog.
  * Dùng bởi: frontend-next app/admin/(protected)/blog-categories/_lib/blog-category.service.ts.
  */
-import { Controller, SetMetadata, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  SetMetadata,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BaseController } from 'src/common/base/base.controller';
 import { JwtAdminAuthGuard } from 'src/common/guards/jwt-auth/jwt-auth-admin.guard';
@@ -23,7 +28,7 @@ import { BlogCategoriesService } from './blog-categories.service';
 @UseInterceptors(InvalidateCacheInterceptor)
 @SetMetadata('entity', 'BLOG_CATEGORY')
 @SetMetadata(CACHE_NAMESPACES_KEY, [CACHE_NS.blogPosts])
-@Controller(['admin/blog-categories', 'admin/article-categories'])
+@Controller('admin/blog-categories')
 export class BlogCategoriesController extends BaseController<
   BlogCategory,
   CreateBlogCategoryDto,
@@ -31,7 +36,10 @@ export class BlogCategoriesController extends BaseController<
   number
 > {
   constructor(private readonly categoriesService: BlogCategoriesService) {
-    super(categoriesService, 'BlogCategory');
+    super(categoriesService, 'BlogCategory', {
+      create: CreateBlogCategoryDto,
+      update: UpdateBlogCategoryDto,
+    });
   }
 
   protected override getSearchFields(): (keyof BlogCategory)[] {

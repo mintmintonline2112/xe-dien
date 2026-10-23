@@ -16,6 +16,7 @@ staff/roles/permissions.
 | `GET /api/client/products/slug/:slug` | Chi tiết sản phẩm (kèm danh mục + danh mục cha) |
 | `GET /api/client/product-categories` | Danh mục đang bật (gốc rồi tới các con) kèm `productCount` |
 | `GET /api/client/product-categories/slug/:slug` | Một danh mục kèm `parent`, `children` |
+| `GET /api/client/pages` | Mọi trang đã xuất bản, chỉ `[{ slug, updatedAt }]` (dùng cho sitemap) |
 | `GET /api/client/pages/:slug` | Trang + section đang bật |
 | `GET /api/client/blog-posts` (+ `/slug/:slug`), `GET /api/client/blog-categories` | Tin tức |
 | `GET /api/client/menu?location=header\|footer` | Cây menu theo vị trí (mặc định header) |
@@ -70,11 +71,11 @@ Sau khi đã xác nhận mọi file sửa đổi bằng `git add .`
 common/base/
 Nơi chứa base.entity.ts và base.service.ts. Mọi Entity và Service mới bắt buộc phải kế thừa từ các lớp cơ sở này.
 
-configs/
-Chứa file app.config.ts quản lý toàn bộ biến môi trường. Tuyệt đối không gọi process.env trực tiếp trong mã nguồn.
+config/
+Mỗi nhóm cấu hình một file (server, database, jwt, mail…), gom ở app-config.module.ts, kiểm tra ở env.validation.ts. Tuyệt đối không gọi process.env trực tiếp trong mã nguồn.
 
-constants/
-Chứa app.constant.ts để quản lý tập trung các biến tĩnh, Enum và thông báo lỗi.
+common/constants/, common/enums/
+Hằng số và Enum dùng chung (notification-modules.ts, account-status, publish-status…).
 
 database/
 Bao gồm migrations, seeders và data-source.ts. Đây là nơi quản lý cấu trúc và dữ liệu mẫu của cơ sở dữ liệu.
@@ -155,7 +156,7 @@ Module: Mọi module mới phải được khai báo vào admin.module.ts (admin
 
 Database: Tuyệt đối không dùng synchronize: true. Mọi thay đổi cấu trúc bảng phải thực hiện qua Migration.
 
-Clean Code: Sử dụng hằng số từ thư mục constants thay vì viết cứng giá trị vào logic xử lý.
+Clean Code: Sử dụng hằng số từ common/constants, common/enums thay vì viết cứng giá trị vào logic xử lý.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 

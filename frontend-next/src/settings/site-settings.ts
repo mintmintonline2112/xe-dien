@@ -6,7 +6,6 @@
 import { apiFetch } from "@/api/api-fetch";
 import { SITE_CONTACT } from "@/config/contact";
 import { env } from "@/config/env";
-import { DEFAULT_LANG, type Lang } from "@/config/i18n";
 
 export interface SiteSettings {
   siteTitle?: string;
@@ -26,12 +25,6 @@ export interface SiteSettings {
   translateEnabled?: boolean;
   copyProtection?: boolean;
   showPostMeta?: boolean;
-  translations?: Partial<
-    Record<
-      "en",
-      { siteTitle?: string; siteDescription?: string; brandName?: string; footerText?: string }
-    >
-  >;
   socialLinks?: SocialLinks;
   contactPage?: import("@/settings/contact-page").ContactPageConfig | null;
 }
@@ -95,13 +88,9 @@ export function resolveContact(settings: SiteSettings) {
 
 export type SiteContact = ReturnType<typeof resolveContact>;
 
-export async function getSiteSettings(
-  lang: Lang = DEFAULT_LANG,
-): Promise<SiteSettings> {
+export async function getSiteSettings(): Promise<SiteSettings> {
   try {
-    const path =
-      lang === DEFAULT_LANG ? "client/settings" : `client/settings?lang=${lang}`;
-    const settings = await apiFetch<SiteSettings>(path, {
+    const settings = await apiFetch<SiteSettings>("client/settings", {
       next: { revalidate: 60, tags: ["settings"] },
     });
     return settings ?? {};

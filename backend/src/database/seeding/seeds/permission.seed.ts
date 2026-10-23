@@ -3,6 +3,8 @@
  * Dùng bởi: database/seeding/seeding.service.ts (chạy đầu tiên).
  * Lưu ý: controller không có trong danh sách `controllers` thì quyền của nó không bao giờ được tạo → PermissionGuard chặn hết.
  * Cột module = tên controller viết thường bỏ hậu tố Controller; common/constants/notification-modules.ts phụ thuộc quy tắc này.
+ * Tên / mô tả quyền viết tiếng Việt; quyền cũ còn giữ mô tả tự sinh tiếng Anh ("Allows performing…") được đổi sang tiếng Việt,
+ * quyền admin đã tự sửa tên thì giữ nguyên.
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,9 +26,44 @@ import { AdminQuoteRequestsController } from 'src/modules/admin/quote-requests/a
 import { MenuItemsController } from 'src/modules/admin/menu-items/menu-items.controller';
 import { SettingsController } from 'src/modules/admin/settings/settings.controller';
 import { NotificationController } from 'src/modules/admin/notifications/notification.controller';
+import { AdminCacheController } from 'src/modules/admin/cache/admin-cache.controller';
 
 const PERMISSIONS_METADATA_KEY = 'permissions';
 const ENTITY_METADATA_KEY = 'entity';
+const LEGACY_DESCRIPTION_PREFIX = 'Allows performing ';
+
+const ACTION_LABELS: Record<string, string> = {
+  CREATE: 'Tạo',
+  UPDATE: 'Sửa',
+  DELETE: 'Xoá',
+  LIST: 'Xem danh sách',
+  DETAIL: 'Xem chi tiết',
+  SORT: 'Sắp xếp',
+  BLOCK: 'Khoá / mở khoá',
+  UPDATE_STATUS: 'Đổi trạng thái',
+  EXPORT: 'Xuất dữ liệu',
+  IMPORT: 'Nhập dữ liệu',
+  PURGE: 'Làm mới cache',
+};
+
+const ENTITY_LABELS: Record<string, string> = {
+  STAFF: 'nhân viên',
+  ROLE: 'vai trò',
+  PERMISSION: 'quyền',
+  PRODUCT: 'sản phẩm',
+  PRODUCT_CATEGORY: 'danh mục sản phẩm',
+  BLOG_POST: 'bài viết',
+  BLOG_CATEGORY: 'danh mục blog',
+  PAGE: 'trang',
+  PAGE_SECTION: 'section trang',
+  LIBRARY: 'thư viện ảnh',
+  CONTACT: 'liên hệ',
+  QUOTE_REQUEST: 'yêu cầu tư vấn',
+  MENU_ITEM: 'menu',
+  SETTING: 'cài đặt',
+  NOTIFICATION: 'thông báo',
+  CACHE: 'website',
+};
 
 @Injectable()
 export class PermissionSeed {
@@ -41,6 +78,9 @@ export class PermissionSeed {
     const existingPermissions = await this.permissionRepo.find();
     const existingCodes = new Set(
       existingPermissions.map((permission) => permission.code),
+    );
+    const existingByCode = new Map(
+      existingPermissions.map((permission) => [permission.code, permission]),
     );
 
     const controllers = [
@@ -59,38 +99,11 @@ export class PermissionSeed {
       MenuItemsController,
       SettingsController,
       NotificationController,
+      AdminCacheController,
     ];
 
-    const actionLabels: Record<string, string> = {
-      CREATE: 'Create',
-      UPDATE: 'Update',
-      DELETE: 'Delete',
-      LIST: 'List',
-      DETAIL: 'Detail',
-      SORT: 'Sort',
-      BLOCK: 'Block/Unblock',
-      UPDATE_STATUS: 'Update Status',
-      EXPORT: 'Export Data',
-      IMPORT: 'Import Data',
-    };
-
-    const entityLabels: Record<string, string> = {
-      STAFF: 'Staff',
-      ROLE: 'Role',
-      PERMISSION: 'Permission',
-      PRODUCT: 'Product',
-      PRODUCT_CATEGORY: 'Product Category',
-      BLOG_POST: 'Blog Post',
-      BLOG_CATEGORY: 'Blog Category',
-      PAGE: 'Page',
-      PAGE_SECTION: 'Page Section',
-      LIBRARY: 'Library',
-      CONTACT: 'Contact',
-      QUOTE_REQUEST: 'Consultation Request',
-      NOTIFICATION: 'Notification',
-    };
-
     const permissionsToInsert: Partial<Permission>[] = [];
+    const permissionsToRelabel: Permission[] = [];
     const standardActions = [
       'CREATE',
       'UPDATE',
@@ -135,17 +148,31 @@ export class PermissionSeed {
             action = code.replace(`${entity.toUpperCase()}_`, '');
           }
 
-          if (code && !existingCodes.has(code)) {
-            const entityName =
-              entityLabels[entity?.toUpperCase()] || entity || 'System';
-            const actionName = actionLabels[action] || action;
+          if (!code) return;
 
-            permissionsToInsert.push({
-              name: `${actionName} ${entityName}`,
-              code: code,
-              module: moduleName,
-              description: `Allows performing ${actionName.toLowerCase()} action in ${entityName} module`,
-            });
+          const entityName =
+            ENTITY_LABELS[entity?.toUpperCase()] || entity || 'hệ thống';
+          const actionName = ACTION_LABELS[action] || action;
+          const label = {
+            name: `${actionName} ${entityName}`,
+            description: `Cho phép ${actionName.toLowerCase()} ${entityName}`,
+          };
+
+          const existingPermission = existingByCode.get(code);
+          if (existingPermission) {
+            if (
+              existingPermission.description?.startsWith(
+                LEGACY_DESCRIPTION_PREFIX,
+              )
+            ) {
+              Object.assign(existingPermission, label);
+              permissionsToRelabel.push(existingPermission);
+            }
+            return;
+          }
+
+          if (!existingCodes.has(code)) {
+            permissionsToInsert.push({ ...label, code, module: moduleName });
             existingCodes.add(code);
           }
         });
@@ -160,6 +187,13 @@ export class PermissionSeed {
       );
     } else {
       console.log('--- [Seed] No new permissions found.');
+    }
+
+    if (permissionsToRelabel.length > 0) {
+      await this.permissionRepo.save(permissionsToRelabel);
+      console.log(
+        `--- [Seed] Relabeled ${permissionsToRelabel.length} permissions in Vietnamese.`,
+      );
     }
   }
 }

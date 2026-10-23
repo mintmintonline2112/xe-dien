@@ -2,7 +2,7 @@
  * Gọi API cài đặt website (đọc / lưu), kiểu SiteSettings, giới hạn cỡ chữ tiêu đề bài viết và danh sách font.
  * Dùng bởi: SettingsScreen, ContactPageScreen.
  * Lưu ý: POST_TITLE_MIN / MAX / DEFAULT (px, desktop) phải khớp POST_TITLE_* ở src/settings/site-settings.ts.
- * brandName trống / footerText trống thì website dùng chữ mặc định; footerText hiện sau "© <năm> ". Bản dịch phụ là tiếng Anh (translations.en).
+ * brandName trống / footerText trống thì website dùng chữ mặc định; footerText hiện sau "© <năm> ".
  */
 
 import { adminApi } from '@/app/admin/_lib/admin-api';
@@ -29,14 +29,6 @@ export interface SiteSettings {
   translateEnabled?: boolean;
   copyProtection?: boolean;
   showPostMeta?: boolean;
-  translations?: {
-    en?: {
-      siteTitle?: string;
-      siteDescription?: string;
-      brandName?: string;
-      footerText?: string;
-    };
-  } | null;
   socialLinks?: Partial<Record<ContactSocialKey, string>> | null;
   contactPage?: StoredContactPage | null;
 }

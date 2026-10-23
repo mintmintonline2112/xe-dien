@@ -123,7 +123,7 @@ function ImageNodeView({ node, updateAttributes, selected, editor }: NodeViewPro
                 />
                 px
                 {shownHeight ? <span className="rte-img-h">× {shownHeight}</span> : null}
-                <button type="button" onClick={() => updateAttributes({ width: null })} title="Full size">
+                <button type="button" onClick={() => updateAttributes({ width: null })} title="Kích thước gốc">
                   auto
                 </button>
               </span>
@@ -138,7 +138,7 @@ function ImageNodeView({ node, updateAttributes, selected, editor }: NodeViewPro
                 />
               </span>
             </span>
-            <span className="rte-img-handle" onMouseDown={handleResizeStart} title="Drag to resize" />
+            <span className="rte-img-handle" onMouseDown={handleResizeStart} title="Kéo để đổi kích thước" />
           </>
         )}
       </span>

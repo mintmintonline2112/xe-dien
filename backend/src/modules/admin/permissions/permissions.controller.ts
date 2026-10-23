@@ -33,7 +33,10 @@ export class PermissionsController extends BaseController<
   number
 > {
   constructor(private readonly permissionsService: PermissionsService) {
-    super(permissionsService, 'PERMISSION');
+    super(permissionsService, 'PERMISSION', {
+      create: CreatePermissionDto,
+      update: UpdatePermissionDto,
+    });
   }
 
   protected getFilterableFields(): (keyof Permission)[] {

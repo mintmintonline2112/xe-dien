@@ -36,7 +36,10 @@ export class ProductCategoriesController extends BaseController<
   number
 > {
   constructor(private readonly categoriesService: ProductCategoriesService) {
-    super(categoriesService, 'ProductCategory');
+    super(categoriesService, 'ProductCategory', {
+      create: CreateProductCategoryDto,
+      update: UpdateProductCategoryDto,
+    });
   }
 
   protected override getFilterableFields(): (keyof ProductCategory)[] {

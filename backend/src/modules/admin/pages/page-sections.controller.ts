@@ -37,7 +37,10 @@ export class PageSectionsController extends BaseController<
   number
 > {
   constructor(private readonly sectionsService: PageSectionsService) {
-    super(sectionsService, 'PageSection');
+    super(sectionsService, 'PageSection', {
+      create: CreatePageSectionDto,
+      update: UpdatePageSectionDto,
+    });
   }
 
   protected getFilterableFields(): (keyof PageSection)[] {

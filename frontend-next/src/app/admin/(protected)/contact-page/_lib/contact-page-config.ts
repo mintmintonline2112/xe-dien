@@ -1,20 +1,13 @@
 /**
- * Kiểu JSON `contactPage` (site_settings) mà admin đọc / ghi: tiêu đề trang, mạng xã hội, thông tin cửa hàng, form tư vấn, bản dịch `en`.
- * Dùng bởi: ContactPageScreen.tsx (+ toStoredInterests cho danh sách nhu cầu mặc định của site), settings/_components/SettingsScreen.tsx, settings/_lib/settings.service.ts.
- * Lưu ý: phải khớp kiểu ContactPageConfig của site (src/settings/contact-page.ts) — nội dung gốc tiếng Việt, bản dịch nằm trong
- * từng nhóm dưới key `en`. Các field hotline / zalo / messenger là kênh liên hệ nhanh của cửa hàng xe điện.
+ * Kiểu JSON `contactPage` (site_settings) mà admin đọc / ghi: tiêu đề trang, mạng xã hội, thông tin cửa hàng, form tư vấn.
+ * Dùng bởi: ContactPageScreen.tsx, settings/_components/SettingsScreen.tsx, settings/_lib/settings.service.ts.
+ * Lưu ý: phải khớp kiểu ContactPageConfig của site (src/settings/contact-page.ts). DB cũ có thể còn bản dịch dưới key `en` trong
+ * từng nhóm; admin không sửa nhưng giữ nguyên khi lưu. Các field hotline / zalo / messenger là kênh liên hệ nhanh của cửa hàng xe điện.
  */
 
 export type ContactSocialKey = 'facebook' | 'youtube' | 'instagram' | 'tiktok' | 'zalo';
 
-export type StoredContactInterest = { value: string; en?: string };
-
-export function toStoredInterests(interests: ReadonlyArray<{ value: string }>): StoredContactInterest[] {
-  return interests.map((interest) => {
-    const englishLabel = (interest as { en?: unknown }).en;
-    return { value: interest.value, ...(typeof englishLabel === 'string' && englishLabel ? { en: englishLabel } : {}) };
-  });
-}
+export type StoredContactInterest = { value: string };
 
 export type StoredCompany = {
   name?: string;
@@ -27,7 +20,6 @@ export type StoredCompany = {
   email?: string;
   hours?: string;
   mapUrl?: string;
-  en?: { name?: string; location?: string; address?: string; hours?: string };
 };
 
 export type StoredContactPage = {
@@ -35,7 +27,6 @@ export type StoredContactPage = {
     eyebrow?: string;
     title?: string;
     lead?: string;
-    en?: { eyebrow?: string; title?: string; lead?: string };
   };
   social?: Partial<Record<ContactSocialKey, string>>;
   company?: StoredCompany;
@@ -45,7 +36,6 @@ export type StoredContactPage = {
     title?: string;
     interests?: StoredContactInterest[];
     note?: string;
-    en?: { kicker?: string; title?: string; note?: string };
   };
 };
 

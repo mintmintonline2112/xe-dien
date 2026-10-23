@@ -4,7 +4,11 @@
  * Lưu ý: handler tên riêng (không phải CRUD chuẩn) mà quên gắn @Permissions sẽ bị TỪ CHỐI (trước đây cho qua nên
  * POST /admin/library/upload ai đăng nhập cũng gọi được). Thêm route mới → nhớ gắn @Permissions('...').
  */
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  ExecutionContext,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
@@ -12,6 +16,11 @@ export class PermissionGuard {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
+    if (this.hasRequiredPermissions(context)) return true;
+    throw new ForbiddenException('Bạn không có quyền thực hiện thao tác này');
+  }
+
+  private hasRequiredPermissions(context: ExecutionContext): boolean {
     const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
       context.getHandler(),
       context.getClass(),

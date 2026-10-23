@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa section của một trang: chọn component bằng thẻ có hình, chỉnh metadata trực quan (cả bản dịch tiếng Anh).
+ * Form tạo / sửa section của một trang: chọn component bằng thẻ có hình, chỉnh metadata trực quan.
  * Dùng bởi: page-sections/create/page.tsx (bước 2, có ?pageId=), page-sections/edit/[id]/page.tsx.
  * Lưu ý: website render theo metadata._component (component = bố cục, biến thể = metadata.layout), danh mục ở bảng
  * section_definitions. Section gắn cố định một trang; khi sửa thì component + section key khoá (key là id neo, đổi hỏng link menu).
@@ -17,12 +17,6 @@ import { GenericForm } from '@/app/admin/_components/generic-form/GenericForm';
 import type { GenericFormField, GenericSelectOption } from '@/app/admin/_components/generic-form/types';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import { pageService, PAGE_QUERY_KEY } from '@/app/admin/(protected)/pages/_lib/page.service';
 import { ComponentPicker } from './ComponentPicker';
 import { MetadataEditor } from './MetadataEditor';
@@ -36,8 +30,6 @@ import { adminRoutes } from '@/config/routes';
 
 const GENERIC_COMPONENT_KEY = '__custom';
 
-const STRUCTURAL_META_KEYS = ['_component', 'layout', 'showEyebrow'];
-
 interface FormValues {
   sectionKeyCustom: string;
   heading: string;
@@ -47,12 +39,7 @@ interface FormValues {
   mediaPath: string;
   isActive: boolean;
   sortOrder: number;
-  en_heading: string;
-  en_subheading: string;
-  en_content: string;
 }
-
-const EN_KEYS = ['heading', 'subheading', 'content'] as const;
 
 const EMPTY_FORM_VALUES: FormValues = {
   sectionKeyCustom: '',
@@ -63,31 +50,9 @@ const EMPTY_FORM_VALUES: FormValues = {
   mediaPath: '',
   isActive: true,
   sortOrder: 1,
-  en_heading: '',
-  en_subheading: '',
-  en_content: '',
 };
 
 type SectionMetadata = Record<string, unknown>;
-
-function translationMetadataOf(translations: unknown): SectionMetadata {
-  if (!translations || typeof translations !== 'object') return {};
-  const enTranslation = (translations as Record<string, unknown>).en;
-  if (!enTranslation || typeof enTranslation !== 'object' || Array.isArray(enTranslation)) return {};
-  const metadata = (enTranslation as Record<string, unknown>).metadata;
-  return metadata && typeof metadata === 'object' && !Array.isArray(metadata) ? { ...(metadata as SectionMetadata) } : {};
-}
-
-function pickTranslatedText(metadata: SectionMetadata): SectionMetadata {
-  const translatedText: SectionMetadata = {};
-  for (const [key, value] of Object.entries(metadata)) {
-    if (STRUCTURAL_META_KEYS.includes(key)) continue;
-    if (value === undefined || value === null || value === '') continue;
-    if (Array.isArray(value) && value.length === 0) continue;
-    translatedText[key] = value;
-  }
-  return translatedText;
-}
 
 export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageId?: number }) {
   const router = useRouter();
@@ -98,7 +63,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
   const [initialValues, setInitialValues] = useState<FormValues>(EMPTY_FORM_VALUES);
   const [formKey, setFormKey] = useState(0);
   const [metadata, setMetadata] = useState<SectionMetadata>({});
-  const [enMetadata, setEnMetadata] = useState<SectionMetadata>({});
   const [component, setComponent] = useState('');
 
   const { data: pages } = useQuery({
@@ -170,7 +134,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
           ? savedSection.sectionKey
           : GENERIC_COMPONENT_KEY;
     setMetadata(savedMetadata);
-    setEnMetadata(translationMetadataOf(savedSection.translations));
     setComponent(componentKey);
     setInitialValues({
       sectionKeyCustom: savedSection.sectionKey ?? '',
@@ -181,7 +144,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
       mediaPath: savedSection.mediaPath ?? '',
       isActive: savedSection.isActive ?? true,
       sortOrder: savedSection.sortOrder ?? 1,
-      ...enValuesFrom(savedSection.translations, EN_KEYS),
     });
     setFormKey((previousKey) => previousKey + 1);
   }, [savedSection, definitions]);
@@ -200,7 +162,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
     () => (definitions ?? []).find((definition) => definition.sectionKey === component),
     [definitions, component],
   );
-  const baseLayout = typeof metadata.layout === 'string' ? metadata.layout : undefined;
 
   const fields: GenericFormField[] = useMemo(
     () => [
@@ -288,37 +249,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
       },
       { key: 'sortOrder', label: 'Thứ tự', type: 'number', rules: { min: { value: 1, message: 'Tối thiểu là 1' } } },
       { key: 'isActive', label: 'Hiển thị', type: 'checkbox', hint: 'Tắt thì khối này ẩn khỏi website (bật lại là hiện). Xoá section cũng làm khối biến mất.' },
-      ...buildEnFields([
-        { key: 'heading', label: 'Heading', type: 'text' },
-        { key: 'subheading', label: 'Eyebrow', type: 'text' },
-        { key: 'content', label: 'Nội dung', type: 'richtext' },
-      ]).map((field) =>
-        field.key === 'en_content' && component && component !== GENERIC_COMPONENT_KEY
-          ? {
-              ...field,
-              renderExtra: () => (
-                <div style={{ marginTop: 14 }}>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
-                    <button
-                      type="button"
-                      className="adm-btn adm-btn--sm"
-                      onClick={() => setEnMetadata(pickTranslatedText(structuredClone(metadata)))}
-                    >
-                      Chép cấu trúc từ bản gốc để dịch
-                    </button>
-                  </div>
-                  <MetadataEditor
-                    definition={selectedDefinition}
-                    value={enMetadata}
-                    onChange={setEnMetadata}
-                    isTranslation
-                    baseLayout={baseLayout}
-                  />
-                </div>
-              ),
-            }
-          : field,
-      ),
     ],
     [
       pageOptions,
@@ -330,8 +260,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
       lockedPage,
       selectedDefinition,
       metadata,
-      enMetadata,
-      baseLayout,
       usedKeys,
       findFreeSectionKey,
     ],
@@ -368,17 +296,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
     if (values.showEyebrow) metadataToSave.showEyebrow = true;
     else delete metadataToSave.showEyebrow;
 
-    const translatedMetadata = pickTranslatedText(enMetadata);
-    const textTranslations = buildEnTranslationsPayload(values, EN_KEYS, savedSection?.translations);
-    let translations: Record<string, Record<string, unknown>> | null = textTranslations;
-    if (Object.keys(translatedMetadata).length > 0) {
-      translations = { en: { ...(textTranslations?.en ?? {}), metadata: translatedMetadata } };
-    } else if (textTranslations?.en && 'metadata' in textTranslations.en) {
-      const enWithoutMetadata = { ...textTranslations.en };
-      delete enWithoutMetadata.metadata;
-      translations = Object.keys(enWithoutMetadata).length > 0 ? { en: enWithoutMetadata } : null;
-    }
-
     setIsSubmitting(true);
     try {
       const emptyRichTextPattern = /^(\s*<p>\s*<\/p>\s*)*$/;
@@ -398,10 +315,9 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
           isActive: values.isActive,
           sortOrder: Number.isFinite(values.sortOrder) ? values.sortOrder : undefined,
           metadata: Object.keys(metadataToSave).length > 0 ? metadataToSave : null,
-          translations,
         },
         {
-          keepNull: ['translations', 'heading', 'subheading', 'content', 'mediaPath', 'metadata'],
+          keepNull: ['heading', 'subheading', 'content', 'mediaPath', 'metadata'],
         },
       );
 
@@ -434,7 +350,6 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
         { label: isEdit ? 'Sửa' : 'Tạo mới' },
       ]}
       fields={fields}
-      groups={[EN_TRANSLATION_GROUP]}
       defaultValues={{ ...initialValues, pageId: lockedPageId ? String(lockedPageId) : '' } as FormValues}
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}

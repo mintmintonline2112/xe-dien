@@ -29,7 +29,7 @@ export class ContactService {
 
   async create(data: CreateContactDto) {
     if (!data) {
-      throw new BadRequestException('Contact data is required');
+      throw new BadRequestException('Thiếu dữ liệu liên hệ');
     }
 
     const contact = this.contactRepo.create({
@@ -64,7 +64,9 @@ export class ContactService {
         html: buildContactEmail(data),
       });
     } catch {
-      console.warn('Contact was saved, but notification email could not be sent');
+      console.warn(
+        'Contact was saved, but notification email could not be sent',
+      );
     }
 
     return { message: 'Gửi liên hệ thành công' };
@@ -75,11 +77,11 @@ export class ContactService {
     const pageSize = Number(limit);
 
     if (!Number.isInteger(currentPage) || currentPage < 1) {
-      throw new BadRequestException('Page must be a positive integer');
+      throw new BadRequestException('Số trang phải là số nguyên dương');
     }
 
     if (!Number.isInteger(pageSize) || pageSize < 1 || pageSize > 100) {
-      throw new BadRequestException('Limit must be between 1 and 100');
+      throw new BadRequestException('Số dòng mỗi trang phải từ 1 đến 100');
     }
 
     const query = this.contactRepo
@@ -124,7 +126,7 @@ export class ContactService {
 
   async findOne(id: number) {
     const contact = await this.contactRepo.findOneBy({ id });
-    if (!contact) throw new NotFoundException('Contact not found');
+    if (!contact) throw new NotFoundException('Không tìm thấy liên hệ');
     return contact;
   }
 

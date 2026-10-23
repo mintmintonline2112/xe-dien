@@ -1,5 +1,5 @@
 /**
- * Gửi email qua SMTP (nodemailer) với người gửi "Xe Điện Xanh": email tự do, mã OTP, link đặt lại mật khẩu.
+ * Gửi email qua SMTP (nodemailer) với người gửi "Xe Điện Xanh" (thông báo liên hệ, yêu cầu tư vấn).
  * Dùng bởi: contact/contact.service.ts, quote-requests/quote-requests.service.ts (qua MailModule).
  * Lưu ý: thiếu MAIL_HOST / MAIL_USER / MAIL_PASS thì không tạo kết nối SMTP, mọi lần gửi chỉ ghi cảnh báo và trả null.
  */
@@ -7,8 +7,6 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { ConfigService } from '@nestjs/config';
 import { MailConfig } from 'src/config/mail.config';
-import { buildOtpEmail } from './templates/otp.template';
-import { buildPasswordResetEmail } from './templates/reset-password.template';
 
 @Injectable()
 export class MailService implements OnModuleInit {
@@ -31,7 +29,9 @@ export class MailService implements OnModuleInit {
 
   onModuleInit() {
     if (!this.transporter) {
-      console.log('Mail is not configured (MAIL_HOST/MAIL_USER/MAIL_PASS) — skipping SMTP.');
+      console.log(
+        'Mail is not configured (MAIL_HOST/MAIL_USER/MAIL_PASS) — skipping SMTP.',
+      );
       return;
     }
     this.transporter.verify((error: Error | null, success: boolean) => {
@@ -45,37 +45,12 @@ export class MailService implements OnModuleInit {
 
   private async deliver(options: nodemailer.SendMailOptions) {
     if (!this.transporter) {
-      console.warn(`Mail is disabled — skipped email "${String(options.subject)}" to ${String(options.to)}`);
+      console.warn(
+        `Mail is disabled — skipped email "${String(options.subject)}" to ${String(options.to)}`,
+      );
       return null;
     }
     return this.transporter.sendMail(options);
-  }
-
-  async sendOtpEmail(to: string, otp: string) {
-    const mailConfig = this.configService.get<MailConfig>('mail');
-
-    if (!to) {
-      throw new Error('Recipient email is required');
-    }
-
-    const htmlContent = buildOtpEmail(otp);
-
-    return this.deliver({
-      from: `"Xe Điện Xanh" <${mailConfig.from}>`,
-      to,
-      subject: '[Xe Điện Xanh] Mã xác minh tài khoản',
-      html: htmlContent,
-    });
-  }
-
-  async sendPasswordResetEmail(to: string, resetLink: string) {
-    const mailConfig = this.configService.get<MailConfig>('mail');
-    return this.deliver({
-      from: `"Xe Điện Xanh" <${mailConfig.from}>`,
-      to,
-      subject: '[Xe Điện Xanh] Yêu cầu đặt lại mật khẩu',
-      html: buildPasswordResetEmail(resetLink),
-    });
   }
 
   async sendMail(options: {
@@ -92,5 +67,4 @@ export class MailService implements OnModuleInit {
       ...options,
     });
   }
-
 }

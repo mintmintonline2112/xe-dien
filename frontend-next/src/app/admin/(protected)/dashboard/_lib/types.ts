@@ -1,7 +1,7 @@
 /**
  * Kiểu dữ liệu số liệu tổng quan trả về từ API admin/dashboard.
  * Dùng bởi: DashboardScreen.
- * Lưu ý: catalog / quoteRequests để tuỳ chọn — backend cũ chưa trả thì màn hình bỏ qua hai thẻ đó.
+ * Lưu ý: mọi nhóm đều tuỳ chọn — backend chỉ trả nhóm mà người xem có quyền LIST tương ứng (xem dashboard.service.ts).
  */
 
 export interface DashboardPost {
@@ -31,23 +31,25 @@ export interface DashboardSummary {
     total: number;
     new: number;
   };
-  content: {
-    blogPosts: number;
-    publishedBlogPosts: number;
-    draftBlogPosts: number;
+  blogPosts?: {
+    total: number;
+    published: number;
+    drafts: number;
     categories: number;
-    pages: number;
-    publishedPages: number;
+    recent: DashboardPost[];
+  };
+  pages?: {
+    total: number;
+    published: number;
     sections: number;
   };
-  contacts: {
+  contacts?: {
     total: number;
     thisMonth: number;
+    recent: DashboardContact[];
   };
-  staff: {
+  staff?: {
     total: number;
     active: number;
   };
-  recentPosts: DashboardPost[];
-  recentContacts: DashboardContact[];
 }

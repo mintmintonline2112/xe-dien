@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa trang website: tiêu đề, eyebrow, đoạn dẫn, ảnh nền đầu trang, template, trạng thái, SEO, bản dịch;
+ * Form tạo / sửa trang website: tiêu đề, eyebrow, đoạn dẫn, ảnh nền đầu trang, template, trạng thái, SEO;
  * khi sửa thì hiện thêm bảng section của trang (PageSectionsPanel).
  * Dùng bởi: pages/create/page.tsx, pages/edit/[id]/page.tsx.
  * Lưu ý: ảnh nền + điểm lấy nét giữ ngoài GenericForm (UI riêng, chèn ngay dưới ô Đoạn dẫn). Ô văn bản xoá trắng thì gửi
@@ -25,12 +25,6 @@ import {
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
 import { PUBLISH_STATUS_OPTIONS, type PublishStatus } from '@/app/admin/_lib/publish-status';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import { pageService, PAGE_QUERY_KEY } from '@/app/admin/(protected)/pages/_lib/page.service';
 import { PageSectionsPanel } from '@/app/admin/(protected)/pages/_components/PageSectionsPanel';
 import { HeroImageField } from '@/app/admin/(protected)/pages/_components/HeroImageField';
@@ -42,14 +36,7 @@ interface FormValues extends SeoFormValues {
   lead: string;
   templateKey: string;
   status: PublishStatus;
-  en_title: string;
-  en_eyebrow: string;
-  en_lead: string;
-  en_metaTitle: string;
-  en_metaDescription: string;
 }
-
-const EN_KEYS = ['title', 'eyebrow', 'lead', 'metaTitle', 'metaDescription'] as const;
 
 const EMPTY_FORM_VALUES: FormValues = {
   title: '',
@@ -58,11 +45,6 @@ const EMPTY_FORM_VALUES: FormValues = {
   templateKey: '',
   status: 'draft',
   ...EMPTY_SEO,
-  en_title: '',
-  en_eyebrow: '',
-  en_lead: '',
-  en_metaTitle: '',
-  en_metaDescription: '',
 };
 
 const FIELDS: GenericFormField[] = [
@@ -72,13 +54,6 @@ const FIELDS: GenericFormField[] = [
   { key: 'templateKey', label: 'Template key', type: 'text', placeholder: 'VD: about, services', hint: 'Khóa nhận diện template render phía frontend' },
   { key: 'status', label: 'Trạng thái', type: 'select', required: true, options: PUBLISH_STATUS_OPTIONS },
   ...SEO_FIELDS,
-  ...buildEnFields([
-    { key: 'title', label: 'Tiêu đề trang', type: 'text' },
-    { key: 'eyebrow', label: 'Eyebrow', type: 'text' },
-    { key: 'lead', label: 'Đoạn dẫn', type: 'textarea' },
-    { key: 'metaTitle', label: 'SEO · Meta Title', type: 'text' },
-    { key: 'metaDescription', label: 'SEO · Meta Description', type: 'textarea' },
-  ]),
 ];
 
 export function PageForm({ id }: { id?: number }) {
@@ -107,7 +82,6 @@ export function PageForm({ id }: { id?: number }) {
         templateKey: data.templateKey ?? '',
         status: data.status ?? 'draft',
         ...seoValuesFrom(data),
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setHeroImage(data.heroImagePath ?? '');
       setHeroPosition(data.heroImagePosition ?? '');
@@ -153,11 +127,9 @@ export function PageForm({ id }: { id?: number }) {
           heroImagePosition: heroImage.trim() && heroPosition ? heroPosition : null,
           status: values.status,
           ...buildSeoPayload(values),
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
         {
           keepNull: [
-            'translations',
             'eyebrow',
             'lead',
             'templateKey',
@@ -192,7 +164,6 @@ export function PageForm({ id }: { id?: number }) {
           { label: isEdit ? 'Sửa' : 'Tạo mới' },
         ]}
         fields={fieldsWithHeroImage}
-        groups={[EN_TRANSLATION_GROUP]}
         defaultValues={initialValues}
         isLoading={isSubmitting}
         submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}

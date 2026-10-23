@@ -138,9 +138,12 @@ export class LibraryService implements OnModuleInit {
       listQuery.andWhere('m.folder = :folder', { folder });
     }
     if (search) {
-      listQuery.andWhere('(m.name LIKE :s OR m.path LIKE :s OR m.alt LIKE :s)', {
-        s: `%${search}%`,
-      });
+      listQuery.andWhere(
+        '(m.name LIKE :s OR m.path LIKE :s OR m.alt LIKE :s)',
+        {
+          s: `%${search}%`,
+        },
+      );
     }
 
     const [rows, total] = await listQuery
@@ -231,22 +234,24 @@ export class LibraryService implements OnModuleInit {
     baseUrl: string,
     options: { skipOptimize?: boolean; staffId?: string } = {},
   ): Promise<LibraryImage> {
-    if (!file) throw new BadRequestException('File is required');
+    if (!file) throw new BadRequestException('Vui lòng chọn file');
     if (file.size > MAX_UPLOAD_BYTES) {
       throw new BadRequestException(
-        `File size exceeds the ${MAX_UPLOAD_MB}MB limit`,
+        `File vượt quá giới hạn ${MAX_UPLOAD_MB}MB`,
       );
     }
     const kind = detectImageKind(file.buffer);
     if (!kind) {
-      throw new BadRequestException('Chỉ chấp nhận ảnh jpg, png, webp hoặc gif');
+      throw new BadRequestException(
+        'Chỉ chấp nhận ảnh jpg, png, webp hoặc gif',
+      );
     }
 
     const safeFolder =
       (folder || '').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase() || 'library';
     const targetDir = resolve(this.uploadsRoot, safeFolder);
     if (!targetDir.startsWith(this.uploadsRoot)) {
-      throw new BadRequestException('Invalid folder');
+      throw new BadRequestException('Thư mục không hợp lệ');
     }
     await mkdir(targetDir, { recursive: true });
 
@@ -295,7 +300,7 @@ export class LibraryService implements OnModuleInit {
     baseUrl: string,
     staffId?: string,
   ): Promise<LibraryVideo> {
-    if (!file) throw new BadRequestException('File is required');
+    if (!file) throw new BadRequestException('Vui lòng chọn file');
     const path = `uploads/videos/${file.filename}`;
     const fullPath = resolve(this.uploadsRoot, 'videos', file.filename);
     const fileStat = existsSync(fullPath) ? await stat(fullPath) : null;
@@ -338,7 +343,8 @@ export class LibraryService implements OnModuleInit {
 
     if (!existsSync(absolutePath)) return { deleted: false };
     const fileStat = await stat(absolutePath);
-    if (!fileStat.isFile()) throw new BadRequestException('Path is not a file');
+    if (!fileStat.isFile())
+      throw new BadRequestException('Đường dẫn không phải là file');
     await unlink(absolutePath);
 
     return { deleted: true };
@@ -355,13 +361,14 @@ export class LibraryService implements OnModuleInit {
         .map((column) => `\`${column}\` LIKE :needle`)
         .join(' OR ');
       try {
-        const rows: Array<Record<string, unknown>> = await this.dataSource.query(
-          `SELECT \`${source.titleColumn}\` AS title FROM \`${source.table}\` WHERE ${whereClause} LIMIT 20`.replace(
-            /:needle/g,
-            '?',
-          ),
-          source.columns.map(() => `%${pathWithoutUploadsPrefix}%`),
-        );
+        const rows: Array<Record<string, unknown>> =
+          await this.dataSource.query(
+            `SELECT \`${source.titleColumn}\` AS title FROM \`${source.table}\` WHERE ${whereClause} LIMIT 20`.replace(
+              /:needle/g,
+              '?',
+            ),
+            source.columns.map(() => `%${pathWithoutUploadsPrefix}%`),
+          );
         for (const row of rows) {
           const title = String(row.title ?? '(không tên)');
           const existingUsage = usages.find(
@@ -485,14 +492,14 @@ export class LibraryService implements OnModuleInit {
   }
 
   private resolveUploadPath(filePath: string): string {
-    if (!filePath) throw new BadRequestException('Image path is required');
+    if (!filePath) throw new BadRequestException('Thiếu đường dẫn ảnh');
     const relativePath = this.normalizePath(filePath).replace(/^uploads\//, '');
     const absolutePath = resolve(this.uploadsRoot, relativePath);
     if (
       absolutePath !== this.uploadsRoot &&
       !absolutePath.startsWith(this.uploadsRoot + sep)
     ) {
-      throw new BadRequestException('Invalid image path');
+      throw new BadRequestException('Đường dẫn ảnh không hợp lệ');
     }
     return absolutePath;
   }

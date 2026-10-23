@@ -2,7 +2,7 @@
  * Làm sạch rich text admin soạn (Tiptap) trước khi render bằng dangerouslySetInnerHTML: bỏ <script>, on*, javascript:/data: URL.
  * Dùng bởi: news/[slug]/page.tsx, sections/_shared (data.ts, blocks.tsx), sections hero, media-cards, generic-block.
  * Lưu ý: chạy phía server nên dữ liệu bẩn sẵn trong DB cũng bị trung hoà lúc render. Ảnh/video lưu dạng uploads/...,
- * /uploads/... hoặc URL tuyệt đối của máy soạn (localhost:3010) đều được đổi về origin public đang chạy.
+ * /uploads/... hoặc URL tuyệt đối của máy soạn (localhost:3018) đều được đổi về origin public đang chạy.
  */
 import sanitizeHtml from 'sanitize-html';
 import { env } from '@/config/env';

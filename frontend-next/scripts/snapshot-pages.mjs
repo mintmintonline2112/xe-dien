@@ -1,6 +1,6 @@
 /**
  * Chụp HTML các trang public (đã làm phẳng: bỏ <script>, link /_next/static, id do useId sinh, mỗi thẻ một dòng) để `diff -r` trước / sau refactor.
- * Dùng bởi: `npm run snapshot -- <thư-mục>` khi site đang chạy; đổi bằng SNAP_BASE (mặc định http://localhost:3005), SNAP_PATHS.
+ * Dùng bởi: `npm run snapshot -- <thư-mục>` khi site đang chạy; đổi bằng SNAP_BASE (mặc định http://localhost:3008), SNAP_PATHS.
  * Lưu ý: refactor không đổi giao diện thì hai thư mục phải giống nhau từng byte.
  */
 import { mkdir, writeFile } from "node:fs/promises";

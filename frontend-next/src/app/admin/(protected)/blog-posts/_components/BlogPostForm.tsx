@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa bài viết blog: ảnh bìa, tiêu đề, danh mục, trạng thái, nội dung, SEO, bản dịch tiếng Anh.
+ * Form tạo / sửa bài viết blog: ảnh bìa, tiêu đề, danh mục, trạng thái, nội dung, SEO.
  * Dùng bởi: blog-posts/create/page.tsx, blog-posts/edit/[id]/page.tsx.
  * Lưu ý: ảnh bìa chọn từ Thư viện được rút về đường dẫn tương đối "uploads/..." (không dính domain, khớp sync-content.js);
  * đang sửa mà xoá ảnh thì gửi null, tạo mới không có ảnh thì không gửi field.
@@ -23,12 +23,6 @@ import {
 } from '@/app/admin/_lib/seo-fields';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import { PUBLISH_STATUS_OPTIONS, type PublishStatus } from '@/app/admin/_lib/publish-status';
 import { toDateInputValue } from '@/app/admin/_lib/format-date';
 import {
@@ -46,14 +40,7 @@ interface FormValues extends SeoFormValues {
   excerpt: string;
   content: string;
   coverImagePath: string | File | null;
-  en_title: string;
-  en_excerpt: string;
-  en_content: string;
-  en_metaTitle: string;
-  en_metaDescription: string;
 }
-
-const EN_KEYS = ['title', 'excerpt', 'content', 'metaTitle', 'metaDescription'] as const;
 
 function buildCoverImagePayload(value: string | File | null, isEdit: boolean): string | File | null | undefined {
   if (value instanceof File) return value;
@@ -72,11 +59,6 @@ const EMPTY_FORM_VALUES: FormValues = {
   content: '',
   coverImagePath: null,
   ...EMPTY_SEO,
-  en_title: '',
-  en_excerpt: '',
-  en_content: '',
-  en_metaTitle: '',
-  en_metaDescription: '',
 };
 
 export function BlogPostForm({ id }: { id?: number }) {
@@ -115,7 +97,6 @@ export function BlogPostForm({ id }: { id?: number }) {
         content: data.content ?? '',
         coverImagePath: data.coverImagePath ?? null,
         ...seoValuesFrom(data),
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setFormKey((previousKey) => previousKey + 1);
     }
@@ -131,13 +112,6 @@ export function BlogPostForm({ id }: { id?: number }) {
       { key: 'excerpt', label: 'Mô tả ngắn', type: 'textarea', placeholder: 'Tóm tắt hiển thị ở danh sách bài viết' },
       { key: 'content', label: 'Nội dung', type: 'richtext', required: true, placeholder: 'Viết nội dung bài…' },
       ...SEO_FIELDS,
-      ...buildEnFields([
-        { key: 'title', label: 'Tiêu đề', type: 'text' },
-        { key: 'excerpt', label: 'Mô tả ngắn', type: 'textarea' },
-        { key: 'content', label: 'Nội dung', type: 'richtext' },
-        { key: 'metaTitle', label: 'SEO · Meta Title', type: 'text' },
-        { key: 'metaDescription', label: 'SEO · Meta Description', type: 'textarea' },
-      ]),
     ],
     [categoryOptions],
   );
@@ -159,9 +133,8 @@ export function BlogPostForm({ id }: { id?: number }) {
           categoryId: values.categoryId ? Number(values.categoryId) : null,
           coverImagePath: buildCoverImagePayload(values.coverImagePath, isEdit),
           ...buildSeoPayload(values),
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
-        { keepNull: ['categoryId', 'translations', 'coverImagePath', ...SEO_NULLABLE_KEYS] },
+        { keepNull: ['categoryId', 'coverImagePath', ...SEO_NULLABLE_KEYS] },
       );
 
       if (isEdit) await blogPostService.edit(id!, payload);
@@ -187,7 +160,6 @@ export function BlogPostForm({ id }: { id?: number }) {
         { label: isEdit ? 'Sửa' : 'Tạo mới' },
       ]}
       fields={fields}
-      groups={[EN_TRANSLATION_GROUP]}
       defaultValues={initialValues}
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Đăng bài'}

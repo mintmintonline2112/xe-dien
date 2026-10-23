@@ -3,6 +3,7 @@
 /**
  * Màn hình tổng quan admin: số liệu sản phẩm / yêu cầu tư vấn / nội dung / liên hệ, bài viết và liên hệ gần đây, lối tắt theo quyền.
  * Dùng bởi: dashboard/page.tsx.
+ * Lưu ý: thẻ số liệu, bảng và nút làm mới cache chỉ hiện khi có quyền tương ứng; backend cũng chỉ trả nhóm số liệu được phép xem.
  */
 
 import Link from 'next/link';
@@ -81,32 +82,51 @@ export function DashboardScreen() {
               },
             ]
           : []),
-        {
-          label: 'Bài viết',
-          value: summary.content.blogPosts,
-          note: `${summary.content.publishedBlogPosts} đã xuất bản`,
-          icon: 'article' as const,
-        },
-        {
-          label: 'Liên hệ',
-          value: summary.contacts.total,
-          note: `+${summary.contacts.thisMonth} trong tháng`,
-          icon: 'contact' as const,
-        },
-        {
-          label: 'Trang nội dung',
-          value: summary.content.pages,
-          note: `${summary.content.sections} section`,
-          icon: 'page' as const,
-        },
-        {
-          label: 'Nhân sự',
-          value: summary.staff.total,
-          note: `${summary.staff.active} đang hoạt động`,
-          icon: 'staff' as const,
-        },
+        ...(summary.blogPosts
+          ? [
+              {
+                label: 'Bài viết',
+                value: summary.blogPosts.total,
+                note: `${summary.blogPosts.published} đã xuất bản`,
+                icon: 'article' as const,
+              },
+            ]
+          : []),
+        ...(summary.contacts
+          ? [
+              {
+                label: 'Liên hệ',
+                value: summary.contacts.total,
+                note: `+${summary.contacts.thisMonth} trong tháng`,
+                icon: 'contact' as const,
+              },
+            ]
+          : []),
+        ...(summary.pages
+          ? [
+              {
+                label: 'Trang nội dung',
+                value: summary.pages.total,
+                note: `${summary.pages.sections} section`,
+                icon: 'page' as const,
+              },
+            ]
+          : []),
+        ...(summary.staff
+          ? [
+              {
+                label: 'Nhân sự',
+                value: summary.staff.total,
+                note: `${summary.staff.active} đang hoạt động`,
+                icon: 'staff' as const,
+              },
+            ]
+          : []),
       ].slice(0, STAT_CARD_LIMIT)
     : [];
+
+  const canSeeBlogPosts = hasPermission('BLOG_POST_LIST');
+  const canSeeContacts = hasPermission('CONTACT_LIST');
 
   return (
     <div className="admin-dashboard">
@@ -117,7 +137,7 @@ export function DashboardScreen() {
           <p>Theo dõi sản phẩm, nội dung website và các yêu cầu tư vấn mới từ khách hàng.</p>
         </div>
         <div className="admin-heading-actions">
-          <PurgeCacheButton />
+          {hasPermission('CACHE_PURGE') ? <PurgeCacheButton /> : null}
           <button className="admin-secondary-button" onClick={loadSummary} disabled={isLoading}>
             <AdminIcon name="refresh" />
             {isLoading ? 'Đang tải' : 'Làm mới'}
@@ -151,19 +171,20 @@ export function DashboardScreen() {
       </section>
 
       <div className="admin-dashboard-grid">
+        {canSeeBlogPosts ? (
         <section className="admin-panel admin-panel-wide">
           <header className="admin-panel-header">
             <div>
               <h2>Bài viết cập nhật gần đây</h2>
-              <p>{summary?.content.draftBlogPosts ?? 0} bản nháp đang chờ hoàn thiện</p>
+              <p>{summary?.blogPosts?.drafts ?? 0} bản nháp đang chờ hoàn thiện</p>
             </div>
-            {hasPermission('BLOG_POST_LIST') ? <Link href={adminRoutes.blogPosts.list}>Xem tất cả</Link> : null}
+            <Link href={adminRoutes.blogPosts.list}>Xem tất cả</Link>
           </header>
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead><tr><th>Tiêu đề</th><th>Trạng thái</th><th>Cập nhật</th></tr></thead>
               <tbody>
-                {summary?.recentPosts.length ? summary.recentPosts.map((post) => (
+                {summary?.blogPosts?.recent.length ? summary.blogPosts.recent.map((post) => (
                   <tr key={post.id}>
                     <td><strong>{post.title}</strong><small>/{post.slug}</small></td>
                     <td><StatusBadge status={post.status} /></td>
@@ -176,6 +197,7 @@ export function DashboardScreen() {
             </table>
           </div>
         </section>
+        ) : null}
 
         <section className="admin-panel">
           <header className="admin-panel-header">
@@ -184,22 +206,23 @@ export function DashboardScreen() {
           <div className="admin-quick-links">
             {hasPermission('PRODUCT_LIST') ? <Link href={adminRoutes.products.list}><AdminIcon name="product" /><span><strong>Quản lý sản phẩm</strong><small>{summary?.catalog?.featuredProducts ?? 0} sản phẩm mua nhiều</small></span><AdminIcon name="chevron" /></Link> : null}
             {hasPermission('QUOTE_REQUEST_LIST') ? <Link href={adminRoutes.contacts}><AdminIcon name="consult" /><span><strong>Yêu cầu tư vấn</strong><small>{summary?.quoteRequests?.new ?? 0} yêu cầu mới</small></span><AdminIcon name="chevron" /></Link> : null}
-            {hasPermission('BLOG_POST_LIST') ? <Link href={adminRoutes.blogPosts.list}><AdminIcon name="article" /><span><strong>Quản lý bài viết</strong><small>{summary?.content.blogPosts ?? 0} nội dung</small></span><AdminIcon name="chevron" /></Link> : null}
-            {hasPermission('PAGE_LIST') ? <Link href={adminRoutes.pages.list}><AdminIcon name="page" /><span><strong>Quản lý trang</strong><small>{summary?.content.publishedPages ?? 0} đang hiển thị</small></span><AdminIcon name="chevron" /></Link> : null}
-            {hasPermission('CONTACT_LIST') ? <Link href={withQuery(adminRoutes.contacts, { tab: 'lien-he' })}><AdminIcon name="contact" /><span><strong>Liên hệ khách hàng</strong><small>{summary?.contacts.thisMonth ?? 0} trong tháng</small></span><AdminIcon name="chevron" /></Link> : null}
+            {canSeeBlogPosts ? <Link href={adminRoutes.blogPosts.list}><AdminIcon name="article" /><span><strong>Quản lý bài viết</strong><small>{summary?.blogPosts?.total ?? 0} nội dung</small></span><AdminIcon name="chevron" /></Link> : null}
+            {hasPermission('PAGE_LIST') ? <Link href={adminRoutes.pages.list}><AdminIcon name="page" /><span><strong>Quản lý trang</strong><small>{summary?.pages?.published ?? 0} đang hiển thị</small></span><AdminIcon name="chevron" /></Link> : null}
+            {canSeeContacts ? <Link href={withQuery(adminRoutes.contacts, { tab: 'lien-he' })}><AdminIcon name="contact" /><span><strong>Liên hệ khách hàng</strong><small>{summary?.contacts?.thisMonth ?? 0} trong tháng</small></span><AdminIcon name="chevron" /></Link> : null}
           </div>
         </section>
 
+        {canSeeContacts ? (
         <section className="admin-panel admin-panel-full">
           <header className="admin-panel-header">
             <div><h2>Liên hệ mới nhất</h2><p>Yêu cầu gửi từ biểu mẫu trên website</p></div>
-            {hasPermission('CONTACT_LIST') ? <Link href={withQuery(adminRoutes.contacts, { tab: 'lien-he' })}>Xem tất cả</Link> : null}
+            <Link href={withQuery(adminRoutes.contacts, { tab: 'lien-he' })}>Xem tất cả</Link>
           </header>
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead><tr><th>Khách hàng</th><th>Chủ đề</th><th>Ngày gửi</th></tr></thead>
               <tbody>
-                {summary?.recentContacts.length ? summary.recentContacts.map((contact) => (
+                {summary?.contacts?.recent.length ? summary.contacts.recent.map((contact) => (
                   <tr key={contact.id}>
                     <td><strong>{contact.fullname || 'Chưa cung cấp tên'}</strong><small>{contact.email || 'Không có email'}</small></td>
                     <td>{contact.subject || 'Liên hệ từ website'}</td>
@@ -212,6 +235,7 @@ export function DashboardScreen() {
             </table>
           </div>
         </section>
+        ) : null}
       </div>
     </div>
   );

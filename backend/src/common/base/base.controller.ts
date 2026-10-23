@@ -1,8 +1,11 @@
 /**
  * Controller CRUD dùng chung cho admin: danh sách phân trang / tìm / lọc / sắp xếp, chi tiết, tạo, sửa, xoá, đổi thứ tự; mỗi route gắn @Permissions.
- * Dùng bởi: các controller trong modules/admin (pages, page-sections, blog-posts, blog-categories, menu-items, roles, permissions, staffs, notifications).
+ * Dùng bởi: các controller trong modules/admin (pages, page-sections, blog-posts, blog-categories, menu-items, products,
+ * product-categories, roles, permissions, staffs, notifications).
  * Lưu ý: chỉ lọc qua query string (?status=draft) theo các cột getFilterableFields() trả về; mặc định rỗng = không lọc gì,
  * controller nào cần thì override. Tham số ngoài danh sách bị bỏ qua im lặng.
+ * Body của create / update khai kiểu generic nên ValidationPipe toàn cục không thấy DTO (TypeScript xoá kiểu lúc chạy):
+ * controller con phải truyền class DTO qua `bodyTypes` để body được kiểm tra + lọc field lạ như các route có DTO cụ thể.
  */
 import {
   BadRequestException,
@@ -14,11 +17,23 @@ import {
   Post,
   Put,
   Query,
+  Type,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BaseService } from './base.service';
 import { ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import type { FindManyOptions, FindOneOptions } from 'typeorm';
 import { Permissions } from '../decorators/permission.decorator';
+
+const BODY_VALIDATION_PIPE = new ValidationPipe({
+  transform: true,
+  whitelist: true,
+});
+
+export interface CrudBodyTypes<CreateDto, UpdateDto> {
+  create: Type<CreateDto>;
+  update: Type<UpdateDto>;
+}
 
 @ApiBearerAuth()
 export class BaseController<
@@ -27,14 +42,22 @@ export class BaseController<
   UpdateDto,
   IdType extends string | number = string | number,
 > {
-  delete(id: number) {
-    throw new Error('Method not implemented.');
-  }
-
   constructor(
     protected readonly service: BaseService<T, IdType>,
     private readonly entityName: string,
+    private readonly bodyTypes: CrudBodyTypes<CreateDto, UpdateDto>,
   ) {}
+
+  private async validateBody<Dto>(
+    body: unknown,
+    bodyType: Type<Dto>,
+  ): Promise<Dto> {
+    if (body instanceof bodyType) return body;
+    return BODY_VALIDATION_PIPE.transform(body, {
+      type: 'body',
+      metatype: bodyType,
+    });
+  }
 
   protected getFindAllOptions(): FindManyOptions<T> {
     return {};
@@ -73,7 +96,7 @@ export class BaseController<
     try {
       parsedOrderBy = orderBy ? JSON.parse(orderBy) : undefined;
     } catch {
-      throw new BadRequestException('orderBy must be valid JSON array');
+      throw new BadRequestException('orderBy phải là mảng JSON hợp lệ');
     }
 
     const filterableFields = new Set(this.getFilterableFields().map(String));
@@ -112,13 +135,15 @@ export class BaseController<
   @Permissions('CREATE')
   @Post()
   async create(@Body() dto: CreateDto) {
-    return await this.service.create(dto as any);
+    const validDto = await this.validateBody(dto, this.bodyTypes.create);
+    return await this.service.create(validDto as any);
   }
 
   @Permissions('UPDATE')
   @Put(':id')
   async update(@Param('id') id: IdType, @Body() dto: UpdateDto) {
-    return await this.service.update(id, dto as any);
+    const validDto = await this.validateBody(dto, this.bodyTypes.update);
+    return await this.service.update(id, validDto as any);
   }
 
   @Permissions('DELETE')

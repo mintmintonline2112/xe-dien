@@ -32,7 +32,10 @@ export class NotificationController extends BaseController<
   number
 > {
   constructor(private readonly appNotificationService: NotificationService) {
-    super(appNotificationService, 'Notifications');
+    super(appNotificationService, 'Notifications', {
+      create: CreateNotificationDto,
+      update: UpdateNotificationDto,
+    });
   }
 
   @Permissions('LIST')

@@ -1,20 +1,21 @@
-# Prime Nuts USA — Frontend (Next.js)
+# Xe Điện Xanh — Frontend (Next.js)
 
-Website + trang quản trị CMS cho Prime Nuts USA, dựng theo kiến trúc Next.js App Router
-(Next.js 15 App Router, React 19) và nối với `backend/` (NestJS).
+Site public tiếng Việt + trang quản trị CMS của Xe Điện Xanh, dựng theo Next.js 15 App Router (React 19), nối với
+`backend/` (NestJS). Hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn: [`docs/catalog-api.md`](../docs/catalog-api.md).
 
 ## Chạy
 
 ```
-npm install        # hoặc đã có sẵn node_modules
-npm run dev        # http://localhost:3005 (site) · /admin (quản trị)
+npm install
+npm run dev        # http://localhost:3008 (site) · /admin (quản trị)
 npm run check      # typecheck + lint + lint:layers + lint:sections — chạy trước khi commit
 npm run snapshot / shot / diff:png   # so HTML + ảnh trước/sau khi refactor — xem scripts/README.md
-npm run build && npm start
+npm run build && npm start           # production, cổng 3008
 ```
 
-Cấu hình `.env.local` (xem `.env.example`): `API_URL` / `NEXT_PUBLIC_API_URL`
-trỏ về backend (`http://localhost:3012/api`), `REVALIDATE_SECRET` khớp backend.
+Tạo `.env.local` từ `.env.example`: `API_URL` / `NEXT_PUBLIC_API_URL` trỏ về backend (`http://localhost:3018/api`),
+`NEXT_PUBLIC_SITE_URL` là địa chỉ site, `REVALIDATE_SECRET` khớp `backend/.env`. Thiếu `.env.local` thì dùng mặc định
+trong `src/config/env.ts` (cùng các cổng trên).
 
 ## Cấu trúc
 
@@ -24,46 +25,49 @@ Theo chuẩn App Router: **route groups** `(group)` gom layout mà không đổi
 ```
 src/
 ├── app/
-│   ├── layout.tsx                 # Root layout (metadata, styles/tailwind.css)
-│   ├── (site)/                    # Site public — URL: / , /products, /news, /news/[slug], /contact, /[slug]
-│   │   ├── layout.tsx             # Header (menu CMS) + Footer + SiteEffects
+│   ├── layout.tsx                 # Root layout (lang="vi", metadata, styles/tailwind.css)
+│   ├── (site)/                    # Site public — URL: /, /san-pham, /san-pham/[slug], /danh-muc/[slug], /tin-tuc, /tin-tuc/[slug], /lien-he, /[slug]
+│   │   ├── layout.tsx             # Header (menu CMS) + Footer + ContactDock + SiteEffects
 │   │   ├── _components/           # Xem _components/README.md
-│   │   │   ├── layout/            # Khung trang: Header, Footer, Brand, SocialIcons, CopyGuard, SiteEffects
+│   │   │   ├── layout/            # Khung trang: Header, Footer, Brand, CategoryDrawer, SearchForm, ContactDock, SocialIcons, CopyGuard, SiteEffects
+│   │   │   ├── catalog/           # ProductCard, ProductListing, ProductGallery, PriceTag, Pagination
+│   │   │   ├── news/              # PostCard
 │   │   │   ├── sections/          # Section CMS: mỗi thư mục = 1 component (QUY ĐỊNH: sections/README.md)
 │   │   │   ├── ui.tsx             # Class Tailwind đặt tên + Eyebrow, PageHero, CtaBand (site dùng chung)
-│   │   │   ├── forms.tsx          # ContactForm, QuoteForm, NewsletterForm (client)
+│   │   │   ├── forms.tsx          # ConsultForm (yêu cầu tư vấn), ContactForm (client)
 │   │   │   └── SectionRenderer.tsx
-│   │   └── _lib/                  # cms.ts, menu.ts, sanitize.ts, site-menu.ts (fallback menu), seo.ts (buildPageMetadata)
+│   │   └── _lib/                  # cms.ts, catalog.ts (sản phẩm / danh mục), menu.ts, site-menu.ts (menu dự phòng), fallback.ts, sanitize.ts, seo.ts (buildPageMetadata)
 │   ├── admin/                     # Dashboard CMS — URL: /admin/…
 │   │   ├── layout.tsx             # AuthProvider + React Query + admin.css
-│   │   ├── login/                 # /admin/login (+ _components/LoginScreen)
+│   │   ├── login/                 # /admin/login
 │   │   ├── (protected)/           # Cần đăng nhập — layout.tsx bọc AdminShell
-│   │   │   └── <feature>/         # page.tsx, create/, edit/[id]/, _components/ (form, list), _lib/ (*.service.ts)
+│   │   │   └── <feature>/         # products, product-categories, contacts (yêu cầu tư vấn + liên hệ), pages, page-sections, menus, blog-*, library, settings, contact-page, staffs, roles, permissions, dashboard
 │   │   ├── _auth/                 # AuthProvider
 │   │   ├── _layout/               # AdminShell, AdminSidebar, AdminProviders, navigation
-│   │   ├── _components/           # data-table, generic-form, rich-text-editor, library-picker, image-compress-dialog…
-│   │   └── _lib/                  # admin-api, crud-service, pagination, session, api-error, image-url, publish-status, format-date, confirm, seo/translation-fields
+│   │   ├── _components/           # data-table, generic-form, rich-text-editor, library-picker, image-compress-dialog, NotificationsBell…
+│   │   └── _lib/                  # admin-api, crud-service, pagination, session, api-error, image-url, publish-status, format-date, confirm, seo-fields
 │   ├── api/revalidate/            # Backend ping để drop fetch-cache khi admin sửa nội dung
 │   ├── robots.ts                  # /robots.txt — chặn /admin, /api; trỏ sitemap
-│   └── sitemap.ts                 # /sitemap.xml — trang tĩnh + danh mục + bài viết (cache 1h)
-├── components/ui/                 # UI primitives KHÔNG nghiệp vụ, dùng chung site + admin: Button, Badge, Card, Spinner, Modal
+│   └── sitemap.ts                 # /sitemap.xml — trang tĩnh + trang CMS + danh mục + sản phẩm + bài viết (cache 1h)
+├── components/ui/                 # UI primitives KHÔNG nghiệp vụ: Button, Badge, Card, Spinner, Modal (giữ sẵn, chưa nơi nào dùng)
 ├── api/api-fetch.ts               # Gọi backend từ server (site public): apiFetch
-├── config/                        # routes.ts (BẢNG ĐƯỜNG DẪN — đổi URL ở đây), env.ts, i18n.ts, markets.ts, contact.ts, products.ts
+├── config/                        # routes.ts (BẢNG ĐƯỜNG DẪN — đổi URL ở đây), env.ts, contact.ts
 ├── settings/                      # Cài đặt site: site-settings.ts (getSiteSettings), brand-colors.ts, contact-page.ts
-├── media/                         # video-source.ts (YouTube/Vimeo/file), gallery-orientation.ts
+├── content/cms-fallback.json      # Nội dung dự phòng khi API lỗi — sinh bằng `npm run content:export` ở backend
+├── media/                         # video-source.ts (YouTube/Vimeo/file)
 ├── utils/                         # Chỉ cn.ts + route.ts — không thêm file mới (xem .claude/rules/naming.md)
 ├── types/                         # Kiểu dữ liệu chung (cms.ts)
 ├── styles/                        # CSS theo layer — xem styles/README.md
-└── fonts/                         # Barlow / Barlow Condensed (woff2) + barlow-fonts.ts (next/font/local)
+└── fonts/                         # Barlow (woff2) + barlow-fonts.ts (next/font/local)
 ```
 
 Quy ước đường dẫn: mọi `<Link>`, `router.push`, `redirect`, breadcrumb, sidebar đều lấy từ
-`@/config/routes` (`adminRoutes.blogPosts.edit(id)`, `siteRoutes.newsCategory(slug)`…).
+`@/config/routes` (`adminRoutes.products.edit(id)`, `siteRoutes.category(slug)`…).
 URL thật do tên thư mục trong `src/app` quyết định, nên đổi segment thì đổi cả 2 nơi.
 
 SEO: metadata chia 3 tầng — `app/layout.tsx` chỉ có `metadataBase` + favicon;
 `app/(site)/layout.tsx` đặt title template, description, Open Graph/Twitter mặc định
-(ảnh lấy từ Cài đặt → ogImageUrl, fallback `public/images/hero-branch.jpg`);
+(ảnh lấy từ Cài đặt → ogImageUrl, fallback `public/images/hero/hero-1.webp`);
 mỗi `page.tsx` gọi `buildPageMetadata()` trong `(site)/_lib/seo.ts` để lấy
 metaTitle / metaDescription / ogImagePath / canonicalUrl từ CMS. Admin khai báo
 `robots: noindex` ở `app/admin/layout.tsx`.
@@ -74,11 +78,13 @@ thẳng `@/app/admin/(protected)/<feature>/_lib/<x>.service`.
 
 ## Nối backend
 
-- Menu header: `GET /api/client/menu` (fallback tĩnh khi lỗi)
-- Trang: `GET /api/client/pages/:slug` (metadata + nội dung sửa được từ admin)
-- News: `GET /api/client/blog-posts` (+ `/slug/:slug`, categories) — lọc, phân trang
-- Form báo giá: `POST /api/client/quote-requests` · Form liên hệ: `POST /api/client/contact`
-- Admin đăng nhập bằng tài khoản staff của backend (seed: admin@gmail.com / admin#123)
+- Menu header / footer: `GET /api/client/menu?location=header|footer` (fallback tĩnh khi lỗi)
+- Trang: `GET /api/client/pages/:slug` (metadata + section sửa được từ admin); `GET /api/client/pages` (slug + updatedAt cho sitemap)
+- Sản phẩm: `GET /api/client/products` (+ `/slug/:slug`), `GET /api/client/product-categories` (+ `/slug/:slug`)
+- Tin tức: `GET /api/client/blog-posts` (+ `/slug/:slug`, categories) — lọc, phân trang
+- Form tư vấn / báo giá / trả góp / lái thử / đại lý: `POST /api/client/quote-requests` · Form liên hệ: `POST /api/client/contact`
+- Admin đăng nhập bằng tài khoản staff của backend (seed: admin@gmail.com / admin#123 — đổi ngay trên môi trường thật)
 
-Site render tiếng Anh (bản dịch phụ 'vi' qua cột translations). Ảnh bài viết
-serve từ backend `/uploads`; ảnh tĩnh của site nằm trong `public/images`.
+Site chỉ render tiếng Việt. Backend vẫn lưu và trả cột `translations` (bản dịch `en`, đọc qua `?lang=en`) nhưng admin
+không còn ô sửa bản dịch; lưu form admin không gửi `translations` nên dữ liệu cũ trong DB giữ nguyên. Ảnh upload serve từ backend `/uploads`; ảnh tĩnh của site nằm trong `public/images` (ghi công ở
+`public/images/CREDITS.md`).

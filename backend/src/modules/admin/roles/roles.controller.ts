@@ -26,7 +26,10 @@ export class RolesController extends BaseController<
   number
 > {
   constructor(private readonly rolesService: RolesService) {
-    super(rolesService, 'ROLE');
+    super(rolesService, 'ROLE', {
+      create: CreateRoleDto,
+      update: UpdateRoleDto,
+    });
   }
 
   protected override getSearchFields(): (keyof Role)[] {

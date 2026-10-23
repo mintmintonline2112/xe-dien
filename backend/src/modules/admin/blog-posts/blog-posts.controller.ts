@@ -1,5 +1,5 @@
 /**
- * API CRUD bài viết blog cho admin (/admin/blog-posts, tên cũ /admin/articles), nhận ảnh bìa upload, ghi xong thì xoá cache blog.
+ * API CRUD bài viết blog cho admin (/admin/blog-posts), nhận ảnh bìa upload, ghi xong thì xoá cache blog.
  * Dùng bởi: frontend-next app/admin/(protected)/blog-posts/_lib/blog-post.service.ts.
  * Lưu ý: imageOptimize = 'skip' nghĩa là admin đã nén ảnh trên trình duyệt, server không nén lại.
  */
@@ -36,7 +36,7 @@ import { BlogPostsService } from './blog-posts.service';
 @UseInterceptors(InvalidateCacheInterceptor)
 @SetMetadata('entity', 'BLOG_POST')
 @SetMetadata(CACHE_NAMESPACES_KEY, [CACHE_NS.blogPosts])
-@Controller(['admin/blog-posts', 'admin/articles'])
+@Controller('admin/blog-posts')
 export class BlogPostsController extends BaseController<
   BlogPost,
   CreateBlogPostDto,
@@ -44,7 +44,10 @@ export class BlogPostsController extends BaseController<
   number
 > {
   constructor(private readonly postsService: BlogPostsService) {
-    super(postsService, 'BlogPost');
+    super(postsService, 'BlogPost', {
+      create: CreateBlogPostDto,
+      update: UpdateBlogPostDto,
+    });
   }
 
   protected getFilterableFields(): (keyof BlogPost)[] {

@@ -4,8 +4,8 @@
  * Lưu ý: vai trò Admin nhận ra theo tên (không phân biệt hoa thường) "ADMIN".
  */
 import {
+  ForbiddenException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,11 +32,12 @@ export class RolesService extends BaseService<Role, number> {
       where: { id },
     });
 
-    if (!role) throw new NotFoundException(`Role with ID ${id} not found`);
+    if (!role)
+      throw new NotFoundException(`Không tìm thấy vai trò có id ${id}`);
 
     if (role.name.toUpperCase() === 'ADMIN') {
-      throw new InternalServerErrorException(
-        `Not allowed to ${action} the system administrator role (Admin).`,
+      throw new ForbiddenException(
+        `Không được ${action} vai trò quản trị hệ thống (Admin).`,
       );
     }
 
@@ -57,7 +58,7 @@ export class RolesService extends BaseService<Role, number> {
   }
 
   override async update(id: number, data: any): Promise<Role> {
-    await this.findEditableRole(id, 'modify');
+    await this.findEditableRole(id, 'sửa');
 
     const dto = data as UpdateRoleDto;
     const { permissions, ...roleData } = dto;
@@ -76,7 +77,7 @@ export class RolesService extends BaseService<Role, number> {
   }
 
   override async delete(id: number): Promise<any> {
-    await this.findEditableRole(id, 'delete');
+    await this.findEditableRole(id, 'xoá');
     return await super.delete(id);
   }
 }

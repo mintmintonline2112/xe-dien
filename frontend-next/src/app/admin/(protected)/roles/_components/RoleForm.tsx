@@ -19,6 +19,7 @@ import {
   PERMISSION_QUERY_KEY,
   type Permission,
 } from '@/app/admin/(protected)/permissions/_lib/permission.service';
+import { permissionModuleLabelOf } from '@/app/admin/(protected)/permissions/_lib/permission-modules';
 import { roleService, ROLE_QUERY_KEY } from '@/app/admin/(protected)/roles/_lib/role.service';
 import { adminRoutes } from '@/config/routes';
 
@@ -54,7 +55,7 @@ export function RoleForm({ id }: { id?: number }) {
   const permissionsByModule = useMemo(() => {
     const groups = new Map<string, Permission[]>();
     for (const permission of permissions?.data ?? []) {
-      const moduleName = permission.module || 'khác';
+      const moduleName = permission.module ? permissionModuleLabelOf(permission.module) : 'Khác';
       if (!groups.has(moduleName)) groups.set(moduleName, []);
       groups.get(moduleName)!.push(permission);
     }

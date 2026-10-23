@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa sản phẩm: ảnh đại diện, tên, danh mục, giá, kho, nhãn, điểm nổi bật, thông số, ảnh phụ, khuyến mãi, bài mô tả, SEO, bản dịch tiếng Anh.
+ * Form tạo / sửa sản phẩm: ảnh đại diện, tên, danh mục, giá, kho, nhãn, điểm nổi bật, thông số, ảnh phụ, khuyến mãi, bài mô tả, SEO.
  * Dùng bởi: products/create/page.tsx, products/edit/[id]/page.tsx.
  * Lưu ý: ảnh đại diện mới tải lên được đưa vào Thư viện (thư mục "products") trước, rồi gửi đường dẫn bằng JSON — nhờ vậy giá xoá trắng
  * vẫn gửi null (FormData bỏ mất null). Giá để trống = "Liên hệ"; dòng trống trong danh sách bị lọc trước khi gửi.
@@ -25,12 +25,6 @@ import {
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
 import { libraryService } from '@/app/admin/_lib/library.service';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import { PUBLISH_STATUS_OPTIONS, type PublishStatus } from '@/app/admin/_lib/publish-status';
 import { toDateInputValue } from '@/app/admin/_lib/format-date';
 import {
@@ -66,21 +60,13 @@ interface FormValues extends SeoFormValues {
   content: string;
   status: PublishStatus;
   publishedAt: string;
-  en_title: string;
-  en_excerpt: string;
-  en_content: string;
-  en_metaTitle: string;
-  en_metaDescription: string;
 }
-
-const EN_KEYS = ['title', 'excerpt', 'content', 'metaTitle', 'metaDescription'] as const;
 
 const FORM_GROUPS: GenericFormGroup[] = [
   { id: 'details', title: 'Điểm nổi bật & thông số kỹ thuật', description: 'Hiện ở trang chi tiết sản phẩm' },
   { id: 'media', title: 'Ảnh phụ (thư viện ảnh sản phẩm)', description: 'Ảnh đầu tiên đứng ngay sau ảnh đại diện' },
   { id: 'content', title: 'Khuyến mãi & bài mô tả' },
   { id: 'seo', title: 'SEO', collapsed: true },
-  EN_TRANSLATION_GROUP,
 ];
 
 const EMPTY_FORM_VALUES: FormValues = {
@@ -104,11 +90,6 @@ const EMPTY_FORM_VALUES: FormValues = {
   status: 'draft',
   publishedAt: '',
   ...EMPTY_SEO,
-  en_title: '',
-  en_excerpt: '',
-  en_content: '',
-  en_metaTitle: '',
-  en_metaDescription: '',
 };
 
 function toPriceOrNull(value: number | string): number | null {
@@ -172,7 +153,6 @@ export function ProductForm({ id }: { id?: number }) {
         status: data.status ?? 'draft',
         publishedAt: toDateInputValue(data.publishedAt),
         ...seoValuesFrom(data),
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setFormKey((previousKey) => previousKey + 1);
     }
@@ -234,13 +214,6 @@ export function ProductForm({ id }: { id?: number }) {
       },
       { key: 'content', label: 'Bài mô tả chi tiết', type: 'richtext', group: 'content', placeholder: 'Giới thiệu chi tiết sản phẩm…' },
       ...SEO_FIELDS.map((field) => ({ ...field, group: 'seo' })),
-      ...buildEnFields([
-        { key: 'title', label: 'Tên sản phẩm', type: 'text' },
-        { key: 'excerpt', label: 'Mô tả ngắn', type: 'textarea' },
-        { key: 'content', label: 'Bài mô tả', type: 'richtext' },
-        { key: 'metaTitle', label: 'SEO · Meta Title', type: 'text' },
-        { key: 'metaDescription', label: 'SEO · Meta Description', type: 'textarea' },
-      ]),
     ],
     [categoryOptions],
   );
@@ -272,7 +245,6 @@ export function ProductForm({ id }: { id?: number }) {
           publishedAt: values.publishedAt ? new Date(values.publishedAt).toISOString() : undefined,
           thumbnailPath: await buildThumbnailPayload(values.thumbnailPath, isEdit),
           ...buildSeoPayload(values),
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
         {
           keepNull: [
@@ -287,7 +259,6 @@ export function ProductForm({ id }: { id?: number }) {
             'promotion',
             'content',
             'thumbnailPath',
-            'translations',
             ...SEO_NULLABLE_KEYS,
           ],
         },

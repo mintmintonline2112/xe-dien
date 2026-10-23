@@ -4,12 +4,15 @@
  * Lưu ý: refresh token lưu dạng băm SHA-256 và xoay mỗi lần làm mới; token cũ còn được nhận ROTATION_GRACE_MS (2 tab cùng làm mới), quá hạn đó coi như bị lộ và huỷ phiên.
  * Lưu ý: mỗi nhân viên giữ tối đa MAX_SESSIONS_PER_STAFF phiên, phiên sống tối đa MAX_SESSION_AGE_MS kể từ đăng nhập, làm mới thì kiểm lại tài khoản còn kích hoạt; lỗi dọn phiên cũ không được chặn đăng nhập.
  * Lưu ý: quyền trong payload JWT là mảng chuỗi phẳng để cookie dưới giới hạn 4 KB của trình duyệt.
+ * Lưu ý: đăng nhập sai email hay sai mật khẩu đều trả 401 cùng một câu và luôn chạy bcrypt (so với DUMMY_PASSWORD_HASH khi
+ * không có email), để không dò được email nào đã có tài khoản; chỉ báo "chưa kích hoạt" khi mật khẩu đúng.
  */
 import {
   BadRequestException,
   HttpException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -37,6 +40,8 @@ const MAX_SESSION_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 
 const ROTATION_GRACE_MS = 10_000;
 
+const DUMMY_PASSWORD_HASH = bcrypt.hashSync('dummy-password-for-timing', 10);
+
 function hashToken(token: string): string {
   return createHash('sha256').update(token).digest('hex');
 }
@@ -49,6 +54,8 @@ function isSameHashConstantTime(a: string, b: string): boolean {
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
@@ -133,7 +140,9 @@ export class AuthService {
 
   private async issueSession(staff: Staff, req: Request, res: Response) {
     const jwtConfig = this.configService.getOrThrow<JwtConfig>('jwt');
-    const accessMaxAge = this.parseExpiresInToMs(jwtConfig.accessTokenExpiresIn);
+    const accessMaxAge = this.parseExpiresInToMs(
+      jwtConfig.accessTokenExpiresIn,
+    );
     const refreshMaxAge = this.parseExpiresInToMs(
       jwtConfig.refreshTokenExpiresIn,
     );
@@ -203,31 +212,39 @@ export class AuthService {
     }
   }
 
-  async login(dto: StaffLoginDto, req: Request, res: Response) {
+  private async findStaffByCredentials(dto: StaffLoginDto): Promise<Staff> {
+    const staff = await this.staffsService.findOne({
+      where: { email: dto.email.trim() },
+      relations: ['role', 'role.permissions'],
+    });
+
+    const isPasswordValid = await bcrypt.compare(
+      dto.password,
+      staff?.password ?? DUMMY_PASSWORD_HASH,
+    );
+
+    if (!staff || !isPasswordValid) {
+      throw new UnauthorizedException('Email hoặc mật khẩu không đúng');
+    }
+
+    if (staff.status !== AccountStatus.ACTIVE) {
+      throw new UnauthorizedException('Tài khoản chưa được kích hoạt');
+    }
+
+    return staff;
+  }
+
+  private async loginWithCredentials(
+    dto: StaffLoginDto,
+    req: Request,
+    res: Response,
+    allowedType?: AccountType,
+  ) {
     try {
-      const email = dto.email.trim();
+      const staff = await this.findStaffByCredentials(dto);
 
-      const staff = await this.staffsService.findOne({
-        where: { email },
-        relations: ['role', 'role.permissions'],
-      });
-
-      if (!staff) {
-        throw new InternalServerErrorException('Invalid email or password');
-      }
-
-      if (staff.status !== AccountStatus.ACTIVE) {
-        throw new InternalServerErrorException('Account is not activated');
-      }
-
-      if (staff.type !== AccountType.ADMIN) {
-        throw new UnauthorizedException('Unauthorized access');
-      }
-
-      const isValid = await bcrypt.compare(dto.password, staff.password);
-
-      if (!isValid) {
-        throw new InternalServerErrorException('Invalid email or password');
+      if (allowedType && staff.type !== allowedType) {
+        throw new UnauthorizedException('Tài khoản không có quyền truy cập');
       }
 
       return { user: await this.issueSession(staff, req, res) };
@@ -236,49 +253,28 @@ export class AuthService {
         throw error;
       }
 
+      this.logger.error('Login failed', error);
       throw new InternalServerErrorException(
-        error.message || 'An error occurred during login',
+        'Không đăng nhập được, vui lòng thử lại',
       );
     }
   }
 
+  async login(dto: StaffLoginDto, req: Request, res: Response) {
+    return this.loginWithCredentials(dto, req, res, AccountType.ADMIN);
+  }
+
   async loginStaff(dto: StaffLoginDto, req: Request, res: Response) {
-    try {
-      const email = dto.email.trim();
-
-      const staff = await this.staffsService.findOne({
-        where: { email },
-        relations: ['role', 'role.permissions'],
-      });
-
-      if (!staff) {
-        throw new InternalServerErrorException('Invalid email or password');
-      }
-
-      if (staff.status !== AccountStatus.ACTIVE) {
-        throw new InternalServerErrorException('Account is not activated');
-      }
-
-      const isValid = await bcrypt.compare(dto.password, staff.password);
-
-      if (!isValid) {
-        throw new InternalServerErrorException('Invalid email or password');
-      }
-
-      return { user: await this.issueSession(staff, req, res) };
-    } catch (error) {
-      if (error.message) {
-        throw new InternalServerErrorException(error.message);
-      }
-      throw new InternalServerErrorException('An error occurred during login');
-    }
+    return this.loginWithCredentials(dto, req, res);
   }
 
   async refreshToken(req: Request, res: Response) {
     const oldRefreshToken = req.cookies?.refreshToken;
 
     if (!oldRefreshToken) {
-      throw new UnauthorizedException('Refresh token not found');
+      throw new UnauthorizedException(
+        'Không tìm thấy phiên đăng nhập, vui lòng đăng nhập lại',
+      );
     }
 
     try {
@@ -298,11 +294,15 @@ export class AuthService {
           clockTolerance: 5,
         });
       } catch {
-        throw new UnauthorizedException('Session expired');
+        throw new UnauthorizedException(
+          'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại',
+        );
       }
 
       if (!decoded?.sid) {
-        throw new UnauthorizedException('Invalid session');
+        throw new UnauthorizedException(
+          'Phiên đăng nhập không hợp lệ, vui lòng đăng nhập lại',
+        );
       }
 
       const session = await this.refreshTokenRepo.findOne({
@@ -311,23 +311,30 @@ export class AuthService {
       });
 
       if (!session || session.expiresAt < new Date()) {
-        throw new UnauthorizedException('Invalid or expired token');
+        throw new UnauthorizedException(
+          'Phiên đăng nhập không hợp lệ hoặc đã hết hạn',
+        );
       }
 
       const now = new Date();
 
       if (now.getTime() - session.createdAt.getTime() > MAX_SESSION_AGE_MS) {
         await this.refreshTokenRepo.delete(session.id);
-        throw new UnauthorizedException('Session expired');
+        throw new UnauthorizedException(
+          'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại',
+        );
       }
 
       if (session.staff?.status !== AccountStatus.ACTIVE) {
         await this.refreshTokenRepo.delete(session.id);
-        throw new UnauthorizedException('Account is not activated');
+        throw new UnauthorizedException('Tài khoản chưa được kích hoạt');
       }
 
       const presentedHash = hashToken(oldRefreshToken);
-      const isCurrent = isSameHashConstantTime(session.tokenHash, presentedHash);
+      const isCurrent = isSameHashConstantTime(
+        session.tokenHash,
+        presentedHash,
+      );
 
       const isWithinRotationGrace =
         !isCurrent &&
@@ -338,7 +345,9 @@ export class AuthService {
 
       if (!isCurrent && !isWithinRotationGrace) {
         await this.refreshTokenRepo.delete(session.id);
-        throw new UnauthorizedException('Invalid or expired token');
+        throw new UnauthorizedException(
+          'Phiên đăng nhập không hợp lệ hoặc đã hết hạn',
+        );
       }
 
       const newRefreshToken = await this.signRefreshToken(
@@ -376,7 +385,9 @@ export class AuthService {
       if (error instanceof UnauthorizedException) {
         throw error;
       }
-      throw new UnauthorizedException('Invalid session');
+      throw new UnauthorizedException(
+        'Phiên đăng nhập không hợp lệ, vui lòng đăng nhập lại',
+      );
     }
   }
 
@@ -408,7 +419,9 @@ export class AuthService {
     if (!req.user) {
       res.clearCookie('accessToken');
       res.clearCookie('refreshToken');
-      throw new UnauthorizedException('Session expired');
+      throw new UnauthorizedException(
+        'Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại',
+      );
     }
 
     const staff = await this.staffsService.findOne({
@@ -435,7 +448,7 @@ export class AuthService {
       });
 
       if (!staff) {
-        throw new NotFoundException('Staff not found');
+        throw new NotFoundException('Không tìm thấy nhân viên');
       }
 
       if (file) {
@@ -447,7 +460,7 @@ export class AuthService {
 
       if (dto.password) {
         if (!dto.currentPassword) {
-          throw new BadRequestException('Current password is required');
+          throw new BadRequestException('Vui lòng nhập mật khẩu hiện tại');
         }
 
         const isMatch = await bcrypt.compare(
@@ -456,11 +469,11 @@ export class AuthService {
         );
 
         if (!isMatch) {
-          throw new BadRequestException('Current password is incorrect');
+          throw new BadRequestException('Mật khẩu hiện tại không đúng');
         }
 
         if (dto.password !== dto.confirmPassword) {
-          throw new BadRequestException('Password confirmation does not match');
+          throw new BadRequestException('Mật khẩu xác nhận không khớp');
         }
 
         staff.password = await bcrypt.hash(dto.password, 10);
@@ -487,7 +500,7 @@ export class AuthService {
       }
 
       throw new InternalServerErrorException(
-        error?.message || 'An error occurred while updating the profile',
+        error?.message || 'Không cập nhật được hồ sơ, vui lòng thử lại',
       );
     }
   }
