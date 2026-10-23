@@ -17,6 +17,12 @@ from the admin Library before launch.
   https://commons.wikimedia.org/wiki/File:Club_Car_Precedent_i3_fleet_golf_car.jpg
 - **hero/hero-4.webp** — "Hofer Herbstmarkt 20230923 HOF00119 RAW-Export cens" by PantheraLeo1359531 · Wikimedia Commons · CC BY 4.0
   https://commons.wikimedia.org/wiki/File:Hofer_Herbstmarkt_20230923_HOF00119_RAW-Export_cens.png
+- **hero/hero-golf.webp** — "Mona Vale Hospital and Golf Course (6587061889)" by Alex Proimos from Sydney, Australia · Wikimedia Commons · CC BY 2.0
+  https://commons.wikimedia.org/wiki/File:Mona_Vale_Hospital_and_Golf_Course_(6587061889).jpg
+- **hero/hero-resort.webp** — "Golf Carts on St. Simons" by Michael Rivera · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Golf_Carts_on_St._Simons.JPG
+- **hero/hero-xe-nang.webp** — "Forklift" by Mdornseif · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Forklift.jpeg
 
 ## Category tiles
 
@@ -28,16 +34,20 @@ from the admin Library before launch.
   https://commons.wikimedia.org/wiki/File:Seattle_(WA,_USA),_Pike_Street,_E-Scooter_--_2022_--_1460.jpg
 - **categories/xe-dien-3-banh.webp** — "Electric Rickshaw Tricycle. Bukhara. Uzbekistan" by Jamshid Nurkulov · Wikimedia Commons · CC BY-SA 4.0
   https://commons.wikimedia.org/wiki/File:Electric_Rickshaw_Tricycle._Bukhara._Uzbekistan.jpg
-- **categories/o-to-dien.webp** — "Golf Carts at Riviera On Vaal 2013" by Ossewa · Wikimedia Commons · CC BY 4.0
-  https://commons.wikimedia.org/wiki/File:Golf_Carts_at_Riviera_On_Vaal_2013.jpg
 - **categories/xe-dien-tre-em.webp** — "Children’s Ride-on Cars at Family Play Park" by Confidence24 · Wikimedia Commons · CC BY-SA 4.0
   https://commons.wikimedia.org/wiki/File:Children%E2%80%99s_Ride-on_Cars_at_Family_Play_Park.jpg
-- **categories/xe-chuyen-dung.webp** — "Carretilla elevadora electrica" by Jlfonseca004 · Wikimedia Commons · CC BY-SA 4.0
-  https://commons.wikimedia.org/wiki/File:Carretilla_elevadora_electrica.jpg
+- **categories/xe-chuyen-dung.webp** — "Urban-Sweeper S2.0" by Boschung Marketing · Wikimedia Commons · CC BY-SA 4.0 (crop of products/xe-chuyen-dung-2.webp)
+  https://commons.wikimedia.org/wiki/File:Urban-Sweeper_S2.0.png
 - **categories/phu-tung.webp** — "Pedelec-Lader-Gepida Akku-Li-Ion Foto-quer" by J. Hammerschmidt · Wikimedia Commons · CC BY-SA 3.0
   https://commons.wikimedia.org/wiki/File:Pedelec-Lader-Gepida_Akku-Li-Ion_Foto-quer.JPG
 - **categories/tram-sac.webp** — "Car2Go Charging Station Stuttgart 2013 01" by Julian Herzog (Website) · Wikimedia Commons · CC BY 4.0
   https://commons.wikimedia.org/wiki/File:Car2Go_Charging_Station_Stuttgart_2013_01.jpg
+- **categories/xe-dien-san-golf.webp** — "2011-08-03-GC-Bad-Salzuflen-3" by R-E-AL (talk | contribs | Gallery) (German Wikipedia) · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:2011-08-03-GC-Bad-Salzuflen-3.jpg
+- **categories/xe-dien-du-lich.webp** — "Golf Carts on St. Simons" by Michael Rivera · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Golf_Carts_on_St._Simons.JPG
+- **categories/xe-nang-dien.webp** — "Forklift" by Mdornseif · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Forklift.jpeg
 
 ## Product photos (sample catalog)
 
@@ -105,6 +115,38 @@ from the admin Library before launch.
   https://commons.wikimedia.org/wiki/File:Electric_vehicle_charging_stations_in_Stuttgart_1X7A6287.jpg
 - **products/tram-sac-2.webp** — "Keba KeContact P30 Green Edition, Gudensberg (LRM 20260819 114712)" by the author listed on the source page (Wikidata Q116983635) · Wikimedia Commons · CC BY-SA 4.0
   https://commons.wikimedia.org/wiki/File:Keba_KeContact_P30_Green_Edition,_Gudensberg_(LRM_20260819_114712).jpg
+- **products/xe-golf-1.webp** — "E-Z-GO golf cart" by BrokenSphere · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:E-Z-GO_golf_cart.JPG
+- **products/xe-golf-2.webp** — "Club Car Onward™ Lifted 4 Passenger PTV" by Club Car, LLC · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Club_Car_Onward%E2%84%A2_Lifted_4_Passenger_PTV.jpg
+- **products/xe-golf-3.webp** — "Beach atrium31" by User:Piotrus · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Beach_atrium31.JPG
+- **products/xe-golf-4.webp** — "E-Z-GO National Park Service DCA 04 2010 9250" by Mariordo (Mario Roberto Duran Ortiz) · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:E-Z-GO_National_Park_Service_DCA_04_2010_9250.jpg
+- **products/xe-golf-5.webp** — "E-Z-GO Zweisitzer Elektrofahrzeug" by 4028mdk09 · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:E-Z-GO_Zweisitzer_Elektrofahrzeug.JPG
+- **products/xe-resort-1.webp** — "Praga alfa front side" by Ludek · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Praga_alfa_front_side.jpg
+- **products/xe-resort-2.webp** — "Azalea Festival 2015 35" by Michael Rivera · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Azalea_Festival_2015_35.JPG
+- **products/xe-resort-3.webp** — "Veolia engine in London" by Kevin.B · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Veolia_engine_in_London.JPG
+- **products/xe-resort-4.webp** — "Curtin vehicles Cushman Hauler Pro 1" by Orderinchaos · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:Curtin_vehicles_Cushman_Hauler_Pro_1.jpg
+- **products/xe-nang-1.webp** — "FEMA - 37931 - Meals Ready to Eat being moved by fork lift in a Texas warehouse" by Patsy Lynch · Wikimedia Commons · Public domain
+  https://commons.wikimedia.org/wiki/File:FEMA_-_37931_-_Meals_Ready_to_Eat_being_moved_by_fork_lift_in_a_Texas_warehouse.jpg
+- **products/xe-nang-2.webp** — "20110217 AK V1023933 0135 - Flickr - NZ Defence Force" by New Zealand Defence Force from Wellington, New Zealand · Wikimedia Commons · CC BY 2.0
+  https://commons.wikimedia.org/wiki/File:20110217_AK_V1023933_0135_-_Flickr_-_NZ_Defence_Force.jpg
+- **products/xe-nang-3.webp** — "Toyota forklift" by No machine-readable author provided. Dbenbenn assumed (based on copyright claims). · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Toyota_forklift.jpg
+- **products/xe-nang-4.webp** — "HK STD 大圍路 Tai Wai Road 美田路 Mei Tin Road logistics cart December 2022 Px3" by NineSteyeblow H980 · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:HK_STD_%E5%A4%A7%E5%9C%8D%E8%B7%AF_Tai_Wai_Road_%E7%BE%8E%E7%94%B0%E8%B7%AF_Mei_Tin_Road_logistics_cart_December_2022_Px3.jpg
+- **products/xe-nang-5.webp** — "Visita a la empresa XPO Logistics en Cabanillas del Campo - 39870402465" by Emiliano García-Page Sánchez · Wikimedia Commons · CC BY-SA 2.0
+  https://commons.wikimedia.org/wiki/File:Visita_a_la_empresa_XPO_Logistics_en_Cabanillas_del_Campo_-_39870402465.jpg
+- **products/xe-nang-6.webp** — "AGV apilador" by Carmenter · Wikimedia Commons · CC BY-SA 4.0
+  https://commons.wikimedia.org/wiki/File:AGV_apilador.JPG
+- **products/xe-nang-7.webp** — "Agv contrapesada" by Carmenter · Wikimedia Commons · CC BY-SA 3.0
+  https://commons.wikimedia.org/wiki/File:Agv_contrapesada.jpg
 
 ## Page images
 

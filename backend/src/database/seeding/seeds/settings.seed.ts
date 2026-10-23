@@ -12,9 +12,9 @@ import { SiteSetting } from 'src/modules/admin/settings/site-setting.entity';
 
 const DEFAULT_SITE_SETTINGS: Record<string, unknown> = {
   brandName: 'Xe Điện Xanh',
-  siteTitle: 'Xe Điện Xanh — Xe điện chính hãng, giá tận xưởng, trả góp 0%',
+  siteTitle: 'Xe Điện Xanh — Xe điện sân golf, xe điện resort, xe nâng điện chính hãng',
   siteDescription:
-    'Hệ thống phân phối xe đạp điện, xe máy điện, xe điện 3 bánh, ô tô điện, xe chuyên dụng và phụ tùng chính hãng. Giao xe tận nhà, bảo hành toàn quốc, trả góp 0%.',
+    'Chuyên xe điện sân golf, xe điện du lịch cho resort – khách sạn và xe nâng điện chính hãng. Báo giá dự án 24h, giao xe toàn quốc, bảo trì tận nơi.',
   footerText: 'Xe Điện Xanh. Bảo lưu mọi quyền.',
   brandColors: {
     primary: '#0A7D4F',

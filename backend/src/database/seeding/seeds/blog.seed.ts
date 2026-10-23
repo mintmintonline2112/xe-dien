@@ -1,8 +1,9 @@
 /**
- * Seed 4 danh mục tin (Tin xe điện, Hướng dẫn, Khuyến mãi, Đánh giá xe) và 8 bài viết mẫu của Xe Điện Xanh.
+ * Seed 4 danh mục tin (Tin xe điện, Hướng dẫn, Khuyến mãi, Đánh giá xe) và 11 bài viết mẫu của Xe Điện Xanh (3 bài mới nhất về
+ * xe nâng, xe resort, xe golf — dòng sản phẩm chủ đạo).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm theo slug, bài / danh mục đã có giữ nguyên, nên chạy lại db:seed an toàn. Slug danh mục khớp link trong menu.seed.ts
- * (/tin-tuc?category=<slug>). Ảnh bìa là file tĩnh /images/news/... của frontend.
+ * (/tin-tuc?category=<slug>). Ảnh bìa là file tĩnh /images/news/... hoặc /images/hero/... của frontend.
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -38,6 +39,53 @@ export class BlogSeed {
     const categoryIdBySlug = new Map(savedCategories.map((item) => [item.slug, item.id]));
 
     const posts: Partial<BlogPost>[] = [
+      {
+        title: 'Chọn xe nâng điện cho kho hàng: ngồi lái, reach truck hay xe nâng tay?',
+        slug: 'chon-xe-nang-dien-cho-kho-hang',
+        categoryId: categoryIdBySlug.get('huong-dan'),
+        excerpt:
+          'Tải trọng, chiều cao kệ, độ rộng lối đi và số ca làm việc quyết định loại xe nâng điện phù hợp — kèm bảng so sánh nhanh.',
+        content:
+          '<p>Chọn sai xe nâng khiến kho vừa tốn tiền đầu tư vừa chậm luân chuyển hàng. Bốn câu hỏi cần trả lời trước khi xin báo giá:</p>' +
+          '<ol><li><strong>Pallet nặng nhất bao nhiêu?</strong> Chọn tải trọng lớn hơn 20–30% so với pallet nặng nhất.</li><li><strong>Kệ cao bao nhiêu?</strong> Trên 6 m nên dùng reach truck.</li><li><strong>Lối đi rộng bao nhiêu?</strong> Xe ngồi lái cần 3,5 m, reach truck chỉ cần 2,7 m.</li><li><strong>Chạy mấy ca?</strong> Từ 2 ca trở lên nên dùng pin lithium sạc nhanh giữa ca.</li></ol>' +
+          '<h2>So sánh nhanh</h2><ul><li><strong>Xe nâng tay điện:</strong> kéo pallet quãng ngắn, kho nhỏ, siêu thị — chi phí thấp nhất.</li><li><strong>Xe nâng cao (stacker):</strong> kệ 2–3 tầng, xưởng sản xuất.</li><li><strong>Xe ngồi lái 1,5–3,5 tấn:</strong> bốc xếp container, kho tổng hợp, dùng được ngoài trời.</li><li><strong>Reach truck:</strong> kho kệ cao, tối ưu diện tích.</li></ul>' +
+          '<p>Kỹ sư của Xe Điện Xanh khảo sát kho miễn phí và đề xuất cấu hình kèm phương án mua, thuê tài chính hoặc thuê theo tháng.</p>',
+        coverImagePath: '/images/hero/hero-xe-nang.webp',
+        status: PublishStatus.PUBLISHED,
+        publishedAt: new Date('2026-10-22T08:00:00Z'),
+        sortOrder: 1,
+      },
+      {
+        title: 'Resort nên đầu tư bao nhiêu xe điện đưa đón khách?',
+        slug: 'resort-nen-dau-tu-bao-nhieu-xe-dien',
+        categoryId: categoryIdBySlug.get('tin-xe-dien'),
+        excerpt:
+          'Cách tính số xe theo số phòng, quãng đường giữa các khu và giờ cao điểm — và vì sao nên kết hợp xe 8 chỗ với xe 14 chỗ.',
+        content:
+          '<p>Một resort 150 phòng trên khuôn viên 20 ha thường cần 8–12 xe đưa đón, chưa kể xe buồng phòng và xe tuần tra. Con số thực tế phụ thuộc ba yếu tố:</p>' +
+          '<ul><li>Quãng đường từ sảnh tới villa, bãi biển, nhà hàng.</li><li>Giờ cao điểm: check-in buổi chiều, giờ ăn sáng và tối.</li><li>Thời gian chờ tối đa khách chấp nhận (thường dưới 5 phút).</li></ul>' +
+          '<h2>Kết hợp các loại xe</h2><p>Xe 8 chỗ đón khách theo yêu cầu giữa các villa; xe 11–14 chỗ chạy tuyến cố định sảnh – bãi biển; xe cổ điển dùng đón khách VIP và sự kiện. Thêm 1–2 xe buồng phòng giúp bộ phận housekeeping phục vụ nhanh mà không làm phiền khách.</p>' +
+          '<p>Liên hệ để được khảo sát tuyến đường và nhận phương án đội xe kèm lịch sạc, bảo trì.</p>',
+        coverImagePath: '/images/hero/hero-resort.webp',
+        status: PublishStatus.PUBLISHED,
+        publishedAt: new Date('2026-10-20T08:00:00Z'),
+        sortOrder: 1,
+      },
+      {
+        title: 'Bảo dưỡng đội xe golf điện: 6 việc sân golf cần làm mỗi tháng',
+        slug: 'bao-duong-doi-xe-golf-dien',
+        categoryId: categoryIdBySlug.get('huong-dan'),
+        excerpt:
+          'Ắc quy, lốp, phanh và lịch sạc — checklist giúp đội xe golf luôn sẵn sàng cho ngày cuối tuần đông khách.',
+        content:
+          '<p>Đội xe golf chạy 6–8 vòng mỗi ngày cuối tuần, chỉ một vài xe hỏng cũng khiến khách phải chờ. Checklist hằng tháng:</p>' +
+          '<ol><li>Kiểm tra và châm nước cất cho ắc quy chì (pin lithium không cần).</li><li>Vệ sinh cọc bình, siết lại đầu cos.</li><li>Kiểm tra áp suất và độ mòn lốp.</li><li>Thử phanh chân, phanh tay trên dốc.</li><li>Xoay vòng xe để số giờ chạy đều nhau.</li><li>Sạc đầy sau mỗi ngày, không để ắc quy cạn qua đêm.</li></ol>' +
+          '<p>Gói bảo trì định kỳ của Xe Điện Xanh cử kỹ thuật viên tới sân hằng tháng và có xe thay thế khi cần sửa lớn.</p>',
+        coverImagePath: '/images/hero/hero-golf.webp',
+        status: PublishStatus.PUBLISHED,
+        publishedAt: new Date('2026-10-19T08:00:00Z'),
+        sortOrder: 1,
+      },
       {
         title: 'Kinh nghiệm chọn mua xe máy điện cho người mới: 6 tiêu chí quan trọng',
         slug: 'kinh-nghiem-chon-mua-xe-may-dien-cho-nguoi-moi',
