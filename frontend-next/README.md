@@ -7,13 +7,13 @@ Site public tiếng Việt + trang quản trị CMS của Xe Điện Xanh, dựn
 
 ```
 npm install
-npm run dev        # http://localhost:3008 (site) · /admin (quản trị)
+npm run dev        # http://localhost:3006 (site) · /admin (quản trị)
 npm run check      # typecheck + lint + lint:layers + lint:sections — chạy trước khi commit
 npm run snapshot / shot / diff:png   # so HTML + ảnh trước/sau khi refactor — xem scripts/README.md
-npm run build && npm start           # production, cổng 3008
+npm run build && npm start           # production, cổng 3006
 ```
 
-Tạo `.env.local` từ `.env.example`: `API_URL` / `NEXT_PUBLIC_API_URL` trỏ về backend (`http://localhost:3018/api`),
+Tạo `.env.local` từ `.env.example`: `API_URL` / `NEXT_PUBLIC_API_URL` trỏ về backend (`http://localhost:3020/api`),
 `NEXT_PUBLIC_SITE_URL` là địa chỉ site, `REVALIDATE_SECRET` khớp `backend/.env`. Thiếu `.env.local` thì dùng mặc định
 trong `src/config/env.ts` (cùng các cổng trên).
 

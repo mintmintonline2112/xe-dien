@@ -5,7 +5,7 @@ CMS & API cho website bán xe điện Xe Điện Xanh (NestJS 11 + TypeORM/MySQL
 site, liên hệ và **yêu cầu tư vấn** (tư vấn chọn xe, báo giá, trả góp, lái thử, đăng ký đại lý), kèm RBAC
 staff/roles/permissions.
 
-- API prefix: `/api` — Swagger: `http://localhost:3018/docs` (cổng dev 3018; site Next.js 3008)
+- API prefix: `/api` — Swagger: `http://localhost:3020/docs` (cổng dev 3020; site Next.js 3006)
 - Hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn / menu: [`docs/catalog-api.md`](../docs/catalog-api.md)
 - Nội dung gốc **tiếng Việt**; bản dịch phụ `en` lưu ở cột JSON `translations` (`{ en: {...} }`), đọc qua `?lang=en`
 - Đăng nhập admin (seed): `admin@gmail.com` / `admin#123` — đổi ngay trên môi trường thật

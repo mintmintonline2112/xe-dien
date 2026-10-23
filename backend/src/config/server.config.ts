@@ -13,8 +13,8 @@ export interface ServerConfig {
 export default registerAs(
   'server',
   (): ServerConfig => ({
-    port: Number(process.env.PORT ?? 3018),
-    frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3008',
+    port: Number(process.env.PORT ?? 3020),
+    frontendUrl: process.env.FRONTEND_URL ?? 'http://localhost:3006',
     env: process.env.NODE_ENV,
   }),
 );

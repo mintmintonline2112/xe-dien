@@ -17,16 +17,16 @@ xe-nang/
 ├── frontend-next/  # Next.js 15 — site public tiếng Việt + trang quản trị /admin (xem frontend-next/README.md)
 ├── docs/           # catalog-api.md: hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn giữa backend và frontend
 ├── .claude/rules/  # quy tắc code (comment, đặt tên) — bắt buộc khi sửa code
-└── deploy.sh       # deploy VPS bằng một lệnh (pm2: xedien_api :3018, xedien_web :3008)
+└── deploy.sh       # deploy VPS bằng một lệnh (pm2: xedien_api :3020, xedien_web :3006)
 ```
 
 ## Chạy trên máy dev
 
 1. **Backend:** `cd backend`, tạo `.env` từ `.env.example` (DB `xedien`, JWT), tạo database rồi
    `npm install`, `npm run db:run && npm run db:seed`, `npm run start:dev`
-   → API `http://localhost:3018/api`, Swagger `/docs`
+   → API `http://localhost:3020/api`, Swagger `/docs`
 2. **Frontend:** `cd frontend-next`, tạo `.env.local` từ `.env.example`, `npm install && npm run dev`
-   → site `http://localhost:3008`, quản trị `/admin` (đăng nhập seed: admin@gmail.com / admin#123 — đổi mật khẩu ngay)
+   → site `http://localhost:3006`, quản trị `/admin` (đăng nhập seed: admin@gmail.com / admin#123 — đổi mật khẩu ngay)
 
 Làm mới toàn bộ dữ liệu mẫu: `cd backend && npm run db:fresh && npm run content:export`.
 
@@ -58,3 +58,7 @@ nhân viên và phân quyền.
 ## Deploy
 
 `bash /www/wwwroot/xedienxanh.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
+
+> **Cổng: API 3020, web 3006** (máy dev và VPS như nhau). Không dùng lại cổng của site khác chạy chung VPS / máy dev:
+> primenuts 3010/3001, primenutusa 3012/3005, primenutingredients 3014/3007, seantruongre 3016/3008, ogaousa 3018/3009.
+> Trước đây Xe Điện Xanh để 3018/3008 nên trùng API của Ogao: site xe điện gọi nhầm backend Ogao và hiện dữ liệu Ogao.
