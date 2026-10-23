@@ -25,7 +25,7 @@ export function Breadcrumbs({ items, light = false, className }: { items: Crumb[
   };
 
   return (
-    <nav aria-label="Breadcrumb" className={cn("py-3 text-xs", light ? "text-light-soft" : "text-ink-faint", className)}>
+    <nav aria-label="Đường dẫn trang" className={cn("py-3 text-xs", light ? "text-light-soft" : "text-ink-faint", className)}>
       <ol className="m-0 flex list-none flex-wrap items-center gap-x-1.5 gap-y-1 p-0">
         {trail.map((crumb, index) => {
           const isLast = index === trail.length - 1;

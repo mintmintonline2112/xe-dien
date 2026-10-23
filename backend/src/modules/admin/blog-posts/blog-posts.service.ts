@@ -31,7 +31,11 @@ export class BlogPostsService extends BaseService<BlogPost, number> {
       typeof dto.coverImagePath === 'object' &&
       'buffer' in dto.coverImagePath
     ) {
-      coverImagePath = await this.uploadImageService.upload(dto.coverImagePath, folder, options);
+      coverImagePath = await this.uploadImageService.upload(
+        dto.coverImagePath,
+        folder,
+        options,
+      );
     }
 
     const slug = await generateUniqueSlug(this.postRepo, dto.slug || dto.title);
@@ -50,7 +54,7 @@ export class BlogPostsService extends BaseService<BlogPost, number> {
     options: { skipOptimize?: boolean } = {},
   ): Promise<BlogPost> {
     const existing = await this.postRepo.findOneBy({ id });
-    if (!existing) throw new BadRequestException('Blog post not found');
+    if (!existing) throw new BadRequestException('Không tìm thấy bài viết');
 
     let coverImagePath = existing.coverImagePath;
     if (
@@ -58,7 +62,11 @@ export class BlogPostsService extends BaseService<BlogPost, number> {
       typeof dto.coverImagePath === 'object' &&
       'buffer' in dto.coverImagePath
     ) {
-      coverImagePath = await this.uploadImageService.upload(dto.coverImagePath, folder, options);
+      coverImagePath = await this.uploadImageService.upload(
+        dto.coverImagePath,
+        folder,
+        options,
+      );
     } else if (dto.coverImagePath !== undefined) {
       coverImagePath = dto.coverImagePath;
     }

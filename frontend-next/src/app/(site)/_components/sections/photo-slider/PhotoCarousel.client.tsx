@@ -195,7 +195,7 @@ export function PhotoCarousel({
               ARROW_BUTTON,
               "left-0 -translate-x-1/2 max-[640px]:left-2 max-[640px]:translate-x-0",
             )}
-            aria-label="Previous photo"
+            aria-label="Ảnh trước"
             onClick={() => stepBy(-1)}
           >
             <svg
@@ -216,7 +216,7 @@ export function PhotoCarousel({
               ARROW_BUTTON,
               "right-0 translate-x-1/2 max-[640px]:right-2 max-[640px]:translate-x-0",
             )}
-            aria-label="Next photo"
+            aria-label="Ảnh sau"
             onClick={() => stepBy(1)}
           >
             <svg

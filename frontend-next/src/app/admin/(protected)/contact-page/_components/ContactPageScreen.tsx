@@ -5,6 +5,7 @@
  * Dùng bởi: contact-page/page.tsx.
  * Lưu ý: lưu vào site_settings key `contactPage` (1 JSON, kiểu ở _lib/contact-page-config.ts), website đọc qua getSiteSettings().contactPage;
  * trường trống thì website dùng mặc định (src/config/contact.ts). Thứ tự khối trùng thứ tự hiển thị ngoài trang. Lưu kèm socialLinks = contactPage.social.
+ * Lưu thì giữ nguyên field màn này không sửa trong từng nhóm / từng nhu cầu (vd bản dịch `en` cũ trong DB), không xoá.
  */
 
 import { useEffect, useState } from 'react';
@@ -15,7 +16,6 @@ import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { settingsService, SETTINGS_QUERY_KEY } from '@/app/admin/(protected)/settings/_lib/settings.service';
 import {
   CONTACT_SOCIAL_FIELDS,
-  toStoredInterests,
   type ContactSocialKey,
   type StoredContactInterest,
   type StoredContactPage,
@@ -24,22 +24,20 @@ import { SITE_CONTACT } from '@/config/contact';
 import { siteRoutes } from '@/config/routes';
 import { DEFAULT_INTERESTS } from '@/settings/contact-page';
 
-type Hero = { eyebrow: string; title: string; lead: string; enEyebrow: string; enTitle: string; enLead: string };
+type Hero = { eyebrow: string; title: string; lead: string };
 type Social = Record<ContactSocialKey, string>;
 type Company = {
   name: string; location: string; address: string; phone: string; hotline: string; zalo: string; messenger: string;
-  email: string; hours: string; mapUrl: string; enName: string; enLocation: string; enAddress: string; enHours: string;
+  email: string; hours: string; mapUrl: string;
 };
-type FormConfig = { enabled: boolean; kicker: string; title: string; note: string; enKicker: string; enTitle: string; enNote: string };
-type Interest = { value: string; en: string };
+type FormConfig = { enabled: boolean; kicker: string; title: string; note: string };
 
-const EMPTY_HERO: Hero = { eyebrow: '', title: '', lead: '', enEyebrow: '', enTitle: '', enLead: '' };
+const EMPTY_HERO: Hero = { eyebrow: '', title: '', lead: '' };
 const EMPTY_SOCIAL: Social = { facebook: '', zalo: '', youtube: '', tiktok: '', instagram: '' };
 const EMPTY_COMPANY: Company = {
   name: '', location: '', address: '', phone: '', hotline: '', zalo: '', messenger: '', email: '', hours: '', mapUrl: '',
-  enName: '', enLocation: '', enAddress: '', enHours: '',
 };
-const EMPTY_FORM: FormConfig = { enabled: true, kicker: '', title: '', note: '', enKicker: '', enTitle: '', enNote: '' };
+const EMPTY_FORM: FormConfig = { enabled: true, kicker: '', title: '', note: '' };
 
 const toText = (value: unknown) => (typeof value === 'string' ? value : '');
 const dropEmptyFields = <T extends Record<string, unknown>>(source: T): Partial<T> | undefined => {
@@ -59,7 +57,7 @@ export function ContactPageScreen() {
   const [social, setSocial] = useState<Social>(EMPTY_SOCIAL);
   const [company, setCompany] = useState<Company>(EMPTY_COMPANY);
   const [form, setForm] = useState<FormConfig>(EMPTY_FORM);
-  const [interests, setInterests] = useState<Interest[]>([]);
+  const [interests, setInterests] = useState<StoredContactInterest[]>([]);
   const [newInterest, setNewInterest] = useState('');
 
   const { data, isLoading } = useQuery({
@@ -70,10 +68,7 @@ export function ContactPageScreen() {
   useEffect(() => {
     if (!data) return;
     const config: StoredContactPage = data.contactPage ?? {};
-    setHero({
-      eyebrow: toText(config.hero?.eyebrow), title: toText(config.hero?.title), lead: toText(config.hero?.lead),
-      enEyebrow: toText(config.hero?.en?.eyebrow), enTitle: toText(config.hero?.en?.title), enLead: toText(config.hero?.en?.lead),
-    });
+    setHero({ eyebrow: toText(config.hero?.eyebrow), title: toText(config.hero?.title), lead: toText(config.hero?.lead) });
     const savedSocial: Partial<Record<ContactSocialKey, string>> = config.social ?? data.socialLinks ?? {};
     setSocial({
       facebook: toText(savedSocial.facebook), zalo: toText(savedSocial.zalo), youtube: toText(savedSocial.youtube),
@@ -85,18 +80,13 @@ export function ContactPageScreen() {
       phone: toText(savedCompany.phone), hotline: toText(savedCompany.hotline), zalo: toText(savedCompany.zalo),
       messenger: toText(savedCompany.messenger), email: toText(savedCompany.email), hours: toText(savedCompany.hours),
       mapUrl: toText(savedCompany.mapUrl),
-      enName: toText(savedCompany.en?.name), enLocation: toText(savedCompany.en?.location),
-      enAddress: toText(savedCompany.en?.address), enHours: toText(savedCompany.en?.hours),
     });
     setForm({
       enabled: config.form?.enabled !== false,
       kicker: toText(config.form?.kicker), title: toText(config.form?.title), note: toText(config.form?.note),
-      enKicker: toText(config.form?.en?.kicker), enTitle: toText(config.form?.en?.title), enNote: toText(config.form?.en?.note),
     });
-    const savedInterests: StoredContactInterest[] = config.form?.interests?.length
-      ? config.form.interests
-      : toStoredInterests(DEFAULT_INTERESTS);
-    setInterests(savedInterests.map((interest) => ({ value: toText(interest.value), en: toText(interest.en) })));
+    const savedInterests: StoredContactInterest[] = config.form?.interests?.length ? config.form.interests : DEFAULT_INTERESTS;
+    setInterests(savedInterests.map((interest) => ({ ...interest, value: toText(interest.value) })));
   }, [data]);
 
   function moveInterest(index: number, direction: -1 | 1) {
@@ -116,32 +106,30 @@ export function ContactPageScreen() {
       toast.error('Nhu cầu này đã có trong danh sách');
       return;
     }
-    setInterests((currentInterests) => [...currentInterests, { value, en: '' }]);
+    setInterests((currentInterests) => [...currentInterests, { value }]);
     setNewInterest('');
   }
 
   async function handleSave() {
     setIsSaving(true);
     try {
+      const savedConfig: StoredContactPage = data?.contactPage ?? {};
       const contactPage: StoredContactPage = {
-        hero: dropEmptyFields({
-          eyebrow: hero.eyebrow, title: hero.title, lead: hero.lead,
-          en: dropEmptyFields({ eyebrow: hero.enEyebrow, title: hero.enTitle, lead: hero.enLead }),
-        }),
+        hero: dropEmptyFields({ ...savedConfig.hero, eyebrow: hero.eyebrow, title: hero.title, lead: hero.lead }),
         social: dropEmptyFields({ ...social }),
         company: dropEmptyFields({
+          ...savedConfig.company,
           name: company.name, location: company.location, address: company.address,
           phone: company.phone, hotline: company.hotline, zalo: company.zalo, messenger: company.messenger,
           email: company.email, hours: company.hours, mapUrl: company.mapUrl,
-          en: dropEmptyFields({ name: company.enName, location: company.enLocation, address: company.enAddress, hours: company.enHours }),
         }),
         form: dropEmptyFields({
+          ...savedConfig.form,
           enabled: form.enabled,
           kicker: form.kicker, title: form.title, note: form.note,
           interests: interests
-            .map((interest) => ({ value: interest.value.trim(), ...(interest.en.trim() ? { en: interest.en.trim() } : {}) }))
+            .map((interest) => ({ ...interest, value: interest.value.trim() }))
             .filter((interest) => interest.value),
-          en: dropEmptyFields({ kicker: form.enKicker, title: form.enTitle, note: form.enNote }),
         }),
       };
       const payload = removeUndefinedKeys({ contactPage, socialLinks: contactPage.social ?? null });
@@ -200,14 +188,6 @@ export function ContactPageScreen() {
           rows: 2, placeholder: 'Gọi hotline hoặc để lại số điện thoại, nhân viên tư vấn sẽ gọi lại trong 15 phút.',
           hint: 'Để trống thì dùng nội dung mặc định.',
         })}
-        <details className="gf-group">
-          <summary className="gf-group-summary"><strong>Bản dịch tiếng Anh (tuỳ chọn)</strong><small>Để trống thì phiên bản tiếng Anh dùng nội dung tiếng Việt.</small></summary>
-          <div className="gf-group-body">
-            {renderTextField('Eyebrow (Tiếng Anh)', hero.enEyebrow, (value) => setHero({ ...hero, enEyebrow: value }), { placeholder: 'Contact' })}
-            {renderTextField('Tiêu đề (Tiếng Anh)', hero.enTitle, (value) => setHero({ ...hero, enTitle: value }), { placeholder: 'Contact us' })}
-            {renderTextField('Đoạn dẫn (Tiếng Anh)', hero.enLead, (value) => setHero({ ...hero, enLead: value }), { rows: 2 })}
-          </div>
-        </details>
       </section>
 
       <section className="gf-card st-section">
@@ -234,15 +214,6 @@ export function ContactPageScreen() {
           <div style={{ flex: 1 }}>{renderTextField('Email', company.email, (value) => setCompany({ ...company, email: value }), { placeholder: SITE_CONTACT.email, type: 'email' })}</div>
           <div style={{ flex: 1 }}>{renderTextField('Link Google Maps (tùy chọn)', company.mapUrl, (value) => setCompany({ ...company, mapUrl: value }), { placeholder: 'https://maps.app.goo.gl/...', type: 'url' })}</div>
         </div>
-        <details className="gf-group">
-          <summary className="gf-group-summary"><strong>Bản dịch tiếng Anh (tuỳ chọn)</strong><small>Số điện thoại / email dùng chung, chỉ dịch tên, địa chỉ, giờ mở cửa.</small></summary>
-          <div className="gf-group-body">
-            {renderTextField('Tên cửa hàng (Tiếng Anh)', company.enName, (value) => setCompany({ ...company, enName: value }))}
-            {renderTextField('Tỉnh / thành phố (Tiếng Anh)', company.enLocation, (value) => setCompany({ ...company, enLocation: value }))}
-            {renderTextField('Địa chỉ (Tiếng Anh)', company.enAddress, (value) => setCompany({ ...company, enAddress: value }), { rows: 2 })}
-            {renderTextField('Giờ mở cửa (Tiếng Anh)', company.enHours, (value) => setCompany({ ...company, enHours: value }))}
-          </div>
-        </details>
       </section>
 
       <section className="gf-card st-section">
@@ -275,7 +246,7 @@ export function ContactPageScreen() {
         <div>
           <label className="gf-label">Danh sách &ldquo;Nhu cầu quan tâm&rdquo;</label>
           <p className="gf-hint" style={{ marginTop: 0 }}>
-            Các lựa chọn trong ô chọn nhu cầu của form. Cột tiếng Anh là nhãn ở phiên bản tiếng Anh (để trống thì dùng tiếng Việt).
+            Các lựa chọn trong ô chọn nhu cầu của form.
           </p>
           <div className="cp-interests">
             {interests.map((item, index) => (
@@ -284,13 +255,7 @@ export function ContactPageScreen() {
                   className="gf-control"
                   value={item.value}
                   onChange={(e) => setInterests((currentInterests) => currentInterests.map((interest, i) => (i === index ? { ...interest, value: e.target.value } : interest)))}
-                  placeholder="Tên nhu cầu (tiếng Việt)"
-                />
-                <input
-                  className="gf-control"
-                  value={item.en}
-                  onChange={(e) => setInterests((currentInterests) => currentInterests.map((interest, i) => (i === index ? { ...interest, en: e.target.value } : interest)))}
-                  placeholder="English"
+                  placeholder="Tên nhu cầu"
                 />
                 <div className="cp-interest-actions">
                   <button type="button" className="adm-icon-btn" title="Lên" disabled={index === 0} onClick={() => moveInterest(index, -1)}><ArrowUp size={15} /></button>
@@ -311,15 +276,6 @@ export function ContactPageScreen() {
             </div>
           </div>
         </div>
-
-        <details className="gf-group">
-          <summary className="gf-group-summary"><strong>Bản dịch tiếng Anh (tuỳ chọn)</strong></summary>
-          <div className="gf-group-body">
-            {renderTextField('Dòng nhỏ (Tiếng Anh)', form.enKicker, (value) => setForm({ ...form, enKicker: value }), { placeholder: 'Free consultation' })}
-            {renderTextField('Tiêu đề khối (Tiếng Anh)', form.enTitle, (value) => setForm({ ...form, enTitle: value }), { placeholder: 'Leave your number, we will call you back' })}
-            {renderTextField('Ghi chú (Tiếng Anh)', form.enNote, (value) => setForm({ ...form, enNote: value }), { rows: 2 })}
-          </div>
-        </details>
       </section>
 
     </div>

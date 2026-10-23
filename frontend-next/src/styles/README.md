@@ -39,7 +39,7 @@ layer. **Thứ tự layer là điều quan trọng nhất**: layer đứng sau t
   form, hộp thoại), `glow` / `glow-lg` (quầng vàng quanh ghim bản đồ). Viền focus dùng `ring-*`.
 - **Khung nội dung**: class `site-container`, không đặt tên `container` (trùng utility có sẵn của Tailwind, lệch layout
   ở màn trung bình).
-- Hoa văn hạt hạnh nhân và hạt phim cho dải navy: `--pattern-almonds`, `--texture-grain` (dùng qua `NAVY_PATTERN`,
+- Hoa văn tia sét và hạt phim cho dải nền đậm: `--pattern-volt`, `--texture-grain` (dùng qua `NAVY_PATTERN`,
   `NAVY_GRAIN` trong `_components/ui.tsx`).
 
 ## Móc hiệu ứng (`effects.css`, do `SiteEffects.tsx` điều khiển)

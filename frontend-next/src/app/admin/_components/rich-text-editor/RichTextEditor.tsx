@@ -369,40 +369,40 @@ function Toolbar({
 
   return (
     <div className="rte-toolbar">
-      <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive('bold')} title="Bold"><Bold size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive('italic')} title="Italic"><Italic size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleUnderline().run()} isActive={editor.isActive('underline')} title="Underline"><UnderlineIcon size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive('strike')} title="Strikethrough"><Strikethrough size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive('bold')} title="In đậm"><Bold size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive('italic')} title="In nghiêng"><Italic size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleUnderline().run()} isActive={editor.isActive('underline')} title="Gạch chân"><UnderlineIcon size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive('strike')} title="Gạch ngang"><Strikethrough size={15} /></ToolbarButton>
 
       <span className="rte-divider" />
 
-      <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} isActive={editor.isActive('heading', { level: 2 })} title="Heading 2"><Heading2 size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} isActive={editor.isActive('heading', { level: 3 })} title="Heading 3"><Heading3 size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive('bulletList')} title="Bullet list"><List size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={editor.isActive('orderedList')} title="Numbered list"><ListOrdered size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={editor.isActive('blockquote')} title="Quote"><Quote size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} isActive={editor.isActive('heading', { level: 2 })} title="Tiêu đề cấp 2"><Heading2 size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} isActive={editor.isActive('heading', { level: 3 })} title="Tiêu đề cấp 3"><Heading3 size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive('bulletList')} title="Danh sách chấm"><List size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={editor.isActive('orderedList')} title="Danh sách số"><ListOrdered size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={editor.isActive('blockquote')} title="Trích dẫn"><Quote size={15} /></ToolbarButton>
 
       <span className="rte-divider" />
 
-      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('left').run()} isActive={editor.isActive({ textAlign: 'left' })} title="Align left"><AlignLeft size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('center').run()} isActive={editor.isActive({ textAlign: 'center' })} title="Align center"><AlignCenter size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('right').run()} isActive={editor.isActive({ textAlign: 'right' })} title="Align right"><AlignRight size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('left').run()} isActive={editor.isActive({ textAlign: 'left' })} title="Căn trái"><AlignLeft size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('center').run()} isActive={editor.isActive({ textAlign: 'center' })} title="Căn giữa"><AlignCenter size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('right').run()} isActive={editor.isActive({ textAlign: 'right' })} title="Căn phải"><AlignRight size={15} /></ToolbarButton>
 
       <span className="rte-divider" />
 
-      <ToolbarButton onClick={onEditLink} isActive={editor.isActive('link')} title="Link"><Link2 size={15} /></ToolbarButton>
+      <ToolbarButton onClick={onEditLink} isActive={editor.isActive('link')} title="Chèn link"><Link2 size={15} /></ToolbarButton>
       {editor.isActive('link') && (
-        <ToolbarButton onClick={() => editor.chain().focus().unsetLink().run()} title="Remove link"><Unlink size={15} /></ToolbarButton>
+        <ToolbarButton onClick={() => editor.chain().focus().unsetLink().run()} title="Bỏ link"><Unlink size={15} /></ToolbarButton>
       )}
       <ToolbarButton onClick={onPickImage} title="Chèn ảnh từ Thư viện"><ImageIcon size={15} /></ToolbarButton>
       <ToolbarButton onClick={onPickVideo} title="Chèn video (tải lên hoặc YouTube/Vimeo)"><VideoIcon size={15} /></ToolbarButton>
       <ToolbarButton onClick={onInsertButton} title="Chèn nút bấm"><MousePointerClick size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Divider"><Minus size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Đường kẻ ngang"><Minus size={15} /></ToolbarButton>
 
       <span className="rte-divider" />
 
-      <ToolbarButton onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Undo"><Undo2 size={15} /></ToolbarButton>
-      <ToolbarButton onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Redo"><Redo2 size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Hoàn tác"><Undo2 size={15} /></ToolbarButton>
+      <ToolbarButton onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Làm lại"><Redo2 size={15} /></ToolbarButton>
     </div>
   );
 }

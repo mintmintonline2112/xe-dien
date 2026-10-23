@@ -1,8 +1,8 @@
 /**
- * Section `media-cards`: lưới thẻ có ảnh, mỗi thẻ một giống / định dạng sản phẩm; bố cục `circles`, `toggle`, `names`, `photo`, `badge`.
+ * Section `media-cards`: lưới thẻ có ảnh, mỗi thẻ một dòng xe / dịch vụ / đối tác; bố cục `circles`, `toggle`, `names`, `photo`, `badge`.
  * Dùng bởi: sections/index.ts (registry) qua SectionRenderer. CMS: heading, subheading, content, metadata.items
- * [{title,text,short,image,imagePosition,icon,alt}], sizes + toggleLabel + ctaLabel/ctaHref (toggle), image (photo), photos + note (badge), itemLabel.
- * Lưu ý: công tắc "Short version" của `toggle` chạy thuần CSS: checkbox ẩn là `peer` của thanh trượt, còn đổi mô tả ngắn / đầy đủ bắt từ thẻ
+ * [{title,text,short,image,imagePosition,icon,alt}], sizes (chip phụ) + toggleLabel + ctaLabel/ctaHref (toggle), image (photo), photos + note (badge), itemLabel.
+ * Lưu ý: công tắc rút gọn của `toggle` chạy thuần CSS: checkbox ẩn là `peer` của thanh trượt, còn đổi mô tả ngắn / đầy đủ bắt từ thẻ
  * bằng `group-has-[input:not(:checked)]` (mô tả khác nhánh DOM nên `peer-*` không với tới). Thẻ `.reveal` không tự khai transition.
  */
 import { sanitizeRichText } from "@/app/(site)/_lib/sanitize";
@@ -228,7 +228,7 @@ function ToggleCards({
                     {sizes.length > 0 ? (
                       <ul
                         className="mt-4 flex flex-wrap gap-2"
-                        aria-label="Available sizes"
+                        aria-label="Phân loại"
                       >
                         {sizes.map((size) => (
                           <li

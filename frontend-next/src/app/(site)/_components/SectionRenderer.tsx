@@ -1,6 +1,6 @@
 /**
  * Render một page-section bằng component trong registry (sections/index.ts), và danh sách section của một trang.
- * Dùng bởi: app/(site)/page.tsx, san-pham/page.tsx, lien-he/page.tsx, [slug]/page.tsx.
+ * Dùng bởi: app/(site)/page.tsx, lien-he/page.tsx, [slug]/page.tsx.
  * Lưu ý: loại component đọc từ metadata._component, thiếu thì theo sectionKey; không khớp registry thì dùng GenericBlock.
  * Chỉ render section đang bật, theo sortOrder.
  */

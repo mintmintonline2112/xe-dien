@@ -1,5 +1,5 @@
 /**
- * API công khai bài blog (/api/client/blog-posts, bí danh /api/client/articles): danh sách phân trang / lọc danh mục, chi tiết theo slug hoặc id; có cache.
+ * API công khai bài blog (/api/client/blog-posts): danh sách phân trang / lọc danh mục, chi tiết theo slug hoặc id; có cache.
  * Dùng bởi: frontend-next/src/app/(site)/_lib/cms.ts.
  * Lưu ý: chỉ trả bài PUBLISHED có publishedAt ≤ hiện tại; client không lật được điều kiện này (status / publishedAt / deletedAt bị bỏ khỏi filter).
  * `lang` đã nằm trong cache key (keyOf toàn bộ query) nên phải tách khỏi filters trước khi truy vấn.
@@ -14,7 +14,7 @@ import { isBaseLang, normalizeLang } from 'src/common/i18n/translations';
 import { BlogPost } from 'src/modules/admin/blog-posts/entities/blog-post.entity';
 import { ClientBlogPostsService } from './blog-posts.service';
 
-@Controller(['client/blog-posts', 'client/articles'])
+@Controller('client/blog-posts')
 export class ClientBlogPostsController {
   constructor(
     private readonly postsService: ClientBlogPostsService,

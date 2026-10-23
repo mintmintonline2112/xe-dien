@@ -49,7 +49,7 @@ export class StaffSeed {
       },
       {
         staffCode: 'STF001',
-        name: 'Sales Staff',
+        name: 'Nhân viên bán hàng',
         email: 'staff1@gmail.com',
         password: 'staff#123',
         role: staffRole ?? adminRole,

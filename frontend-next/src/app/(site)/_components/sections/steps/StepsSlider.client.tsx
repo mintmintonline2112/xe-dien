@@ -100,7 +100,7 @@ export function StepsSlider({
       <button
         type="button"
         className={cn(ARROW_BUTTON, "left-[0.9rem]")}
-        aria-label="Previous slide"
+        aria-label="Slide trước"
         onClick={() => goToSlide(currentIndex - 1)}
       >
         <svg
@@ -117,7 +117,7 @@ export function StepsSlider({
       <button
         type="button"
         className={cn(ARROW_BUTTON, "right-[0.9rem]")}
-        aria-label="Next slide"
+        aria-label="Slide sau"
         onClick={() => goToSlide(currentIndex + 1)}
       >
         <svg
@@ -133,7 +133,7 @@ export function StepsSlider({
       </button>
       <div
         className="absolute right-[1.2rem] bottom-[1.1rem] z-4 flex gap-2 max-[640px]:right-[0.9rem] max-[640px]:bottom-[0.9rem]"
-        aria-label="Slides"
+        aria-label="Chọn slide"
       >
         {slideList.map((slide, index) => (
           <button

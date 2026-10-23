@@ -1,6 +1,8 @@
 /**
- * Seed hai vai trò Admin (mọi quyền) và Staff (chỉ quyền _LIST / _DETAIL); chạy lại thì cập nhật quyền theo danh sách hiện có.
+ * Seed hai vai trò Admin (mọi quyền) và Staff (chỉ quyền _LIST / _DETAIL).
  * Dùng bởi: database/seeding/seeding.service.ts (chạy sau permission.seed.ts).
+ * Lưu ý: deploy.sh chạy seed mỗi lần deploy. Admin luôn được cấp lại đủ quyền (kể cả quyền mới thêm); Staff chỉ được gán quyền
+ * lúc tạo lần đầu, sau đó giữ nguyên để quyền admin chỉnh trong trang Vai trò không bị deploy ghi đè.
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,18 +34,21 @@ export class RoleSeed {
       existingRoles.find((role) => role.name === 'Admin') ??
       this.roleRepo.create({
         name: 'Admin',
-        description: 'Full access to all system functions',
+        description: 'Toàn quyền quản trị hệ thống',
       });
     adminRole.permissions = allPermissions;
+    const rolesToSave = [adminRole];
 
-    const staffRole =
-      existingRoles.find((role) => role.name === 'Staff') ??
-      this.roleRepo.create({
-        name: 'Staff',
-        description: 'Read-only access for daily content operations',
-      });
-    staffRole.permissions = staffPermissions;
+    if (!existingRoles.some((role) => role.name === 'Staff')) {
+      rolesToSave.push(
+        this.roleRepo.create({
+          name: 'Staff',
+          description: 'Chỉ xem danh sách và chi tiết nội dung',
+          permissions: staffPermissions,
+        }),
+      );
+    }
 
-    await this.roleRepo.save([adminRole, staffRole]);
+    await this.roleRepo.save(rolesToSave);
   }
 }

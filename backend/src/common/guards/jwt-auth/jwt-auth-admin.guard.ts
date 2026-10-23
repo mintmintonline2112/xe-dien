@@ -1,5 +1,5 @@
 /**
- * Guard xác thực JWT cho route admin (strategy 'jwt-admin'); bỏ qua route có @Public(), trả 401 JWT_EXPIRED khi token hết hạn.
+ * Guard xác thực JWT cho route admin (strategy 'jwt-admin'); bỏ qua route có @Public(), trả 401 kèm thông báo tiếng Việt (hết hạn / chưa đăng nhập).
  * Dùng bởi: các controller trong modules/admin.
  */
 import {
@@ -31,9 +31,9 @@ export class JwtAdminAuthGuard extends AuthGuard('jwt-admin') {
   handleRequest(error: any, user: any, info: any) {
     if (error || !user) {
       if (info?.message === 'jwt expired') {
-        throw new UnauthorizedException('JWT_EXPIRED');
+        throw new UnauthorizedException('Phiên đăng nhập đã hết hạn');
       }
-      throw new UnauthorizedException('UNAUTHORIZED');
+      throw new UnauthorizedException('Bạn chưa đăng nhập');
     }
     return user;
   }

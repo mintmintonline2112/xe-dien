@@ -3,10 +3,9 @@
 /**
  * Khu chỉnh metadata trực quan theo danh mục component (bảng section_definitions): bố cục, danh sách chuỗi, danh sách mục
  * có ảnh / chú thích, nhóm ô chữ, ảnh đơn (kèm điểm lấy nét), JSON — thêm / xoá / di chuyển bằng nút, không cần biết JSON.
- * Dùng bởi: PageSectionForm.tsx (bản gốc và bản dịch).
- * Lưu ý: field có `layouts` chỉ hiện khi bố cục đang chọn thuộc danh sách đó. isTranslation = chế độ dịch: chỉ ô chữ, lọc
- * field theo baseLayout của bản gốc; website đè bản dịch lên bản gốc theo từng key khi chạy ?lang=en. Item dạng chuỗi cũ
- * vẫn đọc được (thành field đầu tiên). textMap có key `__self__` = các ô chữ nằm thẳng ở gốc metadata.
+ * Dùng bởi: PageSectionForm.tsx.
+ * Lưu ý: field có `layouts` chỉ hiện khi bố cục đang chọn thuộc danh sách đó. Item dạng chuỗi cũ vẫn đọc được (thành field
+ * đầu tiên). textMap có key `__self__` = các ô chữ nằm thẳng ở gốc metadata.
  */
 
 import { useState } from 'react';
@@ -133,16 +132,13 @@ function ItemListEditor({
   value,
   onChange,
   onPickImage,
-  isTranslation,
 }: {
   spec: Extract<SectionFieldSpec, { type: 'itemList' }>;
   value: unknown;
   onChange: (next: Array<Record<string, string>>) => void;
   onPickImage: (apply: (url: string) => void) => void;
-  isTranslation: boolean;
 }) {
   const firstField = spec.itemFields[0]?.name ?? 'value';
-  const fields = isTranslation ? spec.itemFields.filter((field) => field.kind !== 'image') : spec.itemFields;
   const items = toArray(value).map((item) => {
     if (typeof item === 'string') return { [firstField]: item } as Record<string, string>;
     if (item && typeof item === 'object') {
@@ -174,7 +170,7 @@ function ItemListEditor({
       {items.map((item, index) => (
         <div className="me-card" key={index}>
           <div className="me-card-fields">
-            {fields.map((field) => (
+            {spec.itemFields.map((field) => (
               <div key={field.name} className="me-card-field">
                 <label className="gf-label">{field.label}</label>
                 {field.kind === 'image' ? (
@@ -355,14 +351,10 @@ export function MetadataEditor({
   definition,
   value,
   onChange,
-  isTranslation = false,
-  baseLayout,
 }: {
   definition?: SectionDefinition;
   value: SectionMetadata;
   onChange: (next: SectionMetadata) => void;
-  isTranslation?: boolean;
-  baseLayout?: string;
 }) {
   const [imagePicker, setImagePicker] = useState<{ apply: (url: string) => void } | null>(null);
   const [advancedDraft, setAdvancedDraft] = useState<string | null>(null);
@@ -377,26 +369,20 @@ export function MetadataEditor({
 
   const specs = definition?.fields ?? [];
   const layoutSpec = specs.find((spec): spec is Extract<SectionFieldSpec, { type: 'select' }> => spec.key === 'layout' && spec.type === 'select');
-  const currentLayout =
-    (isTranslation ? baseLayout : typeof value.layout === 'string' ? value.layout : undefined) ??
-    layoutSpec?.options[0]?.value;
+  const currentLayout = (typeof value.layout === 'string' ? value.layout : undefined) ?? layoutSpec?.options[0]?.value;
 
-  const visibleSpecs = specs.filter((spec) => {
-    if (spec.layouts && (!currentLayout || !spec.layouts.includes(currentLayout))) return false;
-    if (isTranslation && (spec.type === 'select' || spec.type === 'image' || spec.type === 'json')) return false;
-    return true;
-  });
+  const visibleSpecs = specs.filter(
+    (spec) => !spec.layouts || (!!currentLayout && spec.layouts.includes(currentLayout)),
+  );
 
   return (
     <div className="me-wrap">
       <div className="me-head">
-        <strong>{isTranslation ? 'Bản dịch nội dung có cấu trúc' : 'Nội dung có cấu trúc của khối'}</strong>
+        <strong>Nội dung có cấu trúc của khối</strong>
         <small>
-          {isTranslation
-            ? 'Chỉ dịch chữ; bố cục, ảnh và mục để trống lấy theo bản gốc.'
-            : definition
-              ? definition.description ?? definition.label
-              : 'Section thuộc danh mục sẽ có khu chỉnh sửa trực quan tại đây. Khối generic không cần metadata — chỉ dùng heading, nội dung và ảnh minh họa.'}
+          {definition
+            ? definition.description ?? definition.label
+            : 'Section thuộc danh mục sẽ có khu chỉnh sửa trực quan tại đây. Khối generic không cần metadata — chỉ dùng heading, nội dung và ảnh minh họa.'}
         </small>
       </div>
 
@@ -419,7 +405,6 @@ export function MetadataEditor({
               value={value[spec.key]}
               onChange={(next) => setMetadataKey(spec.key, next)}
               onPickImage={(apply) => setImagePicker({ apply })}
-              isTranslation={isTranslation}
             />
           );
         }
@@ -446,44 +431,42 @@ export function MetadataEditor({
         );
       })}
 
-      {isTranslation ? null : (
-        <details className="gf-group me-advanced">
-          <summary className="gf-group-summary">
-            <strong>Nâng cao — JSON đầy đủ</strong>
-            <small>Dành cho dữ liệu ngoài danh mục; sửa xong bấm &ldquo;Áp dụng JSON&rdquo;.</small>
-          </summary>
-          <div className="gf-group-body">
-            <textarea
-              className={`gf-control me-json${hasAdvancedError ? ' me-json-error' : ''}`}
-              rows={9}
-              value={advancedDraft ?? JSON.stringify(value, null, 2)}
-              onChange={(e) => setAdvancedDraft(e.target.value)}
-            />
-            {hasAdvancedError ? (
-              <p className="gf-hint me-error">JSON không hợp lệ — chưa được áp dụng.</p>
-            ) : null}
-            <button
-              type="button"
-              className="adm-btn adm-btn--sm"
-              onClick={() => {
-                const raw = (advancedDraft ?? '').trim();
-                if (advancedDraft === null) return;
-                try {
-                  const parsed: unknown = raw ? JSON.parse(raw) : {};
-                  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error();
-                  onChange(parsed as SectionMetadata);
-                  setAdvancedDraft(null);
-                  setHasAdvancedError(false);
-                } catch {
-                  setHasAdvancedError(true);
-                }
-              }}
-            >
-              Áp dụng JSON
-            </button>
-          </div>
-        </details>
-      )}
+      <details className="gf-group me-advanced">
+        <summary className="gf-group-summary">
+          <strong>Nâng cao — JSON đầy đủ</strong>
+          <small>Dành cho dữ liệu ngoài danh mục; sửa xong bấm &ldquo;Áp dụng JSON&rdquo;.</small>
+        </summary>
+        <div className="gf-group-body">
+          <textarea
+            className={`gf-control me-json${hasAdvancedError ? ' me-json-error' : ''}`}
+            rows={9}
+            value={advancedDraft ?? JSON.stringify(value, null, 2)}
+            onChange={(e) => setAdvancedDraft(e.target.value)}
+          />
+          {hasAdvancedError ? (
+            <p className="gf-hint me-error">JSON không hợp lệ — chưa được áp dụng.</p>
+          ) : null}
+          <button
+            type="button"
+            className="adm-btn adm-btn--sm"
+            onClick={() => {
+              const raw = (advancedDraft ?? '').trim();
+              if (advancedDraft === null) return;
+              try {
+                const parsed: unknown = raw ? JSON.parse(raw) : {};
+                if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error();
+                onChange(parsed as SectionMetadata);
+                setAdvancedDraft(null);
+                setHasAdvancedError(false);
+              } catch {
+                setHasAdvancedError(true);
+              }
+            }}
+          >
+            Áp dụng JSON
+          </button>
+        </div>
+      </details>
 
       {imagePicker ? (
         <LibraryPicker

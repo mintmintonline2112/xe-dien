@@ -1,6 +1,6 @@
 /**
  * Decorator tham số @CurrentUser() lấy tài khoản admin đã đăng nhập (request.user) trong controller.
- * Dùng bởi: hiện chưa có controller nào dùng.
+ * Dùng bởi: modules/admin/dashboard/dashboard.controller.ts.
  */
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { JwtAdmin } from 'src/modules/admin/auth/strategies/jwt.strategy';

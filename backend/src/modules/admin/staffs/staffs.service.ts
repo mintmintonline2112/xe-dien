@@ -33,12 +33,12 @@ export class StaffsService extends BaseService<Staff, string> {
     const staff = await this.staffRepository.findOne({ where: { id } as any });
 
     if (!staff) {
-      throw new NotFoundException('Staff not found');
+      throw new NotFoundException('Không tìm thấy nhân viên');
     }
 
     if (staff.type === AccountType.ADMIN) {
       throw new BadRequestException(
-        `Cannot ${action} system administrator account`,
+        `Không được ${action} tài khoản quản trị hệ thống`,
       );
     }
 
@@ -69,7 +69,7 @@ export class StaffsService extends BaseService<Staff, string> {
     data: UpdateStaffDto,
     actorId?: string,
   ): Promise<Staff> {
-    const staff = await this.findEditableStaff(id, 'update');
+    const staff = await this.findEditableStaff(id, 'sửa');
 
     if (data.email) {
       const existingStaff = await this.staffRepository.findOne({
@@ -77,7 +77,7 @@ export class StaffsService extends BaseService<Staff, string> {
       });
 
       if (existingStaff) {
-        throw new BadRequestException('Email already exists');
+        throw new BadRequestException('Email đã được sử dụng');
       }
     }
 
@@ -91,11 +91,11 @@ export class StaffsService extends BaseService<Staff, string> {
 
     if (data.password) {
       if (!data.confirmPassword) {
-        throw new BadRequestException('Confirm password is required');
+        throw new BadRequestException('Vui lòng nhập mật khẩu xác nhận');
       }
 
       if (data.password !== data.confirmPassword) {
-        throw new BadRequestException('Password confirmation does not match');
+        throw new BadRequestException('Mật khẩu xác nhận không khớp');
       }
 
       let isActorAdmin = false;
@@ -106,7 +106,7 @@ export class StaffsService extends BaseService<Staff, string> {
 
       if (!isActorAdmin) {
         if (!data.currentPassword) {
-          throw new BadRequestException('Current password is required');
+          throw new BadRequestException('Vui lòng nhập mật khẩu hiện tại');
         }
 
         const isCurrentPasswordCorrect = await bcrypt.compare(
@@ -115,7 +115,7 @@ export class StaffsService extends BaseService<Staff, string> {
         );
 
         if (!isCurrentPasswordCorrect) {
-          throw new BadRequestException('Current password is incorrect');
+          throw new BadRequestException('Mật khẩu hiện tại không đúng');
         }
       }
 
@@ -131,7 +131,7 @@ export class StaffsService extends BaseService<Staff, string> {
     });
 
     if (!entity) {
-      throw new NotFoundException(`Staff with id ${id} not found`);
+      throw new NotFoundException(`Không tìm thấy nhân viên có id ${id}`);
     }
 
     return await this.staffRepository.save(entity);
@@ -140,11 +140,11 @@ export class StaffsService extends BaseService<Staff, string> {
   async toggleStatus(id: string, actorId?: string): Promise<Staff> {
     if (actorId && actorId === id) {
       throw new BadRequestException(
-        'You cannot block/unblock your own account',
+        'Bạn không thể khoá / mở khoá tài khoản của chính mình',
       );
     }
 
-    const staff = await this.findEditableStaff(id, 'change status');
+    const staff = await this.findEditableStaff(id, 'đổi trạng thái');
 
     staff.status =
       staff.status === AccountStatus.ACTIVE
@@ -156,10 +156,12 @@ export class StaffsService extends BaseService<Staff, string> {
 
   override async delete(id: string, actorId?: string) {
     if (actorId && actorId === id) {
-      throw new BadRequestException('You cannot delete your own account');
+      throw new BadRequestException(
+        'Bạn không thể xoá tài khoản của chính mình',
+      );
     }
 
-    await this.findEditableStaff(id, 'delete');
+    await this.findEditableStaff(id, 'xoá');
     return await super.delete(id);
   }
 }

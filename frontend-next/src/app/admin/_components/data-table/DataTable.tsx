@@ -179,7 +179,7 @@ export function DataTable<T extends object>({
                 disabled={isAcceptDisabled}
                 onClick={() => emitAction('accept', row)}
                 className="dt-action dt-action--accept"
-                aria-label="Accept"
+                aria-label="Duyệt"
                 title="Xác nhận"
               >
                 <Check size={15} />
@@ -191,7 +191,7 @@ export function DataTable<T extends object>({
                 disabled={isCancelDisabled}
                 onClick={() => emitAction('cancel', row)}
                 className="dt-action dt-action--cancel"
-                aria-label="Cancel"
+                aria-label="Huỷ"
                 title="Hủy"
               >
                 <Ban size={15} />
@@ -202,7 +202,7 @@ export function DataTable<T extends object>({
                 type="button"
                 onClick={() => emitAction('reply', row)}
                 className="dt-action dt-action--reply"
-                aria-label="Reply"
+                aria-label="Trả lời"
                 title="Trả lời"
               >
                 <MessageSquareReply size={15} />
@@ -213,7 +213,7 @@ export function DataTable<T extends object>({
                 type="button"
                 onClick={() => emitAction('toggle', row)}
                 className="dt-action dt-action--toggle"
-                aria-label="Toggle approval"
+                aria-label="Bật / tắt duyệt"
                 title="Duyệt / Bỏ duyệt"
               >
                 <CircleCheck size={15} />
@@ -224,7 +224,7 @@ export function DataTable<T extends object>({
                 type="button"
                 onClick={() => emitAction('edit', row)}
                 className="dt-action"
-                aria-label="Edit"
+                aria-label="Sửa"
                 title="Sửa"
               >
                 <Pencil size={15} />
@@ -235,7 +235,7 @@ export function DataTable<T extends object>({
                 type="button"
                 onClick={() => emitAction('block', row)}
                 className="dt-action dt-action--block"
-                aria-label="Block / Unblock"
+                aria-label="Khoá / mở khoá"
                 title="Khóa / Mở khóa"
               >
                 <ShieldOff size={15} />
@@ -246,7 +246,7 @@ export function DataTable<T extends object>({
                 type="button"
                 onClick={() => emitAction('delete', row)}
                 className="dt-action dt-action--delete"
-                aria-label="Delete"
+                aria-label="Xoá"
                 title="Xóa"
               >
                 <Trash2 size={15} />

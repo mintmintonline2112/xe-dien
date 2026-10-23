@@ -35,7 +35,6 @@ export interface MenuItem {
   isActive: boolean;
   showSubmenu: boolean;
   sortOrder: number;
-  translations?: Record<string, Record<string, unknown>> | null;
   createdAt: string;
 }
 

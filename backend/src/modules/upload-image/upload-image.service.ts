@@ -25,7 +25,7 @@ import {
 
 export class FileSizeLimitException extends BadRequestException {
   constructor() {
-    super(`File size exceeds the ${MAX_UPLOAD_MB}MB limit`);
+    super(`File vượt quá giới hạn ${MAX_UPLOAD_MB}MB`);
   }
 }
 
@@ -37,7 +37,7 @@ export class FileTypeException extends BadRequestException {
 
 export class FileStorageException extends InternalServerErrorException {
   constructor() {
-    super('Could not handle file operation on disk');
+    super('Không lưu được file, vui lòng thử lại');
   }
 }
 
@@ -51,7 +51,7 @@ export class UploadImageService {
     options: { skipOptimize?: boolean } = {},
   ): Promise<string> {
     if (!file) {
-      throw new BadRequestException('File is required');
+      throw new BadRequestException('Vui lòng chọn file');
     }
 
     if (file.size > MAX_UPLOAD_BYTES) {

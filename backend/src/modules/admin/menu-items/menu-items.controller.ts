@@ -37,7 +37,10 @@ export class MenuItemsController extends BaseController<
   number
 > {
   constructor(private readonly menuItemsService: MenuItemsService) {
-    super(menuItemsService, 'MenuItem');
+    super(menuItemsService, 'MenuItem', {
+      create: CreateMenuItemDto,
+      update: UpdateMenuItemDto,
+    });
   }
 
   protected getFilterableFields(): (keyof MenuItem)[] {

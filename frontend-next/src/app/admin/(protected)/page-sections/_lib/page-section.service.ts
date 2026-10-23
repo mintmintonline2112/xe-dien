@@ -56,7 +56,6 @@ export interface PageSection {
   metadata: Record<string, unknown> | null;
   isActive: boolean;
   sortOrder: number;
-  translations?: Record<string, Record<string, unknown>> | null;
   createdAt: string;
 }
 

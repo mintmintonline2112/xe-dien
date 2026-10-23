@@ -34,7 +34,6 @@ export interface SitePage {
   metaDescription: string | null;
   ogImagePath: string | null;
   canonicalUrl: string | null;
-  translations?: Record<string, Record<string, unknown>> | null;
   createdAt: string;
 }
 

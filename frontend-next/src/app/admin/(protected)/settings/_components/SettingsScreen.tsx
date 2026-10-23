@@ -54,7 +54,7 @@ const COMPANY_FIELDS = [
   { key: 'address', label: 'Địa chỉ', placeholder: SITE_CONTACT.address },
   { key: 'location', label: 'Tỉnh / thành phố', placeholder: SITE_CONTACT.location },
   { key: 'mapUrl', label: 'Link Google Maps (tuỳ chọn)', placeholder: 'https://maps.app.goo.gl/...', type: 'url' },
-] as const satisfies ReadonlyArray<{ key: Exclude<keyof StoredCompany, 'en'>; label: string; placeholder: string; type?: string }>;
+] as const satisfies ReadonlyArray<{ key: keyof StoredCompany; label: string; placeholder: string; type?: string }>;
 
 type CompanyField = (typeof COMPANY_FIELDS)[number]['key'];
 
@@ -82,10 +82,6 @@ export function SettingsScreen() {
   const [fontFamily, setFontFamily] = useState('');
   const [postTitleSize, setPostTitleSize] = useState(POST_TITLE_DEFAULT);
   const [brandColors, setBrandColors] = useState<BrandColors>({});
-  const [enSiteTitle, setEnSiteTitle] = useState('');
-  const [enSiteDescription, setEnSiteDescription] = useState('');
-  const [enBrandName, setEnBrandName] = useState('');
-  const [enFooterText, setEnFooterText] = useState('');
   const [copyProtection, setCopyProtection] = useState(true);
   const [showPostMeta, setShowPostMeta] = useState(true);
   const [socialLinks, setSocialLinks] = useState<Record<string, string>>({});
@@ -121,10 +117,6 @@ export function SettingsScreen() {
       typeof data.postTitleSize === 'number' ? data.postTitleSize : POST_TITLE_DEFAULT,
     );
     setBrandColors(data.brandColors ?? {});
-    setEnSiteTitle(data.translations?.en?.siteTitle ?? '');
-    setEnSiteDescription(data.translations?.en?.siteDescription ?? '');
-    setEnBrandName(data.translations?.en?.brandName ?? '');
-    setEnFooterText(data.translations?.en?.footerText ?? '');
     setCopyProtection(data.copyProtection !== false);
     setShowPostMeta(data.showPostMeta !== false);
     setSocialLinks(
@@ -210,22 +202,6 @@ export function SettingsScreen() {
         copyProtection,
         showPostMeta,
         socialLinks: buildFilledSocialLinks(),
-        translations:
-          enSiteTitle.trim() ||
-          enSiteDescription.trim() ||
-          enBrandName.trim() ||
-          enFooterText.trim()
-            ? {
-                en: {
-                  ...(enSiteTitle.trim() ? { siteTitle: enSiteTitle.trim() } : {}),
-                  ...(enSiteDescription.trim()
-                    ? { siteDescription: enSiteDescription.trim() }
-                    : {}),
-                  ...(enBrandName.trim() ? { brandName: enBrandName.trim() } : {}),
-                  ...(enFooterText.trim() ? { footerText: enFooterText.trim() } : {}),
-                },
-              }
-            : null,
       };
       await settingsService.update(payload);
       await queryClient.invalidateQueries({ queryKey: SETTINGS_QUERY_KEY });
@@ -326,51 +302,6 @@ export function SettingsScreen() {
             nhập). Để trống dùng mặc định của theme.
           </p>
         </div>
-        <details className="gf-group" open={false}>
-          <summary className="gf-group-summary">
-            <strong>Bản dịch tiếng Anh (tuỳ chọn)</strong>
-            <small>Để trống mục nào thì phiên bản tiếng Anh dùng nội dung tiếng Việt của mục đó.</small>
-          </summary>
-          <div className="gf-group-body">
-            <div>
-              <label className="gf-label">Tên website (Tiếng Anh)</label>
-              <input
-                className="gf-control"
-                value={enSiteTitle}
-                onChange={(e) => setEnSiteTitle(e.target.value)}
-                placeholder="Xe Dien Xanh — Genuine electric vehicles"
-              />
-            </div>
-            <div>
-              <label className="gf-label">Mô tả website (Tiếng Anh)</label>
-              <textarea
-                className="gf-control"
-                rows={2}
-                value={enSiteDescription}
-                onChange={(e) => setEnSiteDescription(e.target.value)}
-                placeholder="Electric bikes, scooters and cars with nationwide warranty…"
-              />
-            </div>
-            <div>
-              <label className="gf-label">Tên logo (Tiếng Anh)</label>
-              <input
-                className="gf-control"
-                value={enBrandName}
-                onChange={(e) => setEnBrandName(e.target.value)}
-                placeholder="Xe Dien Xanh"
-              />
-            </div>
-            <div>
-              <label className="gf-label">Dòng chữ cuối trang (Tiếng Anh)</label>
-              <input
-                className="gf-control"
-                value={enFooterText}
-                onChange={(e) => setEnFooterText(e.target.value)}
-                placeholder="Genuine electric vehicles at factory prices."
-              />
-            </div>
-          </div>
-        </details>
       </section>
 
       <section className="gf-card st-section">

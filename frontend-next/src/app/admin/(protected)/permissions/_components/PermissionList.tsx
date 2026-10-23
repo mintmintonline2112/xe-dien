@@ -14,11 +14,18 @@ import {
   PERMISSION_QUERY_KEY,
   type Permission,
 } from '@/app/admin/(protected)/permissions/_lib/permission.service';
+import { permissionModuleLabelOf } from '@/app/admin/(protected)/permissions/_lib/permission-modules';
 
 const COLUMNS: TableColumn<Permission>[] = [
   { key: 'name', label: 'Tên quyền', type: 'text', align: 'left' },
   { key: 'code', label: 'Mã quyền', type: 'badge', align: 'left' },
-  { key: 'module', label: 'Module', type: 'badge', align: 'center' },
+  {
+    key: 'module',
+    label: 'Module',
+    type: 'badge',
+    align: 'center',
+    value: (permission) => (permission.module ? permissionModuleLabelOf(permission.module) : ''),
+  },
   { key: 'description', label: 'Mô tả', type: 'text', align: 'left' },
 ];
 
@@ -36,7 +43,7 @@ export function PermissionList() {
       {
         key: 'module',
         label: 'Tất cả module',
-        options: modules.map((moduleName) => ({ label: moduleName, value: moduleName })),
+        options: modules.map((moduleName) => ({ label: permissionModuleLabelOf(moduleName), value: moduleName })),
       },
     ];
   }, [allPermissions]);

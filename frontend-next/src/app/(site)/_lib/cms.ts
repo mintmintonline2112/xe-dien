@@ -2,13 +2,17 @@
  * Đọc nội dung CMS public từ backend (trang, bài viết, danh mục) và đổi đường dẫn media thành URL tuyệt đối.
  * Dùng bởi: các page.tsx và layout.tsx trong app/(site), SectionRenderer, sections/_shared, src/app/sitemap.ts.
  * Lưu ý: dữ liệu cache 60 giây theo tag ("pages", "blog-posts"); lỗi API thì trả null / [] để trang tự dùng bản dự phòng.
+ * HAND_BUILT_PAGE_SLUGS: slug trang CMS chỉ giữ metadata / section cho route dựng tay (/, /san-pham, /tin-tuc, /lien-he),
+ * không phục vụ ở /<slug> và không đưa vào sitemap.
  * Ảnh /images/... là file tĩnh của frontend, còn lại (uploads/...) trỏ về backend.
  */
 import { ApiError, apiFetch } from "@/api/api-fetch";
 import { env } from "@/config/env";
-import type { BlogCategory, BlogPost, CmsPage, Paginated } from "@/types/cms";
+import type { BlogCategory, BlogPost, CmsPage, CmsPageSummary, Paginated } from "@/types/cms";
 
 const CMS_REVALIDATE_SECONDS = 60;
+
+export const HAND_BUILT_PAGE_SLUGS: ReadonlySet<string> = new Set(["home", "products", "news", "contact"]);
 
 function buildCmsRequestInit(tag: string) {
   return {
@@ -35,6 +39,14 @@ export async function getCmsPage(slug: string): Promise<CmsPage | null> {
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
     return null;
+  }
+}
+
+export async function getCmsPageSummaries(): Promise<CmsPageSummary[]> {
+  try {
+    return await apiFetch<CmsPageSummary[]>("client/pages", buildCmsRequestInit("pages"));
+  } catch {
+    return [];
   }
 }
 

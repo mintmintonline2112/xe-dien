@@ -1,5 +1,6 @@
 /**
- * Đọc trang đã xuất bản theo slug cho website: chỉ section đang bật, theo thứ tự sort_order, gộp bản dịch cho trang và từng section.
+ * Đọc trang đã xuất bản cho website: danh sách gọn { slug, updatedAt } (cho sitemap) và một trang theo slug
+ * (chỉ section đang bật, theo thứ tự sort_order, gộp bản dịch cho trang và từng section).
  * Dùng bởi: modules/client/pages/pages.controller.ts.
  */
 import { Injectable } from '@nestjs/common';
@@ -9,12 +10,22 @@ import { PublishStatus } from 'src/common/enums/publish-status.enum';
 import { applyTranslations, type Lang } from 'src/common/i18n/translations';
 import { Page } from 'src/modules/admin/pages/entities/page.entity';
 
+export type PublishedPageSummary = Pick<Page, 'slug' | 'updatedAt'>;
+
 @Injectable()
 export class ClientPagesService {
   constructor(
     @InjectRepository(Page)
     private readonly pageRepo: Repository<Page>,
   ) {}
+
+  findPublishedPageSummaries(): Promise<PublishedPageSummary[]> {
+    return this.pageRepo.find({
+      select: { slug: true, updatedAt: true },
+      where: { status: PublishStatus.PUBLISHED },
+      order: { slug: 'ASC' },
+    });
+  }
 
   async findPublishedBySlug(
     slug: string,

@@ -1,12 +1,13 @@
 /**
- * Sinh /sitemap.xml: trang tĩnh + danh mục sản phẩm + toàn bộ sản phẩm + danh mục tin + toàn bộ bài viết đã đăng
- * (lấy qua mọi trang phân trang của API), cache 1 giờ.
+ * Sinh /sitemap.xml: trang tĩnh + trang CMS đã xuất bản (/<slug>) + danh mục sản phẩm + toàn bộ sản phẩm + danh mục tin
+ * + toàn bộ bài viết đã đăng (lấy qua mọi trang phân trang của API), cache 1 giờ.
  * Dùng bởi: Next.js App Router (metadata route).
- * Lưu ý: API lỗi / tắt lúc build thì vẫn sinh sitemap chỉ gồm trang tĩnh; ngày hỏng thì dùng thời điểm hiện tại.
+ * Lưu ý: nguồn nào lỗi / API tắt lúc build thì bỏ riêng nguồn đó, các nguồn khác vẫn vào sitemap; ngày hỏng thì dùng
+ * thời điểm hiện tại. Trang CMS bỏ qua HAND_BUILT_PAGE_SLUGS (đã có ở mục trang tĩnh).
  */
 import type { MetadataRoute } from "next";
 import { getProductCategories, getProducts } from "@/app/(site)/_lib/catalog";
-import { getBlogCategories, getBlogPosts } from "@/app/(site)/_lib/cms";
+import { getBlogCategories, getBlogPosts, getCmsPageSummaries, HAND_BUILT_PAGE_SLUGS } from "@/app/(site)/_lib/cms";
 import { toAbsoluteUrl } from "@/app/(site)/_lib/seo";
 import { siteRoutes } from "@/config/routes";
 
@@ -25,21 +26,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: toAbsoluteUrl(siteRoutes.contact), lastModified: now, changeFrequency: "yearly", priority: 0.6 },
   ];
 
-  let categories: Awaited<ReturnType<typeof getBlogCategories>> = [];
-  let posts: Awaited<ReturnType<typeof fetchAllPosts>> = [];
-  let productCategories: Awaited<ReturnType<typeof getProductCategories>> = [];
-  let products: Awaited<ReturnType<typeof fetchAllProducts>> = [];
-  try {
-    [categories, posts, productCategories, products] = await Promise.all([
-      getBlogCategories(),
-      fetchAllPosts(),
-      getProductCategories(),
-      fetchAllProducts(),
-    ]);
-  } catch {
-    categories = [];
-    posts = [];
-  }
+  const [categories, posts, productCategories, products, cmsPages] = await Promise.all([
+    loadOrEmpty(getBlogCategories),
+    loadOrEmpty(fetchAllPosts),
+    loadOrEmpty(getProductCategories),
+    loadOrEmpty(fetchAllProducts),
+    loadOrEmpty(getCmsPageSummaries),
+  ]);
+
+  const cmsPageEntries: MetadataRoute.Sitemap = cmsPages
+    .filter((page) => !HAND_BUILT_PAGE_SLUGS.has(page.slug))
+    .map((page) => ({
+      url: toAbsoluteUrl(siteRoutes.page(page.slug)),
+      lastModified: toValidDate(page.updatedAt, now),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    }));
 
   const productCategoryEntries: MetadataRoute.Sitemap = productCategories.map((category) => ({
     url: toAbsoluteUrl(siteRoutes.category(category.slug)),
@@ -71,7 +73,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...productCategoryEntries, ...productEntries, ...categoryEntries, ...postEntries];
+  return [
+    ...staticEntries,
+    ...cmsPageEntries,
+    ...productCategoryEntries,
+    ...productEntries,
+    ...categoryEntries,
+    ...postEntries,
+  ];
+}
+
+async function loadOrEmpty<T>(load: () => Promise<T[]>): Promise<T[]> {
+  try {
+    return await load();
+  } catch {
+    return [];
+  }
 }
 
 function toValidDate(value: string | null | undefined, fallback: Date): Date {

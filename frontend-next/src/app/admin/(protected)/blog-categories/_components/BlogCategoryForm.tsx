@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa danh mục blog: tên, tên hiển thị ngoài website, danh mục cha, SEO, bản dịch tiếng Anh.
+ * Form tạo / sửa danh mục blog: tên, tên hiển thị ngoài website, danh mục cha, SEO.
  * Dùng bởi: blog-categories/create/page.tsx, blog-categories/edit/[id]/page.tsx.
  */
 
@@ -21,12 +21,6 @@ import {
 } from '@/app/admin/_lib/seo-fields';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import { blogCategoryService, BLOG_CATEGORY_QUERY_KEY } from '@/app/admin/(protected)/blog-categories/_lib/blog-category.service';
 import { adminRoutes } from '@/config/routes';
 
@@ -36,11 +30,7 @@ interface FormValues extends SeoFormValues {
   parentId: string;
   description: string;
   isActive: boolean;
-  en_name: string;
-  en_description: string;
 }
-
-const EN_KEYS = ['name', 'description'] as const;
 
 const EMPTY_FORM_VALUES: FormValues = {
   name: '',
@@ -49,8 +39,6 @@ const EMPTY_FORM_VALUES: FormValues = {
   description: '',
   isActive: true,
   ...EMPTY_SEO,
-  en_name: '',
-  en_description: '',
 };
 
 export function BlogCategoryForm({ id }: { id?: number }) {
@@ -90,7 +78,6 @@ export function BlogCategoryForm({ id }: { id?: number }) {
         description: data.description ?? '',
         isActive: data.isActive ?? true,
         ...seoValuesFrom(data),
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setFormKey((previousKey) => previousKey + 1);
     }
@@ -110,10 +97,6 @@ export function BlogCategoryForm({ id }: { id?: number }) {
       { key: 'description', label: 'Mô tả', type: 'textarea', placeholder: 'Mô tả ngắn về danh mục' },
       { key: 'isActive', label: 'Hiển thị', type: 'checkbox', hint: 'Cho phép hiển thị trên website' },
       ...SEO_FIELDS,
-      ...buildEnFields([
-        { key: 'name', label: 'Tên danh mục', type: 'text' },
-        { key: 'description', label: 'Mô tả', type: 'textarea' },
-      ]),
     ],
     [parentOptions],
   );
@@ -129,9 +112,8 @@ export function BlogCategoryForm({ id }: { id?: number }) {
           isActive: values.isActive,
           parentId: values.parentId ? Number(values.parentId) : null,
           ...buildSeoPayload(values),
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
-        { keepNull: ['parentId', 'displayName', 'translations', ...SEO_NULLABLE_KEYS] },
+        { keepNull: ['parentId', 'displayName', ...SEO_NULLABLE_KEYS] },
       );
 
       if (isEdit) await blogCategoryService.edit(id!, payload);
@@ -157,7 +139,6 @@ export function BlogCategoryForm({ id }: { id?: number }) {
         { label: isEdit ? 'Sửa' : 'Tạo mới' },
       ]}
       fields={fields}
-      groups={[EN_TRANSLATION_GROUP]}
       defaultValues={initialValues}
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}

@@ -1,6 +1,6 @@
 /**
  * Decorator @Public() đánh dấu route không cần đăng nhập.
- * Dùng bởi: JwtAuthAdminGuard / JwtAuthClientGuard (đọc IS_PUBLIC_KEY), controller client và các route công khai của admin.
+ * Dùng bởi: JwtAdminAuthGuard, PermissionGuard (đọc IS_PUBLIC_KEY), controller client và các route công khai của admin.
  */
 import { SetMetadata } from '@nestjs/common';
 

@@ -2,7 +2,7 @@
  * Trang CMS tự do (/<slug>): giới thiệu, chính sách, mua trả góp, hệ thống showroom… — banner có breadcrumb + các section của trang
  * render qua SectionRenderer + dải kêu gọi gọi điện cuối trang.
  * Dùng bởi: Next.js App Router (route động /[slug]).
- * Lưu ý: slug của các trang dựng tay (RESERVED_SLUGS: home, products, news, contact) trả 404, riêng "home" chuyển về "/".
+ * Lưu ý: slug của các trang dựng tay (HAND_BUILT_PAGE_SLUGS trong _lib/cms.ts: home, products, news, contact) trả 404, riêng "home" chuyển về "/".
  * Hotline của dải cuối trang lấy từ Admin → Trang Liên hệ.
  */
 import type { Metadata } from "next";
@@ -11,19 +11,17 @@ import { notFound, redirect } from "next/navigation";
 import { Breadcrumbs } from "@/app/(site)/_components/Breadcrumbs";
 import { activeSectionsOf, SectionRenderer } from "@/app/(site)/_components/SectionRenderer";
 import { CtaBand, PageHero, SECTION, SECTION_NOTE } from "@/app/(site)/_components/ui";
-import { getCmsPage, toImageUrl } from "@/app/(site)/_lib/cms";
+import { getCmsPage, HAND_BUILT_PAGE_SLUGS, toImageUrl } from "@/app/(site)/_lib/cms";
 import { buildPageMetadata } from "@/app/(site)/_lib/seo";
 import { siteRoutes } from "@/config/routes";
 import { getSiteSettings, resolveContact } from "@/settings/site-settings";
 import { cn } from "@/utils/cn";
 
-const RESERVED_SLUGS = new Set(["home", "products", "news", "contact"]);
-
 type PageParams = Promise<{ slug: string }>;
 
 export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   const { slug } = await params;
-  if (RESERVED_SLUGS.has(slug)) return {};
+  if (HAND_BUILT_PAGE_SLUGS.has(slug)) return {};
   const page = await getCmsPage(slug);
   if (!page) return { title: "Không tìm thấy trang", robots: { index: false } };
   return buildPageMetadata({
@@ -38,7 +36,7 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
 export default async function CmsGenericPage({ params }: { params: PageParams }) {
   const { slug } = await params;
   if (slug === "home") redirect("/");
-  if (RESERVED_SLUGS.has(slug)) notFound();
+  if (HAND_BUILT_PAGE_SLUGS.has(slug)) notFound();
 
   const [page, settings] = await Promise.all([getCmsPage(slug), getSiteSettings()]);
   if (!page) notFound();

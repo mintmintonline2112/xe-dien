@@ -1,6 +1,6 @@
 /**
  * Kiểu dữ liệu của GenericForm: loại field, field, nhóm field, lựa chọn của ô select.
- * Dùng bởi: GenericForm.tsx, _lib/publish-status.ts, seo-fields.ts, translation-fields.ts và các màn *Form.tsx của admin.
+ * Dùng bởi: GenericForm.tsx, _lib/publish-status.ts, seo-fields.ts và các màn *Form.tsx của admin.
  * Lưu ý: field `video` lưu hướng video vào `orientationKey` (mặc định `${key}Orientation`); `renderExtra` nhận toàn bộ giá trị form.
  * Giá trị của field danh sách: `stringList` = string[], `pairList` = { label, value }[] (tên cột ở `pairColumns`), `imageList` = string[] đường dẫn ảnh.
  */

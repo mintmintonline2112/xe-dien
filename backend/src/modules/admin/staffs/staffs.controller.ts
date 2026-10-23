@@ -38,7 +38,10 @@ export class StaffsController extends BaseController<
   string
 > {
   constructor(private readonly staffsService: StaffsService) {
-    super(staffsService, 'STAFF');
+    super(staffsService, 'STAFF', {
+      create: CreateStaffDto,
+      update: UpdateStaffDto,
+    });
   }
 
   protected override getSearchFields(): (keyof Staff)[] {

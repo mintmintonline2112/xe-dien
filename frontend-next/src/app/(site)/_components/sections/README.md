@@ -21,7 +21,7 @@ Mục lục: [1. Mô hình](#1-mô-hình) · [2. Thư mục & đặt tên](#2-th
   vào component có sẵn (mục 10); chỉ tạo component mới khi dữ liệu khác hẳn.
 - **Nội dung chỉ nằm trong CMS / seed.** Component KHÔNG có chữ, ảnh, danh sách
   mặc định. Thiếu dữ liệu thì bỏ trống phần đó; không có gì để hiện thì `return null`.
-- **`section_key` = id neo trên trang** (`/#about-map`), có thể khác tên component
+- **`section_key` = id neo trên trang** (`/#mua-nhieu`), có thể khác tên component
   (một component đặt nhiều lần trên một trang). `metadata._component` = tên component.
 - Section là **Server Component**. Phần cần JS (bấm, trượt, tab) tách thành file
   `.client.tsx` nhận dữ liệu thuần qua props.
@@ -143,7 +143,7 @@ Chỉ đọc qua `_shared/data.ts`. **Cấm** `section.metadata.x`, `as any`, `a
 | `textOf(section, key)`                    | chuỗi đã trim hoặc `undefined` | chữ đơn: `note`, `ctaLabel`, `image`, `itemLabel`                     |
 | `textListOf(section, key)`                | `string[]` sạch                | danh sách chuỗi: checklist, chips                                     |
 | `itemsOf(section, key)`                  | `Array<Record<string,string>>` | danh sách object; chuỗi lẻ được nâng thành `{title,label}`            |
-| `metaOf<T>(section, key)`              | `T \| undefined`               | cấu trúc đặc biệt (regions của about-map)                             |
+| `metaOf<T>(section, key)`              | `T \| undefined`               | cấu trúc đặc biệt không phải danh sách / chữ                          |
 | `layoutOf(section, LAYOUTS, fallback)` | layout hợp lệ                  | component có ≥ 2 bố cục; chỉ 1 bố cục thì bỏ `LAYOUTS` lẫn `layoutOf` |
 | `anchorIdOf(section, "<key>")`           | id neo                         | `Shell id`                                                            |
 | `alternatingTone(index)`                       | `"plain" \| "tint"`            | nền xen kẽ theo vị trí                                                |

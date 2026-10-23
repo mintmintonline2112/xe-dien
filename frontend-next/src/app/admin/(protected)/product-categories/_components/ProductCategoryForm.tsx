@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa danh mục sản phẩm: tên, danh mục cha, icon, ảnh ô danh mục, mô tả, thứ tự, hiển thị, SEO, bản dịch tiếng Anh.
+ * Form tạo / sửa danh mục sản phẩm: tên, danh mục cha, icon, ảnh ô danh mục, mô tả, thứ tự, hiển thị, SEO.
  * Dùng bởi: product-categories/create/page.tsx, product-categories/edit/[id]/page.tsx.
  * Lưu ý: chỉ danh mục gốc được chọn làm cha (cây 2 cấp). Ảnh mới tải lên được đưa vào Thư viện (thư mục "product-categories") rồi
  * gửi đường dẫn bằng JSON.
@@ -26,12 +26,6 @@ import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
 import { libraryService } from '@/app/admin/_lib/library.service';
 import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
-import {
   CATEGORY_ICON_OPTIONS,
   productCategoryService,
   PRODUCT_CATEGORY_QUERY_KEY,
@@ -46,13 +40,7 @@ interface FormValues extends SeoFormValues {
   description: string;
   sortOrder: number;
   isActive: boolean;
-  en_name: string;
-  en_description: string;
-  en_metaTitle: string;
-  en_metaDescription: string;
 }
-
-const EN_KEYS = ['name', 'description', 'metaTitle', 'metaDescription'] as const;
 
 const EMPTY_FORM_VALUES: FormValues = {
   imagePath: null,
@@ -63,10 +51,6 @@ const EMPTY_FORM_VALUES: FormValues = {
   sortOrder: 1,
   isActive: true,
   ...EMPTY_SEO,
-  en_name: '',
-  en_description: '',
-  en_metaTitle: '',
-  en_metaDescription: '',
 };
 
 async function buildImagePayload(value: string | File | null, isEdit: boolean): Promise<string | null | undefined> {
@@ -117,7 +101,6 @@ export function ProductCategoryForm({ id }: { id?: number }) {
         sortOrder: data.sortOrder ?? 1,
         isActive: data.isActive ?? true,
         ...seoValuesFrom(data),
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setFormKey((previousKey) => previousKey + 1);
     }
@@ -152,12 +135,6 @@ export function ProductCategoryForm({ id }: { id?: number }) {
       { key: 'sortOrder', label: 'Thứ tự', type: 'number', rules: { min: { value: 0, message: 'Tối thiểu là 0' } } },
       { key: 'isActive', label: 'Hiển thị', type: 'checkbox', hint: 'Cho phép hiển thị trên website' },
       ...SEO_FIELDS,
-      ...buildEnFields([
-        { key: 'name', label: 'Tên danh mục', type: 'text' },
-        { key: 'description', label: 'Mô tả', type: 'textarea' },
-        { key: 'metaTitle', label: 'SEO · Meta Title', type: 'text' },
-        { key: 'metaDescription', label: 'SEO · Meta Description', type: 'textarea' },
-      ]),
     ],
     [parentOptions],
   );
@@ -175,9 +152,8 @@ export function ProductCategoryForm({ id }: { id?: number }) {
           isActive: values.isActive,
           imagePath: await buildImagePayload(values.imagePath, isEdit),
           ...buildSeoPayload(values),
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
-        { keepNull: ['parentId', 'icon', 'description', 'imagePath', 'translations', ...SEO_NULLABLE_KEYS] },
+        { keepNull: ['parentId', 'icon', 'description', 'imagePath', ...SEO_NULLABLE_KEYS] },
       );
 
       if (isEdit) await productCategoryService.edit(id!, payload);
@@ -203,7 +179,6 @@ export function ProductCategoryForm({ id }: { id?: number }) {
         { label: isEdit ? 'Sửa' : 'Tạo mới' },
       ]}
       fields={fields}
-      groups={[EN_TRANSLATION_GROUP]}
       defaultValues={initialValues}
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}

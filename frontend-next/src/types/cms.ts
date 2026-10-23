@@ -121,6 +121,11 @@ export type CmsPage = SeoContentFields & {
   sections: PageSection[];
 };
 
+export type CmsPageSummary = {
+  slug: string;
+  updatedAt: string | null;
+};
+
 export type PaginationMeta = {
   total: number;
   page: number;

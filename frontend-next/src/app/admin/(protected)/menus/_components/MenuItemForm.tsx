@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Form tạo / sửa mục menu website: vị trí (header / footer), tên, đường dẫn, menu cha, thứ tự, hiển thị, mở khung submenu, bản dịch tiếng Anh.
+ * Form tạo / sửa mục menu website: vị trí (header / footer), tên, đường dẫn, menu cha, thứ tự, hiển thị, mở khung submenu.
  * Dùng bởi: menus/create/page.tsx, menus/edit/[id]/page.tsx.
  * Lưu ý: chỉ menu gốc (parentId null) được chọn làm menu cha, nên menu chỉ có 2 cấp. Chọn menu cha thì mục con lưu theo vị trí của
  * menu cha (bỏ qua ô vị trí) để một cây không bị tách sang hai vị trí.
@@ -15,12 +15,6 @@ import { GenericForm } from '@/app/admin/_components/generic-form/GenericForm';
 import type { GenericFormField, GenericSelectOption } from '@/app/admin/_components/generic-form/types';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { buildPayload } from '@/app/admin/_lib/crud-service';
-import {
-  EN_TRANSLATION_GROUP,
-  buildEnFields,
-  enValuesFrom,
-  buildEnTranslationsPayload,
-} from '@/app/admin/_lib/translation-fields';
 import {
   menuItemService,
   MENU_ITEM_QUERY_KEY,
@@ -40,10 +34,7 @@ interface FormValues {
   isActive: boolean;
   showSubmenu: boolean;
   sortOrder: number;
-  en_label: string;
 }
-
-const EN_KEYS = ['label'] as const;
 
 const LOCATION_SHORT_LABEL: Record<MenuLocation, string> = { header: 'Header', footer: 'Footer' };
 
@@ -62,7 +53,6 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
     isActive: true,
     showSubmenu: true,
     sortOrder: 1,
-    en_label: '',
   });
   const [formKey, setFormKey] = useState(0);
   const [savedLocation, setSavedLocation] = useState<MenuLocation>(defaultLocation);
@@ -105,7 +95,6 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         isActive: data.isActive ?? true,
         showSubmenu: data.showSubmenu ?? true,
         sortOrder: data.sortOrder ?? 1,
-        ...enValuesFrom(data.translations, EN_KEYS),
       });
       setFormKey((previousKey) => previousKey + 1);
     }
@@ -149,7 +138,6 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         type: 'checkbox',
         hint: 'Bật: bấm menu mở khung danh mục con. Tắt: bấm là đi thẳng tới trang (chỉ áp dụng menu gốc ở header có submenu)',
       },
-      ...buildEnFields([{ key: 'label', label: 'Tên hiển thị', type: 'text' }]),
     ],
     [parentOptions],
   );
@@ -169,9 +157,8 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
           showSubmenu: values.showSubmenu,
           sortOrder: Number.isFinite(values.sortOrder) ? values.sortOrder : undefined,
           parentId: values.parentId ? Number(values.parentId) : null,
-          translations: buildEnTranslationsPayload(values, EN_KEYS, data?.translations),
         },
-        { keepNull: ['parentId', 'translations'] },
+        { keepNull: ['parentId'] },
       );
 
       if (isEdit) await menuItemService.edit(id!, payload);
@@ -197,7 +184,6 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         { label: isEdit ? 'Sửa' : 'Tạo mới' },
       ]}
       fields={fields}
-      groups={[EN_TRANSLATION_GROUP]}
       defaultValues={initialValues}
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}

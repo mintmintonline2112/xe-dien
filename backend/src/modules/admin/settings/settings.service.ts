@@ -47,15 +47,17 @@ const HEX_COLOR_PATTERN = /^#[0-9a-fA-F]{6}$/;
 
 function assertValidBrandColors(value: unknown): void {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    throw new BadRequestException('brandColors must be an object');
+    throw new BadRequestException('brandColors phải là một object');
   }
   for (const [colorKey, color] of Object.entries(value)) {
     if (!BRAND_COLOR_KEYS.has(colorKey)) {
-      throw new BadRequestException(`Unknown brand color: ${colorKey}`);
+      throw new BadRequestException(
+        `Màu thương hiệu không tồn tại: ${colorKey}`,
+      );
     }
     if (typeof color !== 'string' || !HEX_COLOR_PATTERN.test(color)) {
       throw new BadRequestException(
-        `Brand color "${colorKey}" must be a #RRGGBB hex code`,
+        `Màu thương hiệu "${colorKey}" phải là mã hex dạng #RRGGBB`,
       );
     }
   }
@@ -79,12 +81,12 @@ export class SettingsService {
     values: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
     if (!values || typeof values !== 'object' || Array.isArray(values)) {
-      throw new BadRequestException('Settings payload must be an object');
+      throw new BadRequestException('Dữ liệu cài đặt phải là một object');
     }
 
     for (const [key, value] of Object.entries(values)) {
       if (!ALLOWED_KEYS.has(key)) {
-        throw new BadRequestException(`Unknown setting key: ${key}`);
+        throw new BadRequestException(`Khoá cài đặt không tồn tại: ${key}`);
       }
       if (key === 'brandColors' && value !== null)
         assertValidBrandColors(value);

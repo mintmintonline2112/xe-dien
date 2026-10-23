@@ -2375,12 +2375,11 @@ body .swal2-html-container {
 }
 .cp-interest-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
   align-items: center;
 }
 .cp-interest-row.is-new {
-  grid-template-columns: minmax(0, 1fr) auto;
   margin-top: 6px;
   padding-top: 12px;
   border-top: 1px dashed var(--admin-line, #e5e5e5);
@@ -2571,97 +2570,6 @@ body .swal2-html-container {
   .gf-list-head {
     display: none;
   }
-}
-
-.gzp {
-  margin-top: 10px;
-  padding: 14px 16px;
-  border: 1px dashed var(--admin-line);
-  border-radius: 12px;
-  background: rgba(26, 39, 68, 0.05);
-}
-.gzp--empty {
-  font-size: 13px;
-  color: var(--admin-muted);
-}
-.gzp-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 12px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--admin-brass-dark);
-}
-.gzp-measuring {
-  font-weight: 500;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--admin-muted);
-}
-.gzp-zones {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-@media (min-width: 720px) {
-  .gzp-zones {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.gzp-zone {
-  padding: 12px;
-  border: 1px solid var(--admin-line);
-  border-radius: 10px;
-  background: var(--admin-surface-solid);
-}
-.gzp-zone-head {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0 0 10px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--admin-text);
-}
-.gzp-zone-head svg {
-  color: var(--admin-brass);
-  flex-shrink: 0;
-}
-.gzp-zone-head span {
-  margin-left: auto;
-  font-weight: 500;
-  font-size: 11.5px;
-  color: var(--admin-muted);
-}
-.gzp-zone-empty {
-  margin: 0;
-  font-size: 12.5px;
-  color: var(--admin-muted);
-}
-.gzp-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.gzp-thumbs img {
-  height: 74px;
-  width: auto;
-  max-width: 100%;
-  display: block;
-  object-fit: contain;
-  border: 3px solid rgba(26, 39, 68, 0.45);
-  outline: 1px solid var(--admin-line);
-  border-radius: 6px;
-  background: #fff;
-}
-.gzp-note {
-  margin: 12px 0 0;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--admin-muted);
 }
 
 .st-title-size {

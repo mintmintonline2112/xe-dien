@@ -26,7 +26,6 @@ export interface BlogPost {
   ogImagePath: string | null;
   canonicalUrl: string | null;
   metadata: Record<string, unknown> | null;
-  translations?: Record<string, Record<string, unknown>> | null;
   createdAt: string;
 }
 
