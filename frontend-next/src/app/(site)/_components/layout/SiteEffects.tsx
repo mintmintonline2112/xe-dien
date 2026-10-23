@@ -4,13 +4,16 @@
  * Mọi hiệu ứng trang trí của site public: hiện dần khi cuộn + so le, đếm số, tách chữ tiêu đề, mở khẩu độ / trượt ảnh (GSAP), nút nam châm, thẻ nghiêng 3D, thanh tiến độ.
  * Dùng bởi: app/(site)/layout.tsx. Chạy lại mỗi lần đổi route; tôn trọng prefers-reduced-motion.
  * Lưu ý: móc trong markup (style ở styles/effects.css): .reveal / .reveal-group (thêm .is-visible), data-stagger="N" (ms),
- * data-count, h1[data-headline], .photo-frame img, .news-card-thumb img, .news-featured-photo img, .btn-gold, .tilt-card.
+ * data-count (+ data-count-grouped = in dấu chấm nghìn, data-count-delay = ms chờ trước khi đếm), h1[data-headline], .photo-frame img, .news-card-thumb img, .news-featured-photo img, .btn-gold, .tilt-card.
  * Đổi tên các class / thuộc tính này phải sửa cả component dùng chúng.
  */
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const COUNT_DURATION_MS = 2000;
+const COUNT_FORMATTER = new Intl.NumberFormat("vi-VN");
 
 export function SiteEffects() {
   const pathname = usePathname();
@@ -44,15 +47,21 @@ export function SiteEffects() {
       const counter = element as HTMLElement;
       if (!Number.isFinite(target) || counter.dataset.counted) return;
       counter.dataset.counted = "true";
+      const formatCount = (value: number) =>
+        counter.hasAttribute("data-count-grouped")
+          ? COUNT_FORMATTER.format(value)
+          : String(value);
+      const delayMs = Number(counter.dataset.countDelay) || 0;
       let startTime: number | null = null;
       const tick = (now: number) => {
-        if (startTime === null) startTime = now;
-        const progress = Math.min((now - startTime) / 1400, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        if (startTime === null) startTime = now + delayMs;
+        const progress = Math.max(0, Math.min((now - startTime) / COUNT_DURATION_MS, 1));
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         if (counter.firstChild)
-          counter.firstChild.nodeValue = String(Math.round(eased * target));
+          counter.firstChild.nodeValue = formatCount(Math.round(eased * target));
         if (progress < 1) requestAnimationFrame(tick);
       };
+      if (counter.firstChild) counter.firstChild.nodeValue = formatCount(0);
       requestAnimationFrame(tick);
     }
 

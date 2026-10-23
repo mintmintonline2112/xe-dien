@@ -525,12 +525,14 @@ const DEFINITIONS: DefinitionSeed[] = [
   {
     pageSlug: 'shared', sectionKey: 'stats', sortOrder: 24,
     label: 'Dải số liệu',
-    description: 'Stats.tsx — đầu khối + dải số liệu nổi bật (số ở đầu tự chạy đếm).',
+    description: 'Stats.tsx — đầu khối + lưới thẻ số liệu: icon, con số lớn tự chạy đếm khi cuộn tới, nhãn, ghi chú ngắn.',
     fields: [
       buildItemListField('stats', 'Số liệu nổi bật', [
+        { name: 'value', label: 'Giá trị (VD: 1.200+)', kind: 'text' },
         { name: 'label', label: 'Nhãn', kind: 'text' },
-        { name: 'value', label: 'Giá trị', kind: 'text' },
-      ], 'Giá trị có số ở đầu sẽ tự chạy hiệu ứng đếm (VD: 4+, 6).'),
+        { name: 'note', label: 'Ghi chú ngắn (tuỳ chọn)', kind: 'text' },
+        { name: 'icon', label: 'Icon', kind: 'text' },
+      ], 'Giá trị có số ở đầu sẽ tự chạy hiệu ứng đếm (VD: 10+, 1.200+, 98%). ' + ICON_HINT),
     ],
   },
 ];

@@ -4,7 +4,8 @@
  * Lưu ý: Shell là <section> duy nhất của một section; Head lo quy tắc ẩn eyebrow toàn site, align="left" không bọc div
  * (cột chứa phải mang `reveal`). `.reveal` / `.reveal-group` thuộc layer effects (thắng class Tailwind): đừng đặt
  * opacity / transform / transition lên chính phần tử đó. RowHead = tiêu đề trái + link "xem tất cả" phải, gạch chân màu chủ đạo
- * (khối sản phẩm, danh mục, tin tức). StatsList đảo nhãn xuống dưới bằng `order-2` để giữ thứ tự đọc dt → dd.
+ * (khối sản phẩm, danh mục, tin tức). StatsList đảo nhãn xuống dưới bằng `order-2` để giữ thứ tự đọc dt → dd. StatNumber tách số ở
+ * đầu giá trị (hiểu cả dấu chấm nghìn: 1.200+) vào span data-count để SiteEffects chạy đếm, hậu tố +, %, ′ in nhỏ.
  */
 import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/utils/cn";
@@ -273,26 +274,65 @@ export function RowHead({
   );
 }
 
+const STAT_SUFFIX_PATTERN = /([′+%])/;
+
+function parseStatNumber(value: string) {
+  const match = value.match(/^(\d[\d.,]*\d|\d)(.*)$/);
+  if (!match) return null;
+  const [, numberText, suffix] = match;
+  const isGrouped = /^\d{1,3}([.,]\d{3})+$/.test(numberText);
+  if (/[.,]/.test(numberText) && !isGrouped) return null;
+  const count = Number.parseInt(isGrouped ? numberText.replace(/[.,]/g, "") : numberText, 10);
+  return Number.isFinite(count) ? { count, numberText, suffix, isGrouped } : null;
+}
+
+export function StatNumber({
+  value,
+  className,
+  suffixClassName = "text-[0.6em]",
+  countDelayMs,
+}: {
+  value: string;
+  className?: string;
+  suffixClassName?: string;
+  countDelayMs?: number;
+}) {
+  const parsed = parseStatNumber(value);
+  const suffixParts = (parsed ? parsed.suffix : value).split(STAT_SUFFIX_PATTERN).filter(Boolean);
+  return (
+    <span className={className}>
+      {parsed ? (
+        <span
+          className="tabular-nums"
+          data-count={parsed.count}
+          data-count-grouped={parsed.isGrouped ? "" : undefined}
+          data-count-delay={countDelayMs || undefined}
+        >
+          {parsed.numberText}
+        </span>
+      ) : null}
+      {suffixParts.map((part, index) =>
+        STAT_SUFFIX_PATTERN.test(part) ? (
+          <span className={suffixClassName} key={index}>
+            {part}
+          </span>
+        ) : (
+          <Fragment key={index}>{part}</Fragment>
+        ),
+      )}
+    </span>
+  );
+}
+
 function StatValue({ value, band }: { value: string; band?: boolean }) {
-  const count = /^\d/.test(value) ? Number.parseInt(value, 10) : undefined;
-  const parts = value.split(/([′+])/).filter(Boolean);
   return (
     <dd
       className={cn(
         "m-0 mb-1 font-display text-h2 leading-none font-semibold",
         band ? "text-gold-500" : "text-gold-300",
       )}
-      data-count={count}
     >
-      {parts.map((part, index) =>
-        part === "′" || part === "+" ? (
-          <span className="text-[0.6em]" key={index}>
-            {part}
-          </span>
-        ) : (
-          part
-        ),
-      )}
+      <StatNumber value={value} />
     </dd>
   );
 }
