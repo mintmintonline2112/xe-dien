@@ -80,11 +80,11 @@ html.gsap :is(.btn-gold, .btn-primary) {
 }
 
 @keyframes marquee-left {
-  to { transform: translateX(calc(-50% - 0.7rem)); }
+  to { transform: translateX(calc(-50% - 0.375rem)); }
 }
 
 @keyframes marquee-right {
-  from { transform: translateX(calc(-50% - 0.7rem)); }
+  from { transform: translateX(calc(-50% - 0.375rem)); }
   to { transform: translateX(0); }
 }
 
