@@ -224,8 +224,8 @@ gốc là tiêu đề cột (href dạng `#...`), mục con là link.
 **Seed nội dung** (`database/seeding/seeds/`) — mọi seed chỉ thêm cái còn thiếu, không đè chỉnh sửa của admin
 
 - Thứ tự: quyền → vai trò → nhân viên → cài đặt → danh mục sản phẩm → sản phẩm → blog → trang → định nghĩa section → menu.
-- `product-category.seed.ts` (9 danh mục gốc + 12 con, khớp theo slug), `product.seed.ts` (43 sản phẩm mẫu, ảnh
-  `/images/products/<nhóm>-<số>.webp` của frontend), `settings.seed.ts` (khớp theo key), `menu.seed.ts` (khớp theo vị trí + href).
+- `product-category.seed.ts` (11 danh mục gốc + danh mục con, khớp theo slug), `product.seed.ts` (58 sản phẩm mẫu, ảnh
+  `uploads/products/<nhóm>-<số>.webp`, hiện trong Thư viện), `settings.seed.ts` (khớp theo key), `menu.seed.ts` (khớp theo vị trí + href).
 - Số điện thoại, địa chỉ, email trong seed là dữ liệu mẫu — thay trong Admin → Cài đặt / Trang Liên hệ.
 - `page.seed.ts` là nguồn nội dung duy nhất của trang; seed chỉ bổ sung key metadata còn thiếu, không đè chỉnh sửa của admin.
   Sửa xong chạy `npm run content:export` để sinh lại `frontend-next/src/content/cms-fallback.json`.

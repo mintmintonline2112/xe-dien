@@ -3,7 +3,7 @@
  * chân trang từ CMS, cột danh mục sản phẩm, dòng bản quyền + link ghi công ảnh.
  * Dùng bởi: app/(site)/layout.tsx.
  * Lưu ý: liên hệ lấy từ Admin (resolveContact); cột menu = Admin → Menu vị trí footer (cấp 1 là tiêu đề cột). Link CREDITS.md
- * BẮT BUỘC giữ khi còn dùng ảnh CC BY / CC BY-SA trong public/images. Dưới 900px chừa đệm đáy cho thanh ContactDock.
+ * BẮT BUỘC giữ khi còn dùng ảnh CC BY / CC BY-SA (backend/uploads, public/images). Dưới 900px chừa đệm đáy cho thanh ContactDock.
  */
 import Link from "next/link";
 import type { CategoryNode } from "@/app/(site)/_lib/catalog";

@@ -2,8 +2,8 @@
  * Seed sản phẩm mẫu (58 sản phẩm): đứng đầu là 3 dòng chủ đạo — xe điện sân golf, xe điện du lịch – resort, xe nâng điện (nổi bật,
  * có giá) — sau đó xe máy điện, xe đạp điện, scooter, xe 3 bánh, xe trẻ em, xe chuyên dụng, phụ tùng, trạm sạc.
  * Dùng bởi: database/seeding/seeding.service.ts (chạy sau product-category.seed.ts — gắn danh mục theo slug).
- * Lưu ý: chỉ thêm theo slug — sản phẩm đã có (kể cả admin đã sửa / xoá mềm) giữ nguyên, chạy lại an toàn. Ảnh là file tĩnh
- * frontend-next/public/images/products/<nhóm>-<số>.webp; gallery mặc định là 2 ảnh kế tiếp trong cùng nhóm (IMAGE_GROUP_SIZES).
+ * Lưu ý: chỉ thêm theo slug — sản phẩm đã có (kể cả admin đã sửa / xoá mềm) giữ nguyên, chạy lại an toàn. Ảnh nằm trong
+ * backend/uploads/products/<nhóm>-<số>.webp (hiện trong Thư viện admin); gallery mặc định là 2 ảnh kế tiếp trong cùng nhóm (IMAGE_GROUP_SIZES).
  * publishedAt lùi dần theo daysAgo (mặc định xáo theo vị trí) để khối "Sản phẩm mới nhất" có thứ tự tự nhiên.
  */
 import { Injectable } from '@nestjs/common';
@@ -1986,7 +1986,7 @@ const PRODUCTS: SeedProduct[] = [
 ];
 
 const buildImagePath = (group: string, imageNumber: number) =>
-  `/images/products/${group}-${imageNumber}.webp`;
+  `uploads/products/${group}-${imageNumber}.webp`;
 
 function buildGallery(product: SeedProduct): string[] {
   if (product.galleryNumbers) {

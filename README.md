@@ -5,8 +5,8 @@ trạm sạc) kèm trang quản trị CMS. Dựng trên khung code của dự á
 section quản lý trong admin.
 
 > Tên thương hiệu, số điện thoại, địa chỉ showroom, sản phẩm và bài viết hiện là **dữ liệu mẫu** — chủ cửa hàng sửa trong
-> Admin (Cài đặt, Trang Liên hệ, Sản phẩm, Trang) trước khi chạy thật. Ảnh trong `frontend-next/public/images` là ảnh minh hoạ
-> từ Wikimedia Commons (giấy phép CC / public domain, ghi công ở `public/images/CREDITS.md` — giữ link ghi công ở footer
+> Admin (Cài đặt, Trang Liên hệ, Sản phẩm, Trang) trước khi chạy thật. Ảnh mẫu trong `backend/uploads` (hiện trong Admin → Thư viện) là ảnh minh hoạ
+> từ Wikimedia Commons (giấy phép CC / public domain, ghi công ở `frontend-next/public/images/CREDITS.md` — giữ link ghi công ở footer
 > cho tới khi thay hết bằng ảnh thật).
 
 ## Cấu trúc

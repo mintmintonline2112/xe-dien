@@ -7,6 +7,9 @@ photos are shared under the same license. Product photos are generic stand-ins f
 catalog, not photos of the exact models named on the site — replace them with real product photos
 from the admin Library before launch.
 
+The files live in `backend/uploads/<folder>/` (shown in the admin Library); a few hero / page / news
+copies are kept in `frontend-next/public/images/` as fallbacks used directly by the site code.
+
 ## Hero banners
 
 - **hero/hero-1.webp** — "Revel electric moped IMG 4874 (50522085308)" by Elvert Barnes · Wikimedia Commons · CC BY-SA 2.0

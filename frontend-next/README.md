@@ -86,5 +86,5 @@ thẳng `@/app/admin/(protected)/<feature>/_lib/<x>.service`.
 - Admin đăng nhập bằng tài khoản staff của backend (seed: admin@gmail.com / admin#123 — đổi ngay trên môi trường thật)
 
 Site chỉ render tiếng Việt. Backend vẫn lưu và trả cột `translations` (bản dịch `en`, đọc qua `?lang=en`) nhưng admin
-không còn ô sửa bản dịch; lưu form admin không gửi `translations` nên dữ liệu cũ trong DB giữ nguyên. Ảnh upload serve từ backend `/uploads`; ảnh tĩnh của site nằm trong `public/images` (ghi công ở
+không còn ô sửa bản dịch; lưu form admin không gửi `translations` nên dữ liệu cũ trong DB giữ nguyên. Ảnh upload serve từ backend `/uploads`; ảnh mẫu của CMS cũng nằm ở `backend/uploads` (Thư viện); `public/images` chỉ giữ vài ảnh dự phòng dùng trong code (ghi công ở
 `public/images/CREDITS.md`).

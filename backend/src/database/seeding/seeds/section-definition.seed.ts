@@ -24,7 +24,7 @@ type DefinitionSeed = {
 };
 
 const IMAGE_HINT =
-  'Ảnh: bấm "Thư viện" để chọn ảnh đã upload, hoặc dán /images/... (ảnh có sẵn của thiết kế).';
+  'Ảnh: bấm "Thư viện" để chọn ảnh đã upload, ảnh mẫu của site nằm sẵn trong đó (thư mục hero, pages, news, products, categories).';
 const ICON_HINT =
   'Icon (tuỳ chọn) — tên trong bộ icon chung: bolt, truck, shield, refresh, wallet, card, percent, gift, briefcase, store, headset, users, star, check, leaf, wrench, battery, charger, bike, moped, kick-scooter, tricycle, car, golf, bus, kid, forklift, tire, parts, pin, phone, mail, clock, calendar, building, box, chat. Trống thì xoay vòng theo thứ tự.';
 const CTA_HINT = 'Chữ trên nút để trống thì ẩn nút. Link: #tên-section trên cùng trang (VD #tu-van) hoặc /duong-dan.';

@@ -4,6 +4,7 @@
  * Lưu ý: đi hết link nội bộ từ trang chủ (kể cả ?page / ?sort / ?category), mỗi URL thành một file .html, link đổi sang đường dẫn
  * tương đối nên chạy được cả ở thư mục con GitHub Pages lẫn mở thẳng bằng file://. JS của Next bị bỏ; phần tương tác cần cho demo
  * (menu mobile, slider, gallery, tìm kiếm, form) nằm ở demo-site-runtime.js. Mỗi lần chạy xoá sạch thư mục đích trừ `.git`.
+ * Ảnh /images/... chép từ public/, ảnh <API>/uploads/... chép thẳng từ backend/uploads (ảnh mẫu nằm ở đó).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -16,6 +17,7 @@ const siteUrl = (process.env.DEMO_BASE ?? "http://localhost:3006").replace(
 const outDir = process.argv[2];
 const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(scriptsDir, "..", "public");
+const backendDir = path.join(scriptsDir, "..", "..", "backend");
 const SEARCH_PAGE_FILE = "san-pham/tim-kiem/index.html";
 const CREDITS_PAGE_FILE = "ghi-cong-anh/index.html";
 const SKIPPED_PREFIXES = ["/_next", "/admin", "/api", "/images", "/favicon"];
@@ -116,7 +118,9 @@ const copiedAssets = new Set();
 
 function copyPublicAsset(publicPath) {
   const cleanPath = decodeURIComponent(publicPath.split("?")[0]);
-  const source = path.join(publicDir, cleanPath);
+  const source = cleanPath.startsWith("/uploads/")
+    ? path.join(backendDir, cleanPath)
+    : path.join(publicDir, cleanPath);
   if (!fs.existsSync(source)) return null;
   const relativePath = cleanPath.replace(/^\//, "");
   if (!copiedAssets.has(relativePath)) {
@@ -135,7 +139,8 @@ function toPublicAssetPath(rawUrl) {
     return imageUrl && imageUrl.startsWith("/") ? imageUrl : null;
   }
   if (url.startsWith("/images/") || url === "/favicon.svg") return url;
-  return null;
+  const uploadsMatch = url.match(/^https?:\/\/[^/]+(\/uploads\/[^?#]+)/);
+  return uploadsMatch ? uploadsMatch[1] : null;
 }
 
 const stylesheetFiles = new Map();

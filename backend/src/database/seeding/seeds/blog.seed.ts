@@ -3,7 +3,7 @@
  * xe nâng, xe resort, xe golf — dòng sản phẩm chủ đạo).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm theo slug, bài / danh mục đã có giữ nguyên, nên chạy lại db:seed an toàn. Slug danh mục khớp link trong menu.seed.ts
- * (/tin-tuc?category=<slug>). Ảnh bìa là file tĩnh /images/news/... hoặc /images/hero/... của frontend.
+ * (/tin-tuc?category=<slug>). Ảnh bìa nằm trong backend/uploads/news|hero (hiện trong Thư viện admin).
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -50,7 +50,7 @@ export class BlogSeed {
           '<ol><li><strong>Pallet nặng nhất bao nhiêu?</strong> Chọn tải trọng lớn hơn 20–30% so với pallet nặng nhất.</li><li><strong>Kệ cao bao nhiêu?</strong> Trên 6 m nên dùng reach truck.</li><li><strong>Lối đi rộng bao nhiêu?</strong> Xe ngồi lái cần 3,5 m, reach truck chỉ cần 2,7 m.</li><li><strong>Chạy mấy ca?</strong> Từ 2 ca trở lên nên dùng pin lithium sạc nhanh giữa ca.</li></ol>' +
           '<h2>So sánh nhanh</h2><ul><li><strong>Xe nâng tay điện:</strong> kéo pallet quãng ngắn, kho nhỏ, siêu thị — chi phí thấp nhất.</li><li><strong>Xe nâng cao (stacker):</strong> kệ 2–3 tầng, xưởng sản xuất.</li><li><strong>Xe ngồi lái 1,5–3,5 tấn:</strong> bốc xếp container, kho tổng hợp, dùng được ngoài trời.</li><li><strong>Reach truck:</strong> kho kệ cao, tối ưu diện tích.</li></ul>' +
           '<p>Kỹ sư của Xe Điện Xanh khảo sát kho miễn phí và đề xuất cấu hình kèm phương án mua, thuê tài chính hoặc thuê theo tháng.</p>',
-        coverImagePath: '/images/hero/hero-xe-nang.webp',
+        coverImagePath: 'uploads/hero/hero-xe-nang.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-22T08:00:00Z'),
         sortOrder: 1,
@@ -66,7 +66,7 @@ export class BlogSeed {
           '<ul><li>Quãng đường từ sảnh tới villa, bãi biển, nhà hàng.</li><li>Giờ cao điểm: check-in buổi chiều, giờ ăn sáng và tối.</li><li>Thời gian chờ tối đa khách chấp nhận (thường dưới 5 phút).</li></ul>' +
           '<h2>Kết hợp các loại xe</h2><p>Xe 8 chỗ đón khách theo yêu cầu giữa các villa; xe 11–14 chỗ chạy tuyến cố định sảnh – bãi biển; xe cổ điển dùng đón khách VIP và sự kiện. Thêm 1–2 xe buồng phòng giúp bộ phận housekeeping phục vụ nhanh mà không làm phiền khách.</p>' +
           '<p>Liên hệ để được khảo sát tuyến đường và nhận phương án đội xe kèm lịch sạc, bảo trì.</p>',
-        coverImagePath: '/images/hero/hero-resort.webp',
+        coverImagePath: 'uploads/hero/hero-resort.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-20T08:00:00Z'),
         sortOrder: 1,
@@ -81,7 +81,7 @@ export class BlogSeed {
           '<p>Đội xe golf chạy 6–8 vòng mỗi ngày cuối tuần, chỉ một vài xe hỏng cũng khiến khách phải chờ. Checklist hằng tháng:</p>' +
           '<ol><li>Kiểm tra và châm nước cất cho ắc quy chì (pin lithium không cần).</li><li>Vệ sinh cọc bình, siết lại đầu cos.</li><li>Kiểm tra áp suất và độ mòn lốp.</li><li>Thử phanh chân, phanh tay trên dốc.</li><li>Xoay vòng xe để số giờ chạy đều nhau.</li><li>Sạc đầy sau mỗi ngày, không để ắc quy cạn qua đêm.</li></ol>' +
           '<p>Gói bảo trì định kỳ của Xe Điện Xanh cử kỹ thuật viên tới sân hằng tháng và có xe thay thế khi cần sửa lớn.</p>',
-        coverImagePath: '/images/hero/hero-golf.webp',
+        coverImagePath: 'uploads/hero/hero-golf.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-19T08:00:00Z'),
         sortOrder: 1,
@@ -100,7 +100,7 @@ export class BlogSeed {
           '<h2>4. Tải trọng và chiều cao yên</h2><p>Kiểm tra tải trọng tối đa và ngồi thử để chắc chắn chống chân thoải mái.</p>' +
           '<h2>5. Giấy tờ và đăng ký</h2><p>Xe chính hãng phải có hoá đơn, phiếu kiểm định và hồ sơ để đăng ký biển số.</p>' +
           '<h2>6. Dịch vụ sau bán hàng</h2><p>Ưu tiên nơi có xưởng bảo hành gần nhà và hỗ trợ sửa chữa tận nơi — đây là yếu tố quyết định trải nghiệm dài hạn.</p>',
-        coverImagePath: '/images/news/news-6.webp',
+        coverImagePath: 'uploads/news/news-6.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-18T08:00:00Z'),
         sortOrder: 1,
@@ -115,7 +115,7 @@ export class BlogSeed {
           '<p>Pin là bộ phận đắt nhất trên xe điện. Chỉ cần vài thói quen đúng, tuổi thọ pin có thể tăng đáng kể.</p>' +
           '<ul><li><strong>Dùng đúng bộ sạc chính hãng</strong> có điện áp và dòng sạc phù hợp với pin.</li><li><strong>Không để pin cạn kiệt</strong>: nên sạc khi còn 20–30%.</li><li><strong>Đợi pin nguội</strong> 20–30 phút sau khi chạy rồi mới sạc.</li><li><strong>Sạc nơi thoáng mát</strong>, tránh nắng gắt và mưa ẩm.</li><li><strong>Không sạc qua đêm liên tục</strong> nếu bộ sạc không có chức năng tự ngắt.</li></ul>' +
           '<p>Với ắc quy chì, nên sạc đầy ít nhất mỗi tuần một lần kể cả khi ít sử dụng để tránh sunfat hoá bản cực.</p>',
-        coverImagePath: '/images/news/news-4.webp',
+        coverImagePath: 'uploads/news/news-4.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-12T08:00:00Z'),
         sortOrder: 2,
@@ -133,7 +133,7 @@ export class BlogSeed {
           '<tr><td>Trọng lượng</td><td>Nhẹ, dễ dắt</td><td>Nặng hơn</td></tr>' +
           '<tr><td>Giá tham khảo</td><td>7–15 triệu</td><td>13–30 triệu</td></tr></tbody></table>' +
           '<p>Dù chọn loại nào, hãy trang bị mũ bảo hiểm đạt chuẩn và hướng dẫn con kỹ năng an toàn giao thông.</p>',
-        coverImagePath: '/images/news/news-2.webp',
+        coverImagePath: 'uploads/news/news-2.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-05T08:00:00Z'),
         sortOrder: 3,
@@ -148,7 +148,7 @@ export class BlogSeed {
           '<p>Trong tháng 10, khách hàng mua xe máy điện và xe đạp điện tại hệ thống nhận ngay:</p>' +
           '<ul><li>Mũ bảo hiểm đạt chuẩn và khoá chống trộm.</li><li>Giảm thêm đến 1.000.000đ khi thanh toán chuyển khoản (tuỳ mẫu).</li><li>Trả góp 0% lãi suất kỳ hạn 6–12 tháng.</li></ul>' +
           '<p>Chương trình áp dụng đến hết tháng hoặc đến khi hết quà tặng. Liên hệ hotline để kiểm tra mẫu xe áp dụng.</p>',
-        coverImagePath: '/images/news/news-5.webp',
+        coverImagePath: 'uploads/news/news-5.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-01T08:00:00Z'),
         sortOrder: 4,
@@ -163,7 +163,7 @@ export class BlogSeed {
           '<p>Với tiểu thương chở hàng trong phố và chợ, xe 3 bánh điện có nhiều lợi thế so với xe xăng: vận hành êm, không khói, chi phí năng lượng thấp và ít hỏng vặt.</p>' +
           '<h2>Ưu điểm</h2><ul><li>Thùng dài 1,4–1,6 m, tải trọng 300–500 kg.</li><li>Chi phí điện cho 60 km chỉ khoảng 5.000–8.000đ.</li><li>Không cần thay nhớt, bảo dưỡng đơn giản.</li></ul>' +
           '<h2>Lưu ý khi chọn</h2><p>Xem kỹ công suất động cơ nếu đường nhiều dốc, chọn loại có phanh tay và đèn chiếu sáng tốt để chạy sớm hoặc tối.</p>',
-        coverImagePath: '/images/news/news-8.webp',
+        coverImagePath: 'uploads/news/news-8.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-09-24T08:00:00Z'),
         sortOrder: 5,
@@ -176,7 +176,7 @@ export class BlogSeed {
           'Tránh đi qua chỗ ngập sâu, lau khô cổng sạc, kiểm tra phanh và lốp… giúp xe điện vận hành an toàn suốt mùa mưa.',
         content:
           '<ol><li>Không đi qua đoạn ngập quá trục bánh xe.</li><li>Nếu xe bị ngập, tắt nguồn ngay, không cố khởi động và gọi kỹ thuật.</li><li>Lau khô cổng sạc trước khi cắm sạc.</li><li>Kiểm tra má phanh, độ mòn lốp thường xuyên.</li><li>Che chắn bộ điều khiển (IC) nếu xe để ngoài trời.</li><li>Phun dung dịch chống ẩm cho giắc điện sau khi đi mưa.</li><li>Bảo dưỡng định kỳ 6 tháng / lần tại xưởng chính hãng.</li></ol>',
-        coverImagePath: '/images/news/news-3.webp',
+        coverImagePath: 'uploads/news/news-3.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-09-15T08:00:00Z'),
         sortOrder: 6,
@@ -191,7 +191,7 @@ export class BlogSeed {
           '<p>Xe điện 4–14 chỗ ngày càng phổ biến tại khu du lịch, sân golf và khu đô thị nhờ vận hành êm, không khí thải và chi phí năng lượng thấp.</p>' +
           '<h2>Các khoản chi phí chính</h2><ul><li>Điện năng: trung bình 8–12 kWh cho mỗi lần sạc đầy.</li><li>Ắc quy / pin: thay sau 3–6 năm tuỳ loại.</li><li>Bảo trì: lốp, phanh, hệ thống treo theo lịch.</li></ul>' +
           '<p>Liên hệ để nhận báo giá dự án kèm gói bảo trì định kỳ tận nơi.</p>',
-        coverImagePath: '/images/news/news-1.webp',
+        coverImagePath: 'uploads/news/news-1.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-09-05T08:00:00Z'),
         sortOrder: 7,
@@ -206,7 +206,7 @@ export class BlogSeed {
           '<p>Xe máy điện thuộc diện phải đăng ký biển số trước khi lưu thông. Hồ sơ cơ bản gồm:</p>' +
           '<ul><li>Căn cước công dân của chủ xe.</li><li>Hoá đơn mua xe và phiếu kiểm tra chất lượng xuất xưởng.</li><li>Giấy khai đăng ký xe (khai trực tuyến hoặc tại cơ quan công an).</li><li>Chứng từ nộp lệ phí trước bạ.</li></ul>' +
           '<p>Quy định có thể thay đổi theo từng thời điểm. Khi mua xe tại hệ thống, nhân viên sẽ hướng dẫn và hỗ trợ làm thủ tục trọn gói.</p>',
-        coverImagePath: '/images/news/news-7.webp',
+        coverImagePath: 'uploads/news/news-7.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-08-28T08:00:00Z'),
         sortOrder: 8,

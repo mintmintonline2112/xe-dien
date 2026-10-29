@@ -3,7 +3,7 @@
  * xe điện sân golf, xe điện du lịch – resort, xe nâng điện.
  * Dùng bởi: database/seeding/seeding.service.ts (chạy trước product.seed.ts — sản phẩm gắn danh mục theo slug).
  * Lưu ý: chỉ thêm theo slug — danh mục đã có (kể cả admin đã sửa / ẩn / xoá mềm) giữ nguyên, chạy lại an toàn.
- * imagePath trỏ file tĩnh frontend-next/public/images/categories/<slug>.webp.
+ * imagePath trỏ backend/uploads/categories/<slug>.webp (hiện trong Thư viện admin).
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -257,7 +257,7 @@ export class ProductCategorySeed {
         slug: category.slug,
         parentId,
         description: category.description,
-        imagePath: parentId == null ? `/images/categories/${category.slug}.webp` : null,
+        imagePath: parentId == null ? `uploads/categories/${category.slug}.webp` : null,
         icon: category.icon,
         isActive: true,
         sortOrder,
