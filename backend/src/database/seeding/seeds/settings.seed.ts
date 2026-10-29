@@ -34,7 +34,7 @@ const DEFAULT_SITE_SETTINGS: Record<string, unknown> = {
       location: 'TP. Hồ Chí Minh',
       phone: '0900 000 000',
       hotline: '1800 0000',
-      email: 'lienhe@xedienxanh.vn',
+      email: 'lienhe@tramxedien.vn',
       hours: '8:00 – 21:00, Thứ 2 – Chủ nhật',
       zalo: '0900000000',
     },

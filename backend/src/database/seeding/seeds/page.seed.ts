@@ -840,7 +840,7 @@ export const PAGES: PageDefinition[] = [
             { question: 'Nhân viên tư vấn bán hàng (TP.HCM, Hà Nội)', answer: 'Tư vấn khách tại showroom và qua điện thoại, chăm sóc khách sau bán.\n\nThu nhập 8–20 triệu (lương cứng + thưởng doanh số). Ưu tiên có kinh nghiệm bán lẻ.' },
             { question: 'Kỹ thuật viên sửa chữa xe điện', answer: 'Lắp ráp, bảo dưỡng, sửa chữa xe điện tại xưởng và tận nhà khách.\n\nThu nhập 9–18 triệu. Được đào tạo thêm nếu chưa có kinh nghiệm xe điện.' },
             { question: 'Nhân viên giao xe', answer: 'Giao xe, hướng dẫn khách sử dụng cơ bản. Có bằng lái B2 là lợi thế.\n\nThu nhập 7–12 triệu + phụ cấp.' },
-            { question: 'Cách ứng tuyển', answer: 'Gửi CV qua email lienhe@xedienxanh.vn với tiêu đề "Ứng tuyển – Vị trí – Họ tên", hoặc đến trực tiếp showroom gần nhất.' },
+            { question: 'Cách ứng tuyển', answer: 'Gửi CV qua email lienhe@tramxedien.vn với tiêu đề "Ứng tuyển – Vị trí – Họ tên", hoặc đến trực tiếp showroom gần nhất.' },
           ],
         },
         sortOrder: 1,

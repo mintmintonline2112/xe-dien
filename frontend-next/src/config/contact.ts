@@ -8,7 +8,7 @@ export const SITE_CONTACT = {
   name: "Xe Điện Xanh",
   location: "TP. Hồ Chí Minh",
   address: "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7",
-  email: "lienhe@xedienxanh.vn",
+  email: "lienhe@tramxedien.vn",
   phone: "0900 000 000",
   phoneHref: "tel:0900000000",
   hotline: "1800 0000",

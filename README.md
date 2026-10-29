@@ -57,7 +57,7 @@ nhân viên và phân quyền.
 
 ## Deploy
 
-`bash /www/wwwroot/xedienxanh.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
+`bash /www/wwwroot/tramxedien.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
 
 > **Cổng: API 3020, web 3006** (máy dev và VPS như nhau). Không dùng lại cổng của site khác chạy chung VPS / máy dev:
 > primenuts 3010/3001, primenutusa 3012/3005, primenutingredients 3014/3007, seantruongre 3016/3008, ogaousa 3018/3009.

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ============================================================
 # Deploy Xe Điện Xanh lên VPS bằng MỘT lệnh:
-#     bash /www/wwwroot/xedienxanh.vn/deploy.sh
+#     bash /www/wwwroot/tramxedien.vn/deploy.sh
 #
 # Tuần tự: git fetch + merge (tự gỡ vướng lock file / file upload trùng tên)
 # → npm ci + build backend → migration + seed → npm ci + build frontend

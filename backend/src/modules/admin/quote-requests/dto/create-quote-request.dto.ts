@@ -68,7 +68,7 @@ export class CreateQuoteRequestDto {
   @MaxLength(5000)
   message?: string;
 
-  @ApiPropertyOptional({ example: 'https://xedienxanh.vn/san-pham/xe-dap-dien-vnbike-i1' })
+  @ApiPropertyOptional({ example: 'https://tramxedien.vn/san-pham/xe-dap-dien-vnbike-i1' })
   @IsOptional()
   @IsString()
   @MaxLength(500)
