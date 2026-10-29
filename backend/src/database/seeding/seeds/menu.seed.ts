@@ -1,7 +1,7 @@
 /**
  * Seed menu của website: menu chính (header — Trang chủ, 3 dòng chủ đạo Xe sân golf / Xe resort / Xe nâng điện, Sản phẩm khác,
  * Giới thiệu, Tin tức, Liên hệ)
- * và 2 cột link chân trang (footer — Hỗ trợ khách hàng, Về Xe Điện Xanh).
+ * và 2 cột link chân trang (footer — Hỗ trợ khách hàng, Về Trạm Xe Điện).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm theo (location, href) — mục đã có (kể cả admin đã sửa / ẩn / xoá mềm) giữ nguyên, nên chạy lại db:seed an toàn.
  * Tiêu đề cột footer không phải link thật nên dùng href dạng "#..." riêng cho từng cột để khớp được khi chạy lại.
@@ -84,7 +84,7 @@ const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
       ],
     },
     {
-      label: 'Về Xe Điện Xanh',
+      label: 'Về Trạm Xe Điện',
       href: '#ve-xe-dien-xanh',
       children: [
         { label: 'Giới thiệu', href: '/gioi-thieu' },

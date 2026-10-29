@@ -4,7 +4,7 @@
  */
 import type { AdminUser } from './types';
 
-const STORAGE_KEY = 'xedienxanh_admin_user';
+const STORAGE_KEY = 'tramxedien_admin_user';
 
 export function getStoredUser(): AdminUser | null {
   if (typeof window === 'undefined') return null;

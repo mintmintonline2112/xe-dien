@@ -31,7 +31,7 @@ export function buildQuoteRequestEmail(data: CreateQuoteRequestDto): string {
       ${buildRow('Trang gửi', data.sourceUrl)}
     </table>
     <div style="padding:12px 24px;background:#F3F8F5;color:#5B6B63;font-size:12px;">
-      © ${new Date().getFullYear()} Xe Điện Xanh — email tự động từ form tư vấn trên website.
+      © ${new Date().getFullYear()} Trạm Xe Điện — email tự động từ form tư vấn trên website.
     </div>
   </div>`;
 }

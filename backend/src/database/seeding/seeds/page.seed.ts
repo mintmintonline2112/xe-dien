@@ -1,5 +1,5 @@
 /**
- * Nội dung mặc định của website Xe Điện Xanh (trang + section) — nguồn nội dung DUY NHẤT, component không có chữ mặc định.
+ * Nội dung mặc định của website Trạm Xe Điện (trang + section) — nguồn nội dung DUY NHẤT, component không có chữ mặc định.
  * Dùng bởi: database/seeding/seeding.service.ts; src/scripts/export-content.ts (`npm run content:export` sinh bản dự phòng cho frontend).
  * Lưu ý: sectionKey = id neo trên trang (menu / nút trỏ vào, giữ ổn định — form tư vấn luôn là `tu-van`); metadata._component = component
  * trong registry frontend, metadata.layout = bố cục. Chỉ thêm theo slug / sectionKey; section đã có chỉ được bổ sung key metadata còn
@@ -126,14 +126,14 @@ export const PAGES: PageDefinition[] = [
       templateKey: 'home',
       status: PublishStatus.PUBLISHED,
       sortOrder: 1,
-      metaTitle: 'Xe Điện Xanh — Xe điện sân golf, xe điện resort, xe nâng điện chính hãng',
+      metaTitle: 'Trạm Xe Điện — Xe điện sân golf, xe điện resort, xe nâng điện chính hãng',
       metaDescription:
         'Chuyên xe điện sân golf 2 – 6 chỗ, xe điện du lịch 8 – 23 chỗ cho resort, khách sạn và xe nâng điện 1,2 – 3,5 tấn. Báo giá dự án 24h, giao xe toàn quốc, bảo trì tận nơi.',
     },
     sections: [
       {
         sectionKey: 'banner',
-        heading: 'Xe Điện Xanh — xe điện sân golf, xe điện resort và xe nâng điện chính hãng',
+        heading: 'Trạm Xe Điện — xe điện sân golf, xe điện resort và xe nâng điện chính hãng',
         metadata: {
           _component: 'hero',
           layout: 'banner',
@@ -266,7 +266,7 @@ export const PAGES: PageDefinition[] = [
       },
       {
         sectionKey: 'vi-sao-chon',
-        heading: 'Vì sao sân golf, resort và nhà máy chọn Xe Điện Xanh',
+        heading: 'Vì sao sân golf, resort và nhà máy chọn Trạm Xe Điện',
         content: '<p>Chúng tôi không chỉ bán xe — chúng tôi chịu trách nhiệm cho cả đội xe của bạn chạy ổn định mỗi ngày.</p>',
         metadata: {
           _component: 'feature-cards',
@@ -377,7 +377,7 @@ export const PAGES: PageDefinition[] = [
       sortOrder: 2,
       metaTitle: 'Sản phẩm xe điện chính hãng — giá tận xưởng',
       metaDescription:
-        'Danh sách xe điện sân golf, xe điện du lịch cho resort, xe nâng điện, xe máy điện, xe đạp điện và phụ tùng chính hãng tại Xe Điện Xanh.',
+        'Danh sách xe điện sân golf, xe điện du lịch cho resort, xe nâng điện, xe máy điện, xe đạp điện và phụ tùng chính hãng tại Trạm Xe Điện.',
     },
     sections: [],
   },
@@ -404,8 +404,8 @@ export const PAGES: PageDefinition[] = [
       templateKey: 'contact',
       status: PublishStatus.PUBLISHED,
       sortOrder: 4,
-      metaTitle: 'Liên hệ Xe Điện Xanh',
-      metaDescription: 'Hotline, địa chỉ showroom và form liên hệ của Xe Điện Xanh. Tư vấn miễn phí 8:00 – 21:00 hằng ngày.',
+      metaTitle: 'Liên hệ Trạm Xe Điện',
+      metaDescription: 'Hotline, địa chỉ showroom và form liên hệ của Trạm Xe Điện. Tư vấn miễn phí 8:00 – 21:00 hằng ngày.',
     },
     sections: [
       {
@@ -439,22 +439,22 @@ export const PAGES: PageDefinition[] = [
   },
   {
     page: {
-      title: 'Giới thiệu Xe Điện Xanh',
+      title: 'Giới thiệu Trạm Xe Điện',
       slug: 'gioi-thieu',
       eyebrow: 'Về chúng tôi',
       lead: 'Hơn 10 năm đồng hành cùng người Việt chuyển sang phương tiện điện — tiết kiệm, êm ái và thân thiện với môi trường.',
       heroImagePath: 'uploads/pages/about.webp',
       status: PublishStatus.PUBLISHED,
       sortOrder: 5,
-      metaTitle: 'Giới thiệu Xe Điện Xanh',
-      metaDescription: 'Xe Điện Xanh — hệ thống phân phối xe điện chính hãng với showroom tại nhiều tỉnh thành, dịch vụ bảo hành và sửa chữa tận nơi.',
+      metaTitle: 'Giới thiệu Trạm Xe Điện',
+      metaDescription: 'Trạm Xe Điện — hệ thống phân phối xe điện chính hãng với showroom tại nhiều tỉnh thành, dịch vụ bảo hành và sửa chữa tận nơi.',
     },
     sections: [
       {
         sectionKey: 'cau-chuyen',
         heading: 'Câu chuyện của chúng tôi',
         content:
-          '<p>Xe Điện Xanh bắt đầu từ một cửa hàng nhỏ chuyên sửa xe đạp điện. Nhận thấy khách hàng cần một nơi vừa bán xe chính hãng, vừa chăm sóc xe lâu dài, chúng tôi xây dựng hệ thống showroom kèm xưởng dịch vụ.</p>' +
+          '<p>Trạm Xe Điện bắt đầu từ một cửa hàng nhỏ chuyên sửa xe đạp điện. Nhận thấy khách hàng cần một nơi vừa bán xe chính hãng, vừa chăm sóc xe lâu dài, chúng tôi xây dựng hệ thống showroom kèm xưởng dịch vụ.</p>' +
           '<p>Hôm nay, chúng tôi tập trung vào xe điện sân golf, xe điện du lịch cho resort – khách sạn và xe nâng điện cho nhà xưởng, bên cạnh xe máy điện, xe đạp điện cho gia đình — tất cả đều có bảo hành chính hãng và kỹ thuật viên hỗ trợ tận nơi.</p>',
         metadata: {
           _component: 'icon-card-list',
@@ -529,7 +529,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 6,
       metaTitle: 'Mua xe điện trả góp 0% lãi suất',
-      metaDescription: 'Mua xe đạp điện, xe máy điện trả góp 0% chỉ cần CCCD, duyệt hồ sơ 30 phút, trả trước từ 0% tại Xe Điện Xanh.',
+      metaDescription: 'Mua xe đạp điện, xe máy điện trả góp 0% chỉ cần CCCD, duyệt hồ sơ 30 phút, trả trước từ 0% tại Trạm Xe Điện.',
     },
     sections: [
       {
@@ -617,8 +617,8 @@ export const PAGES: PageDefinition[] = [
       heroImagePath: 'uploads/pages/showroom.webp',
       status: PublishStatus.PUBLISHED,
       sortOrder: 7,
-      metaTitle: 'Hệ thống showroom Xe Điện Xanh',
-      metaDescription: 'Địa chỉ, số điện thoại và giờ mở cửa các showroom Xe Điện Xanh tại TP. Hồ Chí Minh, Đồng Nai, Hà Nội, Đà Nẵng, Cần Thơ.',
+      metaTitle: 'Hệ thống showroom Trạm Xe Điện',
+      metaDescription: 'Địa chỉ, số điện thoại và giờ mở cửa các showroom Trạm Xe Điện tại TP. Hồ Chí Minh, Đồng Nai, Hà Nội, Đà Nẵng, Cần Thơ.',
     },
     sections: [
       {
@@ -652,7 +652,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 8,
       metaTitle: 'Chính sách bảo hành xe điện',
-      metaDescription: 'Thời hạn và điều kiện bảo hành động cơ, pin, bộ điều khiển xe điện tại Xe Điện Xanh.',
+      metaDescription: 'Thời hạn và điều kiện bảo hành động cơ, pin, bộ điều khiển xe điện tại Trạm Xe Điện.',
     },
     sections: [
       {
@@ -691,7 +691,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 9,
       metaTitle: 'Chính sách vận chuyển, giao xe',
-      metaDescription: 'Phí và thời gian giao xe điện nội thành, liên tỉnh tại Xe Điện Xanh.',
+      metaDescription: 'Phí và thời gian giao xe điện nội thành, liên tỉnh tại Trạm Xe Điện.',
     },
     sections: [
       {
@@ -716,7 +716,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 10,
       metaTitle: 'Chính sách đổi trả',
-      metaDescription: 'Điều kiện và quy trình đổi trả xe điện, phụ tùng tại Xe Điện Xanh.',
+      metaDescription: 'Điều kiện và quy trình đổi trả xe điện, phụ tùng tại Trạm Xe Điện.',
     },
     sections: [
       {
@@ -741,7 +741,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 11,
       metaTitle: 'Hướng dẫn mua xe điện online',
-      metaDescription: 'Các bước đặt mua xe điện online, thanh toán và nhận xe tại Xe Điện Xanh.',
+      metaDescription: 'Các bước đặt mua xe điện online, thanh toán và nhận xe tại Trạm Xe Điện.',
     },
     sections: [
       {
@@ -822,12 +822,12 @@ export const PAGES: PageDefinition[] = [
       title: 'Tuyển dụng',
       slug: 'tuyen-dung',
       eyebrow: 'Cơ hội nghề nghiệp',
-      lead: 'Gia nhập đội ngũ Xe Điện Xanh — môi trường năng động, thu nhập hấp dẫn, được đào tạo bài bản.',
+      lead: 'Gia nhập đội ngũ Trạm Xe Điện — môi trường năng động, thu nhập hấp dẫn, được đào tạo bài bản.',
       heroImagePath: 'uploads/pages/about.webp',
       status: PublishStatus.PUBLISHED,
       sortOrder: 13,
-      metaTitle: 'Tuyển dụng Xe Điện Xanh',
-      metaDescription: 'Tuyển dụng nhân viên tư vấn bán hàng, kỹ thuật viên sửa chữa xe điện tại hệ thống Xe Điện Xanh.',
+      metaTitle: 'Tuyển dụng Trạm Xe Điện',
+      metaDescription: 'Tuyển dụng nhân viên tư vấn bán hàng, kỹ thuật viên sửa chữa xe điện tại hệ thống Trạm Xe Điện.',
     },
     sections: [
       {
@@ -857,7 +857,7 @@ export const PAGES: PageDefinition[] = [
       status: PublishStatus.PUBLISHED,
       sortOrder: 14,
       metaTitle: 'Chính sách đại lý xe điện',
-      metaDescription: 'Chính sách chiết khấu, hỗ trợ và điều kiện mở đại lý phân phối xe điện cùng Xe Điện Xanh.',
+      metaDescription: 'Chính sách chiết khấu, hỗ trợ và điều kiện mở đại lý phân phối xe điện cùng Trạm Xe Điện.',
     },
     sections: [
       {

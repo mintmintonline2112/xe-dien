@@ -1,4 +1,4 @@
-# Xe Điện Xanh — website bán xe điện
+# Trạm Xe Điện — website bán xe điện
 
 Website bán lẻ xe điện (xe đạp điện, xe máy điện, scooter, xe 3 bánh, ô tô điện, xe chuyên dụng / xe nâng điện, phụ tùng,
 trạm sạc) kèm trang quản trị CMS. Dựng trên khung code của dự án primenutusa: NestJS + Next.js, nội dung trang ghép từ các
@@ -61,4 +61,4 @@ nhân viên và phân quyền.
 
 > **Cổng: API 3020, web 3006** (máy dev và VPS như nhau). Không dùng lại cổng của site khác chạy chung VPS / máy dev:
 > primenuts 3010/3001, primenutusa 3012/3005, primenutingredients 3014/3007, seantruongre 3016/3008, ogaousa 3018/3009.
-> Trước đây Xe Điện Xanh để 3018/3008 nên trùng API của Ogao: site xe điện gọi nhầm backend Ogao và hiện dữ liệu Ogao.
+> Trước đây Trạm Xe Điện để 3018/3008 nên trùng API của Ogao: site xe điện gọi nhầm backend Ogao và hiện dữ liệu Ogao.

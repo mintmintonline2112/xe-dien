@@ -299,7 +299,7 @@
       input.value = query;
     });
     document.title =
-      (query ? "Tìm kiếm: " + query : "Tìm kiếm sản phẩm") + " — Xe Điện Xanh";
+      (query ? "Tìm kiếm: " + query : "Tìm kiếm sản phẩm") + " — Trạm Xe Điện";
     document
       .querySelectorAll(
         'nav[aria-label="Sắp xếp"], nav[aria-label="Phân trang"]',

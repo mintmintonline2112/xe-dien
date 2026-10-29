@@ -1,5 +1,5 @@
 /**
- * Seed cài đặt mặc định của website Xe Điện Xanh (tên thương hiệu, tiêu đề SEO, màu thương hiệu, trang Liên hệ).
+ * Seed cài đặt mặc định của website Trạm Xe Điện (tên thương hiệu, tiêu đề SEO, màu thương hiệu, trang Liên hệ).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm key còn thiếu trong bảng site_settings — key admin đã lưu (kể cả đã sửa) giữ nguyên, chạy lại an toàn.
  * Số điện thoại, địa chỉ, email là dữ liệu mẫu để chủ website thay trong Admin → Cài đặt / Trang Liên hệ.
@@ -11,11 +11,11 @@ import { Repository } from 'typeorm';
 import { SiteSetting } from 'src/modules/admin/settings/site-setting.entity';
 
 const DEFAULT_SITE_SETTINGS: Record<string, unknown> = {
-  brandName: 'Xe Điện Xanh',
-  siteTitle: 'Xe Điện Xanh — Xe điện sân golf, xe điện resort, xe nâng điện chính hãng',
+  brandName: 'Trạm Xe Điện',
+  siteTitle: 'Trạm Xe Điện — Xe điện sân golf, xe điện resort, xe nâng điện chính hãng',
   siteDescription:
     'Chuyên xe điện sân golf, xe điện du lịch cho resort – khách sạn và xe nâng điện chính hãng. Báo giá dự án 24h, giao xe toàn quốc, bảo trì tận nơi.',
-  footerText: 'Xe Điện Xanh. Bảo lưu mọi quyền.',
+  footerText: 'Trạm Xe Điện. Bảo lưu mọi quyền.',
   brandColors: {
     primary: '#0A7D4F',
     secondary: '#FFB81C',
@@ -25,11 +25,11 @@ const DEFAULT_SITE_SETTINGS: Record<string, unknown> = {
   contactPage: {
     hero: {
       eyebrow: 'Liên hệ',
-      title: 'Liên hệ Xe Điện Xanh',
+      title: 'Liên hệ Trạm Xe Điện',
       lead: 'Đội ngũ tư vấn trực 8:00 – 21:00 mỗi ngày. Gọi tổng đài miễn phí hoặc để lại thông tin, chúng tôi gọi lại trong 15 phút.',
     },
     company: {
-      name: 'Công ty TNHH Xe Điện Xanh',
+      name: 'Công ty TNHH Trạm Xe Điện',
       address: '123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7',
       location: 'TP. Hồ Chí Minh',
       phone: '0900 000 000',

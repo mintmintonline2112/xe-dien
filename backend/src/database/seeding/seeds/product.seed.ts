@@ -124,7 +124,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe điện sân golf 4 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 165000000,
     originalPrice: 178000000,
     isFeatured: true,
@@ -160,7 +160,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe điện sân golf 2 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 129000000,
     isFeatured: true,
     imageGroup: 'xe-golf',
@@ -194,7 +194,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe golf nâng gầm 4+2 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 215000000,
     originalPrice: 229000000,
     isFeatured: true,
@@ -231,7 +231,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe điện sân golf 6 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 235000000,
     isFeatured: true,
     imageGroup: 'xe-golf',
@@ -265,7 +265,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe điện chở đồ sân golf',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 145000000,
     imageGroup: 'xe-golf',
     imageNumber: 4,
@@ -299,7 +299,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-san-golf',
     title: 'Xe golf cổ điển 4 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 189000000,
     imageGroup: 'xe-golf',
     imageNumber: 5,
@@ -332,7 +332,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-du-lich',
     title: 'Xe điện du lịch 8 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 285000000,
     originalPrice: 299000000,
     isFeatured: true,
@@ -368,7 +368,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-du-lich',
     title: 'Xe điện du lịch 11 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 345000000,
     isFeatured: true,
     imageGroup: 'o-to-dien',
@@ -402,7 +402,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-du-lich',
     title: 'Xe điện cổ điển 8 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 395000000,
     isFeatured: true,
     badge: 'Mới',
@@ -437,7 +437,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-bus-dien',
     title: 'Xe bus điện 14 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     stockStatus: 'pre_order',
     imageGroup: 'o-to-dien',
@@ -471,7 +471,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-bus-dien',
     title: 'Xe bus điện 23 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     stockStatus: 'pre_order',
     imageGroup: 'xe-resort',
@@ -505,7 +505,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-du-lich',
     title: 'Xe điện tuần tra 2 chỗ',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 139000000,
     imageGroup: 'xe-resort',
     imageNumber: 3,
@@ -538,7 +538,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-dien-du-lich',
     title: 'Xe điện phục vụ buồng phòng',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 155000000,
     imageGroup: 'xe-resort',
     imageNumber: 4,
@@ -572,7 +572,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-ngoi-lai',
     title: 'Xe nâng điện ngồi lái 1.5 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 385000000,
     originalPrice: 410000000,
     isFeatured: true,
@@ -607,7 +607,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-ngoi-lai',
     title: 'Xe nâng điện ngồi lái 2.5 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 520000000,
     isFeatured: true,
     imageGroup: 'xe-nang',
@@ -640,7 +640,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-ngoi-lai',
     title: 'Xe nâng điện ngồi lái 3.5 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 690000000,
     imageGroup: 'xe-nang',
     imageNumber: 2,
@@ -672,7 +672,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-ngoi-lai',
     title: 'Xe nâng điện 3 bánh 1.6 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 455000000,
     imageGroup: 'xe-nang',
     imageNumber: 3,
@@ -704,7 +704,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-dung-lai',
     title: 'Xe nâng điện đứng lái 1.5 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 295000000,
     imageGroup: 'xe-nang',
     imageNumber: 7,
@@ -736,7 +736,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-dung-lai',
     title: 'Xe nâng reach truck 1.6 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 620000000,
     isFeatured: true,
     imageGroup: 'xe-nang',
@@ -769,7 +769,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-dung-lai',
     title: 'Xe nâng cao điện 1.2 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 98000000,
     imageGroup: 'xe-nang',
     imageNumber: 6,
@@ -800,7 +800,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-nang-tay-dien',
     title: 'Xe nâng tay điện 2 tấn',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 32500000,
     originalPrice: 36000000,
     isFeatured: true,
@@ -1552,7 +1552,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-3-banh-cho-nguoi',
     title: 'Xe điện 3 bánh cho người khuyết tật',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 12500000,
     imageGroup: 'xe-dien-3-banh',
     imageNumber: 2,
@@ -1584,7 +1584,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-3-banh-cho-hang',
     title: 'Xe ba bánh điện chở hàng thùng 1m6',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     imageGroup: 'xe-dien-3-banh',
     imageNumber: 3,
@@ -1710,7 +1710,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-cho-rac',
     title: 'Xe điện chở rác 3 bánh 500L',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     imageGroup: 'xe-chuyen-dung',
     imageNumber: 1,
@@ -1742,7 +1742,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'xe-quet-duong',
     title: 'Xe quét đường điện ngồi lái',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     imageGroup: 'xe-chuyen-dung',
     imageNumber: 2,
@@ -1774,7 +1774,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'linh-kien',
     title: 'Tay ga 3 chức năng',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 350000,
     imageGroup: 'phu-tung',
     imageNumber: 1,
@@ -1800,7 +1800,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'linh-kien',
     title: 'Giảm sóc sau xe điện M133',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 700000,
     imageGroup: 'phu-tung',
     imageNumber: 2,
@@ -1826,7 +1826,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'lop-xe',
     title: 'Lốp xe điện 10x2.50',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 380000,
     imageGroup: 'phu-tung',
     imageNumber: 3,
@@ -1878,7 +1878,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'pin-ac-quy',
     title: 'Ắc quy xe đạp điện 48V 12Ah',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 1650000,
     imageGroup: 'phu-tung',
     imageNumber: 5,
@@ -1904,7 +1904,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'pin-ac-quy',
     title: 'Pin Lithium 60V 20Ah',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 5900000,
     imageGroup: 'phu-tung',
     imageNumber: 5,
@@ -1931,7 +1931,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'tram-sac',
     title: 'Trạm sạc xe máy điện 10 cổng',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: null,
     imageGroup: 'tram-sac',
     imageNumber: 1,
@@ -1958,7 +1958,7 @@ const PRODUCTS: SeedProduct[] = [
   {
     category: 'tram-sac',
     title: 'Bộ sạc ô tô điện treo tường 7kW',
-    brand: 'Xe Điện Xanh',
+    brand: 'Trạm Xe Điện',
     price: 18900000,
     originalPrice: 21500000,
     imageGroup: 'tram-sac',
@@ -2010,7 +2010,7 @@ function buildContent(product: SeedProduct): string {
   const buyingNote =
     product.price == null
       ? `<p>Giá ${product.title.toLowerCase()} thay đổi theo cấu hình, số lượng và địa điểm giao hàng. Gọi tổng đài hoặc để lại số điện thoại, chuyên viên sẽ gửi báo giá chi tiết và lịch xem xe trong ngày.</p>`
-      : '<p>Mua tại Xe Điện Xanh, bạn được kiểm tra xe trước khi nhận, giao xe tận nhà nội thành, hỗ trợ trả góp 0% và bảo hành chính hãng tại toàn bộ hệ thống showroom.</p>';
+      : '<p>Mua tại Trạm Xe Điện, bạn được kiểm tra xe trước khi nhận, giao xe tận nhà nội thành, hỗ trợ trả góp 0% và bảo hành chính hãng tại toàn bộ hệ thống showroom.</p>';
   return (
     `<h2>Giới thiệu ${product.title}</h2>` +
     `<p>${product.excerpt}</p>` +

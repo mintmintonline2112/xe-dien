@@ -1,6 +1,6 @@
-# Xe Điện Xanh — Frontend (Next.js)
+# Trạm Xe Điện — Frontend (Next.js)
 
-Site public tiếng Việt + trang quản trị CMS của Xe Điện Xanh, dựng theo Next.js 15 App Router (React 19), nối với
+Site public tiếng Việt + trang quản trị CMS của Trạm Xe Điện, dựng theo Next.js 15 App Router (React 19), nối với
 `backend/` (NestJS). Hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn: [`docs/catalog-api.md`](../docs/catalog-api.md).
 
 ## Chạy

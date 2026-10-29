@@ -183,7 +183,7 @@ export function ContactPageScreen() {
       <section className="gf-card st-section">
         <h2 className="st-section-title">Tiêu đề trang</h2>
         {renderTextField('Dòng nhỏ phía trên (eyebrow)', hero.eyebrow, (value) => setHero({ ...hero, eyebrow: value }), { placeholder: 'Liên hệ' })}
-        {renderTextField('Tiêu đề', hero.title, (value) => setHero({ ...hero, title: value }), { placeholder: 'Liên hệ Xe Điện Xanh' })}
+        {renderTextField('Tiêu đề', hero.title, (value) => setHero({ ...hero, title: value }), { placeholder: 'Liên hệ Trạm Xe Điện' })}
         {renderTextField('Đoạn dẫn', hero.lead, (value) => setHero({ ...hero, lead: value }), {
           rows: 2, placeholder: 'Gọi hotline hoặc để lại số điện thoại, nhân viên tư vấn sẽ gọi lại trong 15 phút.',
           hint: 'Để trống thì dùng nội dung mặc định.',

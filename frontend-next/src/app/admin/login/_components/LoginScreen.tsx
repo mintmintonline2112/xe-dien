@@ -54,7 +54,7 @@ export function LoginScreen() {
             <i />
           </span>
           <span>
-            <strong>Xe Điện Xanh</strong>
+            <strong>Trạm Xe Điện</strong>
             <small>Xe điện chính hãng</small>
           </span>
         </div>
@@ -66,13 +66,13 @@ export function LoginScreen() {
             của khách hàng trong một hệ thống tập trung.
           </p>
         </div>
-        <small>© {new Date().getFullYear()} Xe Điện Xanh</small>
+        <small>© {new Date().getFullYear()} Trạm Xe Điện</small>
       </section>
 
       <section className="admin-login-panel">
         <form className="admin-login-card" onSubmit={handleSubmit}>
           <header>
-            <p className="admin-eyebrow">Xe Điện Xanh CMS</p>
+            <p className="admin-eyebrow">Trạm Xe Điện CMS</p>
             <h2>Đăng nhập quản trị</h2>
             <p>Dùng tài khoản nhân sự đã được cấp quyền.</p>
           </header>

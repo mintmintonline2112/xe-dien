@@ -1,5 +1,5 @@
 /**
- * Gửi email qua SMTP (nodemailer) với người gửi "Xe Điện Xanh" (thông báo liên hệ, yêu cầu tư vấn).
+ * Gửi email qua SMTP (nodemailer) với người gửi "Trạm Xe Điện" (thông báo liên hệ, yêu cầu tư vấn).
  * Dùng bởi: contact/contact.service.ts, quote-requests/quote-requests.service.ts (qua MailModule).
  * Lưu ý: thiếu MAIL_HOST / MAIL_USER / MAIL_PASS thì không tạo kết nối SMTP, mọi lần gửi chỉ ghi cảnh báo và trả null.
  */
@@ -63,7 +63,7 @@ export class MailService implements OnModuleInit {
     const mailConfig = this.configService.get<MailConfig>('mail');
 
     return this.deliver({
-      from: `"Xe Điện Xanh" <${mailConfig.from}>`,
+      from: `"Trạm Xe Điện" <${mailConfig.from}>`,
       ...options,
     });
   }

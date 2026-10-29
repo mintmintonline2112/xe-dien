@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-# Deploy Xe Điện Xanh lên VPS bằng MỘT lệnh:
+# Deploy Trạm Xe Điện lên VPS bằng MỘT lệnh:
 #     bash /www/wwwroot/tramxedien.vn/deploy.sh
 #
 # Tuần tự: git fetch + merge (tự gỡ vướng lock file / file upload trùng tên)
@@ -21,7 +21,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # VPS chạy chung nhiều site thì mỗi site phải có tên app + cổng pm2 RIÊNG — đừng dùng lại tên / cổng của site khác.
 # Cổng đang có chủ (API / web): primenuts 3010/3001, primenutusa 3012/3005, primenutingredients 3014/3007,
-# seantruongre 3016/3008, ogaousa 3018/3009 → Xe Điện Xanh dùng 3020/3006. Kiểm lại bằng `ss -tlnp` trước khi đổi.
+# seantruongre 3016/3008, ogaousa 3018/3009 → Trạm Xe Điện dùng 3020/3006. Kiểm lại bằng `ss -tlnp` trước khi đổi.
 API_NAME="${API_NAME:-xedien_api}"; API_PORT="${API_PORT:-3020}"
 WEB_NAME="${WEB_NAME:-xedien_web}"; WEB_PORT="${WEB_PORT:-3006}"
 APP_USER="${APP_USER:-www}"

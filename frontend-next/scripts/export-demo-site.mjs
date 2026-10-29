@@ -348,7 +348,7 @@ function writeCreditsPage() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Ghi công ảnh minh hoạ — Xe Điện Xanh</title>
+<title>Ghi công ảnh minh hoạ — Trạm Xe Điện</title>
 <style>
 body{margin:0;background:#f4f6f5;color:#1f2a25;font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
 main{max-width:960px;margin:0 auto;padding:32px 16px 64px;overflow-wrap:anywhere}
@@ -371,9 +371,9 @@ ${buildCreditsHtml(fs.readFileSync(creditsPath, "utf8"))}
 }
 
 function writeDemoReadme(pageCount) {
-  const readme = `# Xe Điện Xanh — bản demo tĩnh
+  const readme = `# Trạm Xe Điện — bản demo tĩnh
 
-Bản xem trước website bán xe điện Xe Điện Xanh: ${pageCount} trang HTML (trang chủ, sản phẩm, danh mục, chi tiết xe,
+Bản xem trước website bán xe điện Trạm Xe Điện: ${pageCount} trang HTML (trang chủ, sản phẩm, danh mục, chi tiết xe,
 tin tức, liên hệ, chính sách…) kèm CSS, JS và ảnh, không cần backend.
 
 - Xem trên máy: mở \`index.html\` bằng trình duyệt.

@@ -1,7 +1,7 @@
 {
   "name": "xedien-backend",
   "version": "0.0.1",
-  "description": "CMS & API backend cho website Xe Điện Xanh (sản phẩm, danh mục, trang, tin tức, liên hệ, yêu cầu tư vấn)",
+  "description": "CMS & API backend cho website Trạm Xe Điện (sản phẩm, danh mục, trang, tin tức, liên hệ, yêu cầu tư vấn)",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

@@ -5,7 +5,7 @@
  * dữ liệu mẫu — chủ cửa hàng nhập số thật trong Admin.
  */
 export const SITE_CONTACT = {
-  name: "Xe Điện Xanh",
+  name: "Trạm Xe Điện",
   location: "TP. Hồ Chí Minh",
   address: "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7",
   email: "lienhe@tramxedien.vn",

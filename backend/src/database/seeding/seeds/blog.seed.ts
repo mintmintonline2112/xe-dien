@@ -1,5 +1,5 @@
 /**
- * Seed 4 danh mục tin (Tin xe điện, Hướng dẫn, Khuyến mãi, Đánh giá xe) và 11 bài viết mẫu của Xe Điện Xanh (3 bài mới nhất về
+ * Seed 4 danh mục tin (Tin xe điện, Hướng dẫn, Khuyến mãi, Đánh giá xe) và 11 bài viết mẫu của Trạm Xe Điện (3 bài mới nhất về
  * xe nâng, xe resort, xe golf — dòng sản phẩm chủ đạo).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm theo slug, bài / danh mục đã có giữ nguyên, nên chạy lại db:seed an toàn. Slug danh mục khớp link trong menu.seed.ts
@@ -49,7 +49,7 @@ export class BlogSeed {
           '<p>Chọn sai xe nâng khiến kho vừa tốn tiền đầu tư vừa chậm luân chuyển hàng. Bốn câu hỏi cần trả lời trước khi xin báo giá:</p>' +
           '<ol><li><strong>Pallet nặng nhất bao nhiêu?</strong> Chọn tải trọng lớn hơn 20–30% so với pallet nặng nhất.</li><li><strong>Kệ cao bao nhiêu?</strong> Trên 6 m nên dùng reach truck.</li><li><strong>Lối đi rộng bao nhiêu?</strong> Xe ngồi lái cần 3,5 m, reach truck chỉ cần 2,7 m.</li><li><strong>Chạy mấy ca?</strong> Từ 2 ca trở lên nên dùng pin lithium sạc nhanh giữa ca.</li></ol>' +
           '<h2>So sánh nhanh</h2><ul><li><strong>Xe nâng tay điện:</strong> kéo pallet quãng ngắn, kho nhỏ, siêu thị — chi phí thấp nhất.</li><li><strong>Xe nâng cao (stacker):</strong> kệ 2–3 tầng, xưởng sản xuất.</li><li><strong>Xe ngồi lái 1,5–3,5 tấn:</strong> bốc xếp container, kho tổng hợp, dùng được ngoài trời.</li><li><strong>Reach truck:</strong> kho kệ cao, tối ưu diện tích.</li></ul>' +
-          '<p>Kỹ sư của Xe Điện Xanh khảo sát kho miễn phí và đề xuất cấu hình kèm phương án mua, thuê tài chính hoặc thuê theo tháng.</p>',
+          '<p>Kỹ sư của Trạm Xe Điện khảo sát kho miễn phí và đề xuất cấu hình kèm phương án mua, thuê tài chính hoặc thuê theo tháng.</p>',
         coverImagePath: 'uploads/hero/hero-xe-nang.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-22T08:00:00Z'),
@@ -80,7 +80,7 @@ export class BlogSeed {
         content:
           '<p>Đội xe golf chạy 6–8 vòng mỗi ngày cuối tuần, chỉ một vài xe hỏng cũng khiến khách phải chờ. Checklist hằng tháng:</p>' +
           '<ol><li>Kiểm tra và châm nước cất cho ắc quy chì (pin lithium không cần).</li><li>Vệ sinh cọc bình, siết lại đầu cos.</li><li>Kiểm tra áp suất và độ mòn lốp.</li><li>Thử phanh chân, phanh tay trên dốc.</li><li>Xoay vòng xe để số giờ chạy đều nhau.</li><li>Sạc đầy sau mỗi ngày, không để ắc quy cạn qua đêm.</li></ol>' +
-          '<p>Gói bảo trì định kỳ của Xe Điện Xanh cử kỹ thuật viên tới sân hằng tháng và có xe thay thế khi cần sửa lớn.</p>',
+          '<p>Gói bảo trì định kỳ của Trạm Xe Điện cử kỹ thuật viên tới sân hằng tháng và có xe thay thế khi cần sửa lớn.</p>',
         coverImagePath: 'uploads/hero/hero-golf.webp',
         status: PublishStatus.PUBLISHED,
         publishedAt: new Date('2026-10-19T08:00:00Z'),

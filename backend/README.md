@@ -1,6 +1,6 @@
-# Xe Điện Xanh — Backend
+# Trạm Xe Điện — Backend
 
-CMS & API cho website bán xe điện Xe Điện Xanh (NestJS 11 + TypeORM/MySQL): **danh mục sản phẩm + sản phẩm**
+CMS & API cho website bán xe điện Trạm Xe Điện (NestJS 11 + TypeORM/MySQL): **danh mục sản phẩm + sản phẩm**
 (giá, thông số, ảnh, khuyến mãi), trang nội dung (pages/sections), tin tức (blog), menu header / footer, cài đặt
 site, liên hệ và **yêu cầu tư vấn** (tư vấn chọn xe, báo giá, trả góp, lái thử, đăng ký đại lý), kèm RBAC
 staff/roles/permissions.
@@ -184,7 +184,7 @@ nằm ở đây.
 
 | Key | Nghĩa |
 |---|---|
-| `brandName` | Chữ cạnh logo (seed: "Xe Điện Xanh") |
+| `brandName` | Chữ cạnh logo (seed: "Trạm Xe Điện") |
 | `siteTitle`, `siteDescription` | Tiêu đề / mô tả SEO mặc định |
 | `footerText` | Dòng cuối trang, sau "© <năm> " |
 | `logoUrl`, `footerLogoUrl` | Cố ý không seed: chưa có logo thì site hiện biểu tượng SVG dựng sẵn + tên thương hiệu |
