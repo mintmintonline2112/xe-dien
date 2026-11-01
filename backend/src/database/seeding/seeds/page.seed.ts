@@ -139,6 +139,14 @@ export const PAGES: PageDefinition[] = [
           layout: 'banner',
           slides: [
             {
+              image: '/images/hero/hero-3.webp',
+              title: 'Xe điện du lịch, sân golf cho khu nghỉ dưỡng',
+              text: 'Giải pháp đưa đón khách 4–14 chỗ, bảo trì định kỳ tận nơi, giá tốt cho dự án.',
+              label: 'Nhận báo giá dự án',
+              href: '/danh-muc/o-to-dien/',
+              alt: 'Đoàn xe điện sân golf',
+            },
+            {
               image: '/images/hero/hero-1.webp',
               title: 'Xe máy điện chính hãng – giá tận xưởng',
               text: 'Hơn 40 mẫu xe máy điện, xe đạp điện sẵn hàng. Giao xe tận nhà, lắp ráp và sạc sẵn miễn phí.',
@@ -153,14 +161,6 @@ export const PAGES: PageDefinition[] = [
               label: 'Đăng ký trả góp',
               href: '/mua-tra-gop/',
               alt: 'Người đi xe điện trong thành phố',
-            },
-            {
-              image: '/images/hero/hero-3.webp',
-              title: 'Xe điện du lịch, sân golf cho khu nghỉ dưỡng',
-              text: 'Giải pháp đưa đón khách 4–14 chỗ, bảo trì định kỳ tận nơi, giá tốt cho dự án.',
-              label: 'Nhận báo giá dự án',
-              href: '/danh-muc/o-to-dien/',
-              alt: 'Đoàn xe điện sân golf',
             },
             {
               image: '/images/hero/hero-4.webp',
@@ -202,6 +202,19 @@ export const PAGES: PageDefinition[] = [
         sortOrder: 3,
       },
       {
+        sectionKey: 'o-to-dien',
+        heading: 'Ô tô điện – xe du lịch, sân golf',
+        metadata: {
+          _component: 'product-grid',
+          layout: 'split',
+          source: 'category',
+          categorySlug: 'o-to-dien',
+          limit: '8',
+          ctaLabel: 'Xem tất cả ô tô điện',
+        },
+        sortOrder: 4,
+      },
+      {
         sectionKey: 'danh-muc',
         heading: 'Danh mục sản phẩm',
         metadata: {
@@ -209,7 +222,7 @@ export const PAGES: PageDefinition[] = [
           layout: 'tiles',
           limit: '12',
         },
-        sortOrder: 4,
+        sortOrder: 5,
       },
       {
         sectionKey: 'moi-ve',
@@ -222,7 +235,7 @@ export const PAGES: PageDefinition[] = [
           ctaLabel: 'Xem thêm',
           ctaHref: '/san-pham/?sort=newest',
         },
-        sortOrder: 5,
+        sortOrder: 6,
       },
       {
         sectionKey: 'xe-dap-dien',
@@ -235,7 +248,7 @@ export const PAGES: PageDefinition[] = [
           limit: '8',
           ctaLabel: 'Xem tất cả xe đạp điện',
         },
-        sortOrder: 6,
+        sortOrder: 7,
       },
       {
         sectionKey: 'xe-may-dien',
@@ -248,7 +261,7 @@ export const PAGES: PageDefinition[] = [
           limit: '8',
           ctaLabel: 'Xem tất cả xe máy điện',
         },
-        sortOrder: 7,
+        sortOrder: 8,
       },
       {
         sectionKey: 'xe-dien-2-banh',
@@ -260,19 +273,6 @@ export const PAGES: PageDefinition[] = [
           categorySlug: 'xe-dien-2-banh',
           limit: '5',
           ctaLabel: 'Xem tất cả',
-        },
-        sortOrder: 8,
-      },
-      {
-        sectionKey: 'o-to-dien',
-        heading: 'Ô tô điện – xe du lịch, sân golf',
-        metadata: {
-          _component: 'product-grid',
-          layout: 'split',
-          source: 'category',
-          categorySlug: 'o-to-dien',
-          limit: '8',
-          ctaLabel: 'Xem tất cả ô tô điện',
         },
         sortOrder: 9,
       },

@@ -27,11 +27,11 @@ interface SeedMenuItem {
 }
 
 const PRODUCT_CATEGORY_LINKS: SeedMenuChild[] = [
+  { label: 'Ô tô điện', href: '/danh-muc/o-to-dien' },
   { label: 'Xe đạp điện', href: '/danh-muc/xe-dap-dien' },
   { label: 'Xe máy điện', href: '/danh-muc/xe-may-dien' },
   { label: 'Xe điện 2 bánh & Scooter', href: '/danh-muc/xe-dien-2-banh' },
   { label: 'Xe điện 3 bánh', href: '/danh-muc/xe-dien-3-banh' },
-  { label: 'Ô tô điện', href: '/danh-muc/o-to-dien' },
   { label: 'Xe điện trẻ em', href: '/danh-muc/xe-dien-tre-em' },
   { label: 'Xe chuyên dụng', href: '/danh-muc/xe-chuyen-dung' },
   { label: 'Phụ tùng & pin sạc', href: '/danh-muc/phu-tung' },

@@ -1,11 +1,13 @@
 "use client";
 
 /**
- * Header 3 tầng kiểu cửa hàng: thanh trên (tổng đài, hotline, giờ mở cửa, mạng xã hội — thu lại khi cuộn), thanh chính (logo, ô tìm
+ * Header 3 tầng kiểu cửa hàng: thanh trên (tổng đài, hotline, giờ mở cửa, mạng xã hội — trượt khuất khi cuộn), thanh chính (logo, ô tìm
  * sản phẩm, hotline, nút trả góp), thanh menu màu chủ đạo (nút "Danh mục sản phẩm" thả cây danh mục + menu CMS có menu con).
  * Dùng bởi: app/(site)/layout.tsx.
  * Lưu ý: dưới 900px thanh menu ẩn, thay bằng ngăn kéo bên trái (CategoryDrawer.tsx). Trạng thái cuộn / mở ngăn kéo ghi lên <header>
  * bằng data-scrolled / data-open, tầng con đọc qua `group-data-scrolled/header`. Ô tìm kiếm gửi GET /san-pham?q=.
+ * Khi cuộn không được đổi chiều cao header (thu thanh trên, đổi padding): header sticky nằm trong luồng trang, cao đổi 48px làm
+ * scrollY nhảy qua lại ngưỡng → giựt liên tục gần đầu trang. Thanh trên khuất nhờ `top: -40px` (= cao thanh trên h-10).
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,6 +23,8 @@ import { Brand, type BrandProps } from "./Brand";
 import { CategoryDrawer } from "./CategoryDrawer";
 import { SearchForm } from "./SearchForm";
 import { SocialIcons } from "./SocialIcons";
+
+const TOPBAR_HEIGHT_PX = 40;
 
 const TOPBAR_LINK = "inline-flex items-center gap-1.5 whitespace-nowrap text-light-soft hover:text-gold-300 [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:text-gold-300";
 
@@ -53,7 +57,7 @@ export function Header({
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+    const handleScroll = () => setIsScrolled(window.scrollY > TOPBAR_HEIGHT_PX);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
@@ -83,12 +87,12 @@ export function Header({
 
   return (
     <header
-      className="group/header sticky top-0 z-100 bg-paper transition-shadow duration-250 ease-brand data-scrolled:shadow-lift"
+      className="group/header sticky top-0 z-100 bg-paper min-[901px]:-top-10 transition-shadow duration-250 ease-brand data-scrolled:shadow-lift"
       data-scrolled={isScrolled ? "" : undefined}
       data-open={isDrawerOpen ? "" : undefined}
       id="site-header"
     >
-      <div className="max-h-10 overflow-hidden bg-navy-900 text-xs [transition:max-height_300ms_var(--ease),opacity_220ms_var(--ease)] group-data-scrolled/header:max-h-0 group-data-scrolled/header:opacity-0 max-[900px]:hidden">
+      <div className="bg-navy-900 text-xs transition-opacity duration-200 ease-brand group-data-scrolled/header:opacity-0 max-[900px]:hidden">
         <div className="site-container flex h-10 items-center justify-between gap-6">
           <div className="flex min-w-0 items-center gap-6">
             <a className={TOPBAR_LINK} href={contact.hotlineHref}>
@@ -122,7 +126,7 @@ export function Header({
       </div>
 
       <div className="border-b border-b-line-soft">
-        <div className="site-container flex items-center gap-6 py-3 transition-[padding] duration-300 ease-brand group-data-scrolled/header:py-2 max-[900px]:gap-3 max-[900px]:py-2.5">
+        <div className="site-container flex items-center gap-6 py-3 max-[900px]:gap-3 max-[900px]:py-2.5">
           <button
             className="hidden h-10 w-10 shrink-0 place-items-center rounded-md border border-line text-navy-700 max-[900px]:grid"
             type="button"

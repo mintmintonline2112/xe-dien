@@ -1,5 +1,5 @@
 /**
- * Seed cây danh mục sản phẩm mặc định (9 danh mục gốc + danh mục con) kèm ảnh ô danh mục, icon, mô tả và SEO.
+ * Seed cây danh mục sản phẩm mặc định (9 danh mục gốc, Ô tô điện đứng đầu vì là sản phẩm chủ lực, + danh mục con) kèm ảnh ô danh mục, icon, mô tả và SEO.
  * Dùng bởi: database/seeding/seeding.service.ts (chạy trước product.seed.ts — sản phẩm gắn danh mục theo slug).
  * Lưu ý: chỉ thêm theo slug — danh mục đã có (kể cả admin đã sửa / ẩn / xoá mềm) giữ nguyên, chạy lại an toàn.
  * imagePath trỏ file tĩnh frontend-next/public/images/categories/<slug>.webp.
@@ -19,6 +19,44 @@ type SeedCategory = {
 };
 
 const CATEGORY_TREE: SeedCategory[] = [
+  {
+    slug: 'o-to-dien',
+    name: 'Ô tô điện',
+    icon: 'car',
+    description:
+      'Xe điện 4 bánh cho sân golf, khu du lịch, resort, khu đô thị và nhà máy — vận hành êm, không khí thải, chi phí vận hành thấp.',
+    metaDescription:
+      'Xe điện sân golf, xe điện du lịch 4–14 chỗ, xe bus điện cho resort, khu đô thị. Báo giá nhanh, giao xe toàn quốc.',
+    children: [
+      {
+        slug: 'xe-dien-san-golf',
+        name: 'Xe điện sân golf',
+        icon: 'golf',
+        description:
+          'Xe điện 2–4 chỗ chuyên dụng cho sân golf, khuôn viên khách sạn và biệt thự.',
+        metaDescription:
+          'Xe điện sân golf 2–4 chỗ chính hãng, vận hành êm, bảo dưỡng định kỳ tận nơi.',
+      },
+      {
+        slug: 'xe-dien-du-lich',
+        name: 'Xe điện du lịch',
+        icon: 'car',
+        description:
+          'Xe điện chở khách 6–11 chỗ cho khu du lịch, phố đi bộ, resort và khu đô thị.',
+        metaDescription:
+          'Xe điện du lịch 6, 8, 11 chỗ cho resort, khu du lịch, phố cổ — bền bỉ, an toàn, chi phí thấp.',
+      },
+      {
+        slug: 'xe-bus-dien',
+        name: 'Xe bus điện',
+        icon: 'bus',
+        description:
+          'Xe bus điện 14–23 chỗ đưa đón nhân viên, học sinh và khách tham quan trong khu công nghiệp, khu đô thị.',
+        metaDescription:
+          'Xe bus điện 14–23 chỗ đưa đón trong khu công nghiệp, trường học, khu đô thị. Tư vấn giải pháp trọn gói.',
+      },
+    ],
+  },
   {
     slug: 'xe-dap-dien',
     name: 'Xe đạp điện',
@@ -72,44 +110,6 @@ const CATEGORY_TREE: SeedCategory[] = [
           'Xe điện 3 bánh có ghế ngồi êm, tốc độ vừa phải, phù hợp người lớn tuổi và người khuyết tật tự di chuyển.',
         metaDescription:
           'Xe điện 3 bánh cho người già, người khuyết tật: thấp sàn, dễ lên xuống, vận hành êm và an toàn.',
-      },
-    ],
-  },
-  {
-    slug: 'o-to-dien',
-    name: 'Ô tô điện',
-    icon: 'car',
-    description:
-      'Xe điện 4 bánh cho sân golf, khu du lịch, resort, khu đô thị và nhà máy — vận hành êm, không khí thải, chi phí vận hành thấp.',
-    metaDescription:
-      'Xe điện sân golf, xe điện du lịch 4–14 chỗ, xe bus điện cho resort, khu đô thị. Báo giá nhanh, giao xe toàn quốc.',
-    children: [
-      {
-        slug: 'xe-dien-san-golf',
-        name: 'Xe điện sân golf',
-        icon: 'golf',
-        description:
-          'Xe điện 2–4 chỗ chuyên dụng cho sân golf, khuôn viên khách sạn và biệt thự.',
-        metaDescription:
-          'Xe điện sân golf 2–4 chỗ chính hãng, vận hành êm, bảo dưỡng định kỳ tận nơi.',
-      },
-      {
-        slug: 'xe-dien-du-lich',
-        name: 'Xe điện du lịch',
-        icon: 'car',
-        description:
-          'Xe điện chở khách 6–11 chỗ cho khu du lịch, phố đi bộ, resort và khu đô thị.',
-        metaDescription:
-          'Xe điện du lịch 6, 8, 11 chỗ cho resort, khu du lịch, phố cổ — bền bỉ, an toàn, chi phí thấp.',
-      },
-      {
-        slug: 'xe-bus-dien',
-        name: 'Xe bus điện',
-        icon: 'bus',
-        description:
-          'Xe bus điện 14–23 chỗ đưa đón nhân viên, học sinh và khách tham quan trong khu công nghiệp, khu đô thị.',
-        metaDescription:
-          'Xe bus điện 14–23 chỗ đưa đón trong khu công nghiệp, trường học, khu đô thị. Tư vấn giải pháp trọn gói.',
       },
     ],
   },

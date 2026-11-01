@@ -931,6 +931,7 @@ const PRODUCTS: SeedProduct[] = [
       colors: 'Trắng, Kem, Xanh lá',
     }),
     warranty: 'Bảo hành 24 tháng động cơ và khung',
+    isFeatured: true,
   },
   {
     category: 'xe-dien-du-lich',
@@ -963,6 +964,7 @@ const PRODUCTS: SeedProduct[] = [
       colors: 'Trắng, Xanh dương, Đỏ',
     }),
     warranty: 'Bảo hành 24 tháng động cơ và khung',
+    isFeatured: true,
   },
   {
     category: 'xe-dien-du-lich',
@@ -995,6 +997,7 @@ const PRODUCTS: SeedProduct[] = [
       colors: 'Trắng, Xanh lá',
     }),
     warranty: 'Bảo hành 24 tháng động cơ và khung',
+    isFeatured: true,
   },
   {
     category: 'xe-bus-dien',
@@ -1028,6 +1031,7 @@ const PRODUCTS: SeedProduct[] = [
       colors: 'Trắng, Theo yêu cầu',
     }),
     warranty: 'Bảo hành 24 tháng động cơ, 36 tháng pin lithium',
+    isFeatured: true,
   },
   {
     category: 'xe-dien-tre-em',

@@ -30,6 +30,14 @@
           "layout": "banner",
           "slides": [
             {
+              "image": "/images/hero/hero-3.webp",
+              "title": "Xe điện du lịch, sân golf cho khu nghỉ dưỡng",
+              "text": "Giải pháp đưa đón khách 4–14 chỗ, bảo trì định kỳ tận nơi, giá tốt cho dự án.",
+              "label": "Nhận báo giá dự án",
+              "href": "/danh-muc/o-to-dien/",
+              "alt": "Đoàn xe điện sân golf"
+            },
+            {
               "image": "/images/hero/hero-1.webp",
               "title": "Xe máy điện chính hãng – giá tận xưởng",
               "text": "Hơn 40 mẫu xe máy điện, xe đạp điện sẵn hàng. Giao xe tận nhà, lắp ráp và sạc sẵn miễn phí.",
@@ -44,14 +52,6 @@
               "label": "Đăng ký trả góp",
               "href": "/mua-tra-gop/",
               "alt": "Người đi xe điện trong thành phố"
-            },
-            {
-              "image": "/images/hero/hero-3.webp",
-              "title": "Xe điện du lịch, sân golf cho khu nghỉ dưỡng",
-              "text": "Giải pháp đưa đón khách 4–14 chỗ, bảo trì định kỳ tận nơi, giá tốt cho dự án.",
-              "label": "Nhận báo giá dự án",
-              "href": "/danh-muc/o-to-dien/",
-              "alt": "Đoàn xe điện sân golf"
             },
             {
               "image": "/images/hero/hero-4.webp",
@@ -136,6 +136,29 @@
       {
         "id": 5,
         "pageId": 1,
+        "sectionKey": "o-to-dien",
+        "heading": "Ô tô điện – xe du lịch, sân golf",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "split",
+          "source": "category",
+          "categorySlug": "o-to-dien",
+          "limit": "8",
+          "ctaLabel": "Xem tất cả ô tô điện"
+        },
+        "isActive": true,
+        "sortOrder": 4,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 6,
+        "pageId": 1,
         "sectionKey": "danh-muc",
         "heading": "Danh mục sản phẩm",
         "subheading": null,
@@ -147,14 +170,14 @@
           "limit": "12"
         },
         "isActive": true,
-        "sortOrder": 4,
+        "sortOrder": 5,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 6,
+        "id": 7,
         "pageId": 1,
         "sectionKey": "moi-ve",
         "heading": "Sản phẩm mới về",
@@ -170,14 +193,14 @@
           "ctaHref": "/san-pham/?sort=newest"
         },
         "isActive": true,
-        "sortOrder": 5,
+        "sortOrder": 6,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 7,
+        "id": 8,
         "pageId": 1,
         "sectionKey": "xe-dap-dien",
         "heading": "Xe đạp điện",
@@ -193,14 +216,14 @@
           "ctaLabel": "Xem tất cả xe đạp điện"
         },
         "isActive": true,
-        "sortOrder": 6,
+        "sortOrder": 7,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 8,
+        "id": 9,
         "pageId": 1,
         "sectionKey": "xe-may-dien",
         "heading": "Xe máy điện",
@@ -216,14 +239,14 @@
           "ctaLabel": "Xem tất cả xe máy điện"
         },
         "isActive": true,
-        "sortOrder": 7,
+        "sortOrder": 8,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 9,
+        "id": 10,
         "pageId": 1,
         "sectionKey": "xe-dien-2-banh",
         "heading": "Scooter điện & xe cân bằng",
@@ -237,29 +260,6 @@
           "categorySlug": "xe-dien-2-banh",
           "limit": "5",
           "ctaLabel": "Xem tất cả"
-        },
-        "isActive": true,
-        "sortOrder": 8,
-        "createdAt": "2026-01-01T00:00:00.000Z",
-        "updatedAt": "2026-01-01T00:00:00.000Z",
-        "deletedAt": null,
-        "translations": null
-      },
-      {
-        "id": 10,
-        "pageId": 1,
-        "sectionKey": "o-to-dien",
-        "heading": "Ô tô điện – xe du lịch, sân golf",
-        "subheading": null,
-        "content": null,
-        "mediaPath": null,
-        "metadata": {
-          "_component": "product-grid",
-          "layout": "split",
-          "source": "category",
-          "categorySlug": "o-to-dien",
-          "limit": "8",
-          "ctaLabel": "Xem tất cả ô tô điện"
         },
         "isActive": true,
         "sortOrder": 9,

@@ -4,6 +4,8 @@
  * Lưu ý: chỉ sản phẩm `published` có publishedAt ≤ hiện tại hoặc để trống. Lọc theo danh mục gồm cả danh mục con.
  * Danh sách không trả cột `content` (bài mô tả dài) cho nhẹ; sắp theo giá luôn đẩy sản phẩm "Liên hệ" (price null) xuống cuối.
  * Danh mục trả dạng phẳng theo thứ tự: mỗi danh mục gốc rồi tới các con của nó (con có cha bị ẩn thì đứng như gốc).
+ * Sắp mặc định (`featured`): sản phẩm mua nhiều trước, rồi theo thứ tự danh mục gốc (Admin → Danh mục, đưa Ô tô điện lên đầu thì
+ * ô tô điện đứng đầu mọi khối), rồi thứ tự sản phẩm. applySort cần join `category` có sẵn trong findPublishedPage.
  */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -150,7 +152,13 @@ export class ClientProductsService {
       return;
     }
     queryBuilder
+      .leftJoin('category.parent', 'parentCategory')
+      .addSelect(
+        'COALESCE(parentCategory.sort_order, category.sort_order, 4294967295)',
+        'category_rank',
+      )
       .orderBy('product.isFeatured', 'DESC')
+      .addOrderBy('category_rank', 'ASC')
       .addOrderBy('product.sortOrder', 'ASC')
       .addOrderBy('product.publishedAt', 'DESC')
       .addOrderBy('product.id', 'DESC');
