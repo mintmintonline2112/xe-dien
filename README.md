@@ -1,12 +1,12 @@
-# Xe Điện Xanh — website bán xe điện
+# Trạm Xe Điện — website bán xe điện
 
 Website bán lẻ xe điện (xe đạp điện, xe máy điện, scooter, xe 3 bánh, ô tô điện, xe chuyên dụng / xe nâng điện, phụ tùng,
 trạm sạc) kèm trang quản trị CMS. Dựng trên khung code của dự án primenutusa: NestJS + Next.js, nội dung trang ghép từ các
 section quản lý trong admin.
 
 > Tên thương hiệu, số điện thoại, địa chỉ showroom, sản phẩm và bài viết hiện là **dữ liệu mẫu** — chủ cửa hàng sửa trong
-> Admin (Cài đặt, Trang Liên hệ, Sản phẩm, Trang) trước khi chạy thật. Ảnh trong `frontend-next/public/images` là ảnh minh hoạ
-> từ Wikimedia Commons (giấy phép CC / public domain, ghi công ở `public/images/CREDITS.md` — giữ link ghi công ở footer
+> Admin (Cài đặt, Trang Liên hệ, Sản phẩm, Trang) trước khi chạy thật. Ảnh mẫu trong `backend/uploads` (hiện trong Admin → Thư viện) là ảnh minh hoạ
+> từ Wikimedia Commons (giấy phép CC / public domain, ghi công ở `frontend-next/public/images/CREDITS.md` — giữ link ghi công ở footer
 > cho tới khi thay hết bằng ảnh thật).
 
 ## Cấu trúc
@@ -18,16 +18,16 @@ xe-nang/
 ├── catalog-importer/ # CLI độc lập: cào danh mục sản phẩm từ site khác + đẩy vào CMS qua API admin (xem catalog-importer/README.md)
 ├── docs/           # catalog-api.md: hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn giữa backend và frontend
 ├── .claude/rules/  # quy tắc code (comment, đặt tên) — bắt buộc khi sửa code
-└── deploy.sh       # deploy VPS bằng một lệnh (pm2: xedien_api :3018, xedien_web :3008)
+└── deploy.sh       # deploy VPS bằng một lệnh (pm2: xedien_api :3020, xedien_web :3006)
 ```
 
 ## Chạy trên máy dev
 
 1. **Backend:** `cd backend`, tạo `.env` từ `.env.example` (DB `xedien`, JWT), tạo database rồi
    `npm install`, `npm run db:run && npm run db:seed`, `npm run start:dev`
-   → API `http://localhost:3018/api`, Swagger `/docs`
+   → API `http://localhost:3020/api`, Swagger `/docs`
 2. **Frontend:** `cd frontend-next`, tạo `.env.local` từ `.env.example`, `npm install && npm run dev`
-   → site `http://localhost:3008`, quản trị `/admin` (đăng nhập seed: admin@gmail.com / admin#123 — đổi mật khẩu ngay)
+   → site `http://localhost:3006`, quản trị `/admin` (đăng nhập seed: admin@gmail.com / admin#123 — đổi mật khẩu ngay)
 
 Làm mới toàn bộ dữ liệu mẫu: `cd backend && npm run db:fresh && npm run content:export`.
 
@@ -59,3 +59,7 @@ nhân viên và phân quyền.
 ## Deploy
 
 `bash /www/wwwroot/tramxedien.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
+
+> **Cổng: API 3020, web 3006** (máy dev và VPS như nhau). Không dùng lại cổng của site khác chạy chung VPS / máy dev:
+> primenuts 3010/3001, primenutusa 3012/3005, primenutingredients 3014/3007, seantruongre 3016/3008, ogaousa 3018/3009.
+> Trước đây Trạm Xe Điện để 3018/3008 nên trùng API của Ogao: site xe điện gọi nhầm backend Ogao và hiện dữ liệu Ogao.

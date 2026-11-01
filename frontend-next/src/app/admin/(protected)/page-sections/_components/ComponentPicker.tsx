@@ -11,7 +11,7 @@
 import type { ReactNode } from 'react';
 import type { SectionDefinition } from '@/app/admin/(protected)/page-sections/_lib/page-section.service';
 
-const SKETCH_COLORS = { ink: '#1A2744', soft: '#8E98B0', gold: '#C9A25E', line: '#DDE3EE', sale: '#D7261E' };
+const SKETCH_COLORS = { ink: '#0A7D4F', soft: '#8FB5A2', gold: '#FFB81C', line: '#DCE8E1', sale: '#D7261E' };
 
 const drawRect = (x: number, y: number, width: number, height: number, fill: string, rx = 2) => (
   <rect key={`${x}-${y}-${width}-${height}-${fill}`} x={x} y={y} width={width} height={height} rx={rx} fill={fill} />

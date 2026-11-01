@@ -32,7 +32,7 @@ export interface SiteSettings {
 export type SocialKey = "facebook" | "youtube" | "instagram" | "tiktok" | "zalo";
 export type SocialLinks = Partial<Record<SocialKey, string>>;
 
-export const DEFAULT_BRAND_NAME = "Xe Điện Xanh";
+export const DEFAULT_BRAND_NAME = "Trạm Xe Điện";
 
 export const DEFAULT_FAVICON = "/favicon.svg";
 

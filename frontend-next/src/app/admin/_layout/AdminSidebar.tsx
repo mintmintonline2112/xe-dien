@@ -37,7 +37,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
             <i />
           </span>
           <span>
-            <strong>Xe Điện Xanh</strong>
+            <strong>Trạm Xe Điện</strong>
             <small>Hệ thống quản trị</small>
           </span>
         </div>

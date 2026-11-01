@@ -2,7 +2,7 @@
  * Phần dùng chung của đồng bộ bố cục trang giữa 2 database (máy dev → VPS): kiểu file layout.json, module Nest, đọc tham số dòng lệnh, chuẩn hoá link ảnh.
  * Dùng bởi: scripts/layout-sync/layout-export.ts (`npm run layout:export`), scripts/layout-sync/layout-import.ts (`npm run layout:import`).
  * Lưu ý: git chỉ mang code; section nào có trên trang, bật / tắt, thứ tự, nội dung nằm trong DATABASE nên phải đồng bộ bằng 2 script này.
- * Link ảnh tuyệt đối của máy dev (http://localhost:3018/uploads/x.jpg) được đổi thành /uploads/x.jpg để chạy đúng trên domain thật.
+ * Link ảnh tuyệt đối của máy dev (http://localhost:3020/uploads/x.jpg) được đổi thành /uploads/x.jpg để chạy đúng trên domain thật.
  */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';

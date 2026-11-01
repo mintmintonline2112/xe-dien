@@ -1,6 +1,7 @@
 /**
- * Seed menu của website: menu chính (header — Trang chủ, Giới thiệu, Sản phẩm + 9 danh mục, Trả góp, Tin tức, Showroom, Liên hệ)
- * và 2 cột link chân trang (footer — Hỗ trợ khách hàng, Về Xe Điện Xanh).
+ * Seed menu của website: menu chính (header — Trang chủ, 3 dòng chủ đạo Xe sân golf / Xe resort / Xe nâng điện, Sản phẩm khác,
+ * Giới thiệu, Tin tức, Liên hệ)
+ * và 2 cột link chân trang (footer — Hỗ trợ khách hàng, Về Trạm Xe Điện).
  * Dùng bởi: database/seeding/seeding.service.ts.
  * Lưu ý: chỉ thêm theo (location, href) — mục đã có (kể cả admin đã sửa / ẩn / xoá mềm) giữ nguyên, nên chạy lại db:seed an toàn.
  * Tiêu đề cột footer không phải link thật nên dùng href dạng "#..." riêng cho từng cột để khớp được khi chạy lại.
@@ -26,10 +27,9 @@ interface SeedMenuItem {
   children?: SeedMenuChild[];
 }
 
-const PRODUCT_CATEGORY_LINKS: SeedMenuChild[] = [
-  { label: 'Ô tô điện', href: '/danh-muc/o-to-dien' },
-  { label: 'Xe đạp điện', href: '/danh-muc/xe-dap-dien' },
+const OTHER_PRODUCT_LINKS: SeedMenuChild[] = [
   { label: 'Xe máy điện', href: '/danh-muc/xe-may-dien' },
+  { label: 'Xe đạp điện', href: '/danh-muc/xe-dap-dien' },
   { label: 'Xe điện 2 bánh & Scooter', href: '/danh-muc/xe-dien-2-banh' },
   { label: 'Xe điện 3 bánh', href: '/danh-muc/xe-dien-3-banh' },
   { label: 'Xe điện trẻ em', href: '/danh-muc/xe-dien-tre-em' },
@@ -41,13 +41,23 @@ const PRODUCT_CATEGORY_LINKS: SeedMenuChild[] = [
 const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
   header: [
     { label: 'Trang chủ', href: '/', showSubmenu: false },
-    { label: 'Giới thiệu', href: '/gioi-thieu', showSubmenu: false },
+    { label: 'Xe sân golf', href: '/danh-muc/xe-dien-san-golf', showSubmenu: false },
+    { label: 'Xe resort – du lịch', href: '/danh-muc/xe-dien-du-lich', showSubmenu: false },
     {
-      label: 'Sản phẩm',
-      href: '/san-pham',
-      children: PRODUCT_CATEGORY_LINKS,
+      label: 'Xe nâng điện',
+      href: '/danh-muc/xe-nang-dien',
+      children: [
+        { label: 'Xe nâng điện ngồi lái', href: '/danh-muc/xe-nang-ngoi-lai' },
+        { label: 'Xe nâng đứng lái & reach truck', href: '/danh-muc/xe-nang-dung-lai' },
+        { label: 'Xe nâng tay điện', href: '/danh-muc/xe-nang-tay-dien' },
+      ],
     },
-    { label: 'Mua trả góp', href: '/mua-tra-gop', showSubmenu: false },
+    {
+      label: 'Sản phẩm khác',
+      href: '/san-pham',
+      children: OTHER_PRODUCT_LINKS,
+    },
+    { label: 'Giới thiệu', href: '/gioi-thieu', showSubmenu: false },
     {
       label: 'Tin tức',
       href: '/tin-tuc',
@@ -57,11 +67,6 @@ const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
         { label: 'Khuyến mãi', href: '/tin-tuc?category=khuyen-mai' },
         { label: 'Đánh giá xe', href: '/tin-tuc?category=danh-gia-xe' },
       ],
-    },
-    {
-      label: 'Hệ thống showroom',
-      href: '/he-thong-showroom',
-      showSubmenu: false,
     },
     { label: 'Liên hệ', href: '/lien-he', showSubmenu: false },
   ],
@@ -79,7 +84,7 @@ const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
       ],
     },
     {
-      label: 'Về Xe Điện Xanh',
+      label: 'Về Trạm Xe Điện',
       href: '#ve-xe-dien-xanh',
       children: [
         { label: 'Giới thiệu', href: '/gioi-thieu' },

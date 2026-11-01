@@ -40,7 +40,7 @@ export class StaffSeed {
     const rawStaffs: Array<Partial<Staff>> = [
       {
         staffCode: 'ADM001',
-        name: 'Quản trị Xe Điện Xanh',
+        name: 'Quản trị Trạm Xe Điện',
         email: 'admin@gmail.com',
         password: 'admin#123',
         role: adminRole,

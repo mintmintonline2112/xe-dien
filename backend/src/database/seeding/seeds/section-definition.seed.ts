@@ -24,7 +24,7 @@ type DefinitionSeed = {
 };
 
 const IMAGE_HINT =
-  'Ảnh: bấm "Thư viện" để chọn ảnh đã upload, hoặc dán /images/... (ảnh có sẵn của thiết kế).';
+  'Ảnh: bấm "Thư viện" để chọn ảnh đã upload, ảnh mẫu của site nằm sẵn trong đó (thư mục hero, pages, news, products, categories).';
 const ICON_HINT =
   'Icon (tuỳ chọn) — tên trong bộ icon chung: bolt, truck, shield, refresh, wallet, card, percent, gift, briefcase, store, headset, users, star, check, leaf, wrench, battery, charger, bike, moped, kick-scooter, tricycle, car, golf, bus, kid, forklift, tire, parts, pin, phone, mail, clock, calendar, building, box, chat. Trống thì xoay vòng theo thứ tự.';
 const CTA_HINT = 'Chữ trên nút để trống thì ẩn nút. Link: #tên-section trên cùng trang (VD #tu-van) hoặc /duong-dan.';
@@ -525,12 +525,14 @@ const DEFINITIONS: DefinitionSeed[] = [
   {
     pageSlug: 'shared', sectionKey: 'stats', sortOrder: 24,
     label: 'Dải số liệu',
-    description: 'Stats.tsx — đầu khối + dải số liệu nổi bật (số ở đầu tự chạy đếm).',
+    description: 'Stats.tsx — đầu khối + lưới thẻ số liệu: icon, con số lớn tự chạy đếm khi cuộn tới, nhãn, ghi chú ngắn.',
     fields: [
       buildItemListField('stats', 'Số liệu nổi bật', [
+        { name: 'value', label: 'Giá trị (VD: 1.200+)', kind: 'text' },
         { name: 'label', label: 'Nhãn', kind: 'text' },
-        { name: 'value', label: 'Giá trị', kind: 'text' },
-      ], 'Giá trị có số ở đầu sẽ tự chạy hiệu ứng đếm (VD: 4+, 6).'),
+        { name: 'note', label: 'Ghi chú ngắn (tuỳ chọn)', kind: 'text' },
+        { name: 'icon', label: 'Icon', kind: 'text' },
+      ], 'Giá trị có số ở đầu sẽ tự chạy hiệu ứng đếm (VD: 10+, 1.200+, 98%). ' + ICON_HINT),
     ],
   },
 ];

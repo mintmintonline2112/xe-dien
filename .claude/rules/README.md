@@ -15,7 +15,7 @@ Thư mục `.claude/rules/` chứa quy tắc bắt buộc khi viết hoặc sử
   export hoặc tên file thì sửa hết chỗ gọi, rồi chạy kiểm tra ở mục dưới.
 - **File chưa đụng tới:** giữ nguyên cho tới khi có đợt dọn riêng. Không tự dọn hàng loạt khi chưa được chủ dự án đồng ý.
 - **Không đổi hành vi:** dọn comment hay đổi tên thì website phải hiển thị y như cũ: chụp HTML các trang trước và sau khi
-  sửa rồi so (`npm run snapshot -- <thư-mục>` trong `frontend-next`, site dev chạy ở cổng 3008; quy trình đầy đủ ở
+  sửa rồi so (`npm run snapshot -- <thư-mục>` trong `frontend-next`, site dev chạy ở cổng 3006; quy trình đầy đủ ở
   `frontend-next/src/app/(site)/_components/sections/README.md` mục 11).
 
 ## Kiểm tra sau khi sửa

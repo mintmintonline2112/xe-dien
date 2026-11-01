@@ -1,11 +1,11 @@
-# Xe Điện Xanh — Backend
+# Trạm Xe Điện — Backend
 
-CMS & API cho website bán xe điện Xe Điện Xanh (NestJS 11 + TypeORM/MySQL): **danh mục sản phẩm + sản phẩm**
+CMS & API cho website bán xe điện Trạm Xe Điện (NestJS 11 + TypeORM/MySQL): **danh mục sản phẩm + sản phẩm**
 (giá, thông số, ảnh, khuyến mãi), trang nội dung (pages/sections), tin tức (blog), menu header / footer, cài đặt
 site, liên hệ và **yêu cầu tư vấn** (tư vấn chọn xe, báo giá, trả góp, lái thử, đăng ký đại lý), kèm RBAC
 staff/roles/permissions.
 
-- API prefix: `/api` — Swagger: `http://localhost:3018/docs` (cổng dev 3018; site Next.js 3008)
+- API prefix: `/api` — Swagger: `http://localhost:3020/docs` (cổng dev 3020; site Next.js 3006)
 - Hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn / menu: [`docs/catalog-api.md`](../docs/catalog-api.md)
 - Nội dung gốc **tiếng Việt**; bản dịch phụ `en` lưu ở cột JSON `translations` (`{ en: {...} }`), đọc qua `?lang=en`
 - Đăng nhập admin (seed): `admin@gmail.com` / `admin#123` — đổi ngay trên môi trường thật
@@ -184,7 +184,7 @@ nằm ở đây.
 
 | Key | Nghĩa |
 |---|---|
-| `brandName` | Chữ cạnh logo (seed: "Xe Điện Xanh") |
+| `brandName` | Chữ cạnh logo (seed: "Trạm Xe Điện") |
 | `siteTitle`, `siteDescription` | Tiêu đề / mô tả SEO mặc định |
 | `footerText` | Dòng cuối trang, sau "© <năm> " |
 | `logoUrl`, `footerLogoUrl` | Cố ý không seed: chưa có logo thì site hiện biểu tượng SVG dựng sẵn + tên thương hiệu |
@@ -224,8 +224,8 @@ gốc là tiêu đề cột (href dạng `#...`), mục con là link.
 **Seed nội dung** (`database/seeding/seeds/`) — mọi seed chỉ thêm cái còn thiếu, không đè chỉnh sửa của admin
 
 - Thứ tự: quyền → vai trò → nhân viên → cài đặt → danh mục sản phẩm → sản phẩm → blog → trang → định nghĩa section → menu.
-- `product-category.seed.ts` (9 danh mục gốc + 12 con, khớp theo slug), `product.seed.ts` (43 sản phẩm mẫu, ảnh
-  `/images/products/<nhóm>-<số>.webp` của frontend), `settings.seed.ts` (khớp theo key), `menu.seed.ts` (khớp theo vị trí + href).
+- `product-category.seed.ts` (11 danh mục gốc + danh mục con, khớp theo slug), `product.seed.ts` (58 sản phẩm mẫu, ảnh
+  `uploads/products/<nhóm>-<số>.webp`, hiện trong Thư viện), `settings.seed.ts` (khớp theo key), `menu.seed.ts` (khớp theo vị trí + href).
 - Số điện thoại, địa chỉ, email trong seed là dữ liệu mẫu — thay trong Admin → Cài đặt / Trang Liên hệ.
 - `page.seed.ts` là nguồn nội dung duy nhất của trang; seed chỉ bổ sung key metadata còn thiếu, không đè chỉnh sửa của admin.
   Sửa xong chạy `npm run content:export` để sinh lại `frontend-next/src/content/cms-fallback.json`.

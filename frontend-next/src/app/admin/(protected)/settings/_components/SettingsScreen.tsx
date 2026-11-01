@@ -249,11 +249,11 @@ export function SettingsScreen() {
             className="gf-control"
             value={siteTitle}
             onChange={(e) => setSiteTitle(e.target.value)}
-            placeholder="Xe Điện Xanh — Xe điện chính hãng, giá tận xưởng"
+            placeholder="Trạm Xe Điện — Xe điện chính hãng, giá tận xưởng"
           />
           <p className="gf-hint">
             Hiện trên tab trình duyệt và kết quả Google cho trang chủ; các trang khác lấy tiêu đề
-            riêng rồi thêm đuôi &ldquo;— {brandName.trim() || 'Xe Điện Xanh'}&rdquo;. Để trống dùng mặc định.
+            riêng rồi thêm đuôi &ldquo;— {brandName.trim() || 'Trạm Xe Điện'}&rdquo;. Để trống dùng mặc định.
           </p>
           {homeTitleOverride && (
             <p className="gf-hint st-soon">
@@ -283,7 +283,7 @@ export function SettingsScreen() {
             className="gf-control"
             value={brandName}
             onChange={(e) => setBrandName(e.target.value)}
-            placeholder="Xe Điện Xanh"
+            placeholder="Trạm Xe Điện"
           />
           <p className="gf-hint">
             Chữ hiển thị cạnh logo ở góc trên bên trái mọi trang. Để trống dùng mặc định của theme.
@@ -295,7 +295,7 @@ export function SettingsScreen() {
             className="gf-control"
             value={footerText}
             onChange={(e) => setFooterText(e.target.value)}
-            placeholder="Xe Điện Xanh. Xe điện chính hãng – Giá tận xưởng."
+            placeholder="Trạm Xe Điện. Xe điện chính hãng – Giá tận xưởng."
           />
           <p className="gf-hint">
             Phần chữ sau &ldquo;© {new Date().getFullYear()}&rdquo; ở cuối mọi trang (năm tự cập nhật, không cần
@@ -572,7 +572,7 @@ export function SettingsScreen() {
 
           <div className="st-brand-preview" aria-hidden="true">
             <div className="st-brand-mock">
-              <span className="st-brand-mock-bar">Xe Điện Xanh · Tổng đài · Hotline</span>
+              <span className="st-brand-mock-bar">Trạm Xe Điện · Tổng đài · Hotline</span>
               <div className="st-brand-mock-hero">
                 <strong>Xe điện chính hãng</strong>
                 <span>Giá tận xưởng · Trả góp 0% · Bảo hành toàn quốc.</span>

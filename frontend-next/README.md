@@ -1,19 +1,19 @@
-# Xe Điện Xanh — Frontend (Next.js)
+# Trạm Xe Điện — Frontend (Next.js)
 
-Site public tiếng Việt + trang quản trị CMS của Xe Điện Xanh, dựng theo Next.js 15 App Router (React 19), nối với
+Site public tiếng Việt + trang quản trị CMS của Trạm Xe Điện, dựng theo Next.js 15 App Router (React 19), nối với
 `backend/` (NestJS). Hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn: [`docs/catalog-api.md`](../docs/catalog-api.md).
 
 ## Chạy
 
 ```
 npm install
-npm run dev        # http://localhost:3008 (site) · /admin (quản trị)
+npm run dev        # http://localhost:3006 (site) · /admin (quản trị)
 npm run check      # typecheck + lint + lint:layers + lint:sections — chạy trước khi commit
 npm run snapshot / shot / diff:png   # so HTML + ảnh trước/sau khi refactor — xem scripts/README.md
-npm run build && npm start           # production, cổng 3008
+npm run build && npm start           # production, cổng 3006
 ```
 
-Tạo `.env.local` từ `.env.example`: `API_URL` / `NEXT_PUBLIC_API_URL` trỏ về backend (`http://localhost:3018/api`),
+Tạo `.env.local` từ `.env.example`: `API_URL` / `NEXT_PUBLIC_API_URL` trỏ về backend (`http://localhost:3020/api`),
 `NEXT_PUBLIC_SITE_URL` là địa chỉ site, `REVALIDATE_SECRET` khớp `backend/.env`. Thiếu `.env.local` thì dùng mặc định
 trong `src/config/env.ts` (cùng các cổng trên).
 
@@ -86,5 +86,5 @@ thẳng `@/app/admin/(protected)/<feature>/_lib/<x>.service`.
 - Admin đăng nhập bằng tài khoản staff của backend (seed: admin@gmail.com / admin#123 — đổi ngay trên môi trường thật)
 
 Site chỉ render tiếng Việt. Backend vẫn lưu và trả cột `translations` (bản dịch `en`, đọc qua `?lang=en`) nhưng admin
-không còn ô sửa bản dịch; lưu form admin không gửi `translations` nên dữ liệu cũ trong DB giữ nguyên. Ảnh upload serve từ backend `/uploads`; ảnh tĩnh của site nằm trong `public/images` (ghi công ở
+không còn ô sửa bản dịch; lưu form admin không gửi `translations` nên dữ liệu cũ trong DB giữ nguyên. Ảnh upload serve từ backend `/uploads`; ảnh mẫu của CMS cũng nằm ở `backend/uploads` (Thư viện); `public/images` chỉ giữ vài ảnh dự phòng dùng trong code (ghi công ở
 `public/images/CREDITS.md`).

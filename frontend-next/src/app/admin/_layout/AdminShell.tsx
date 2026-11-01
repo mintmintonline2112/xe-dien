@@ -63,7 +63,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               <AdminIcon name="menu" />
             </button>
             <span>
-              <small>Xe Điện Xanh CMS</small>
+              <small>Trạm Xe Điện CMS</small>
               <strong>{getAdminPageTitle(pathname)}</strong>
             </span>
           </div>

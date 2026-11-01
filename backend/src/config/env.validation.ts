@@ -32,8 +32,8 @@ export function validateEnv(env: Env): Env {
   requireEnv(env, 'JWT_REFRESH_SECRET');
   env.JWT_EXPIRES = env.JWT_EXPIRES ?? '1d';
 
-  env.PORT = toIntegerString(env.PORT, 3018);
-  env.FRONTEND_URL = env.FRONTEND_URL ?? 'http://localhost:3008';
+  env.PORT = toIntegerString(env.PORT, 3020);
+  env.FRONTEND_URL = env.FRONTEND_URL ?? 'http://localhost:3006';
 
   return env;
 }

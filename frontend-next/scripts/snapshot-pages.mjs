@@ -1,12 +1,12 @@
 /**
  * Chụp HTML các trang public (đã làm phẳng: bỏ <script>, link /_next/static, id do useId sinh, mỗi thẻ một dòng) để `diff -r` trước / sau refactor.
- * Dùng bởi: `npm run snapshot -- <thư-mục>` khi site đang chạy; đổi bằng SNAP_BASE (mặc định http://localhost:3008), SNAP_PATHS.
+ * Dùng bởi: `npm run snapshot -- <thư-mục>` khi site đang chạy; đổi bằng SNAP_BASE (mặc định http://localhost:3006), SNAP_PATHS.
  * Lưu ý: refactor không đổi giao diện thì hai thư mục phải giống nhau từng byte.
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const baseUrl = process.env.SNAP_BASE ?? "http://localhost:3008";
+const baseUrl = process.env.SNAP_BASE ?? "http://localhost:3006";
 const outDir = process.argv[2];
 const pagePaths = (process.env.SNAP_PATHS ?? "/,/san-pham,/lien-he,/tin-tuc").split(",");
 

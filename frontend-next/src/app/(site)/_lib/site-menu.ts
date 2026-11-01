@@ -22,11 +22,12 @@ export type MenuLocation = "header" | "footer";
 
 export const SITE_MENU_ITEMS: SiteMenuItem[] = [
   { key: "home", label: "Trang chủ", href: siteRoutes.home },
+  { key: "xe-san-golf", label: "Xe sân golf", href: siteRoutes.category("xe-dien-san-golf") },
+  { key: "xe-resort", label: "Xe resort – du lịch", href: siteRoutes.category("xe-dien-du-lich") },
+  { key: "xe-nang-dien", label: "Xe nâng điện", href: siteRoutes.category("xe-nang-dien") },
+  { key: "san-pham", label: "Sản phẩm khác", href: siteRoutes.products },
   { key: "gioi-thieu", label: "Giới thiệu", href: siteRoutes.page("gioi-thieu") },
-  { key: "san-pham", label: "Sản phẩm", href: siteRoutes.products },
-  { key: "mua-tra-gop", label: "Mua trả góp", href: siteRoutes.page("mua-tra-gop") },
   { key: "tin-tuc", label: "Tin tức", href: siteRoutes.news },
-  { key: "showroom", label: "Hệ thống showroom", href: siteRoutes.page("he-thong-showroom") },
   { key: "lien-he", label: "Liên hệ", href: siteRoutes.contact },
 ];
 

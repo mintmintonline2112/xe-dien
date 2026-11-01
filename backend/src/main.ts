@@ -107,9 +107,9 @@ async function bootstrap() {
 
   if (swaggerEnabled) {
     const swaggerConfig = new DocumentBuilder()
-      .setTitle('Xe Điện Xanh API')
+      .setTitle('Trạm Xe Điện API')
       .setDescription(
-        'CMS & API cho website Xe Điện Xanh — sản phẩm, danh mục, trang, tin tức, liên hệ, yêu cầu tư vấn',
+        'CMS & API cho website Trạm Xe Điện — sản phẩm, danh mục, trang, tin tức, liên hệ, yêu cầu tư vấn',
       )
       .setVersion('1.0')
       .addBearerAuth()

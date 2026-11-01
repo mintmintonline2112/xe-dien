@@ -1,4 +1,4 @@
-# `frontend-next/scripts` — công cụ kiểm tra và so sánh
+# `frontend-next/scripts` — công cụ kiểm tra, so sánh và xuất demo
 
 | Lệnh | Script | Làm gì |
 |---|---|---|
@@ -10,6 +10,7 @@
 | `npm run shot -- <dir>` | `shot-pages.mjs` | Chụp ảnh 4 trang × 2 bề ngang (1440, 390) |
 | `npm run diff:png -- <A> <B> [--noise <A2>] [--out <dir>]` | `diff-png.mjs` | So pixel hai bộ ảnh |
 | `node scripts/crop-png.mjs A.png B.png y h out.png [scale]` | `crop-png.mjs` | Cắt cùng một dải của 2 ảnh, ghép cạnh nhau để xem |
+| `npm run export:demo -- <dir>` | `export-demo-site.mjs` + `demo-site-runtime.js` | Xuất cả site public (đang chạy ở 3006) thành thư mục HTML / CSS / JS tĩnh làm demo GitHub Pages |
 
 ## lint:layers
 

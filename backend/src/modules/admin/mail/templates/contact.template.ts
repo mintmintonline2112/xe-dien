@@ -27,7 +27,7 @@ export const buildContactEmail = (data: CreateContactDto) => {
       ${buildRow('Nội dung', data.message)}
     </table>
     <div style="padding:12px 24px;background:#F3F8F5;color:#5B6B63;font-size:12px;">
-      © ${new Date().getFullYear()} Xe Điện Xanh — email tự động, gửi lúc ${new Date().toLocaleString('vi-VN')}.
+      © ${new Date().getFullYear()} Trạm Xe Điện — email tự động, gửi lúc ${new Date().toLocaleString('vi-VN')}.
     </div>
   </div>`;
 };

@@ -15,7 +15,7 @@ import {
 import { toMediaUrl } from "./cms";
 
 export const SITE_NAME = DEFAULT_BRAND_NAME;
-export const SITE_DEFAULT_TITLE = "Xe Điện Xanh — Xe điện chính hãng, giá tận xưởng, trả góp 0%";
+export const SITE_DEFAULT_TITLE = "Trạm Xe Điện — Xe điện chính hãng, giá tận xưởng, trả góp 0%";
 export const SITE_DEFAULT_DESCRIPTION =
   "Hệ thống phân phối xe đạp điện, xe máy điện, xe điện 3 bánh, ô tô điện, xe chuyên dụng và phụ tùng chính hãng. Giao xe tận nhà, bảo hành toàn quốc, trả góp 0%.";
 export const DEFAULT_OG_IMAGE = "/images/hero/hero-1.webp";
