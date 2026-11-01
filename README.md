@@ -58,4 +58,4 @@ nhân viên và phân quyền.
 
 ## Deploy
 
-`bash /www/wwwroot/xedienxanh.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
+`bash /www/wwwroot/tramxedien.vn/deploy.sh` trên VPS (aaPanel + pm2). Chi tiết: đầu file `deploy.sh` và `backend/README.md`.
