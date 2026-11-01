@@ -1,0 +1,22 @@
+{
+  "name": "catalog-importer",
+  "version": "1.0.0",
+  "description": "Cào danh mục sản phẩm (chữ + ảnh) từ một website theo hồ sơ bộ chọn, xuất JSON + ảnh, rồi đẩy vào CMS qua API admin",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "catalog-importer": "bin/catalog-importer.mjs"
+  },
+  "scripts": {
+    "crawl": "node bin/catalog-importer.mjs crawl",
+    "push": "node bin/catalog-importer.mjs push",
+    "import": "node bin/catalog-importer.mjs import",
+    "check": "node --check bin/catalog-importer.mjs && node bin/catalog-importer.mjs help"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0"
+  }
+}

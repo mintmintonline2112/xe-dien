@@ -163,6 +163,9 @@ say "2/6  Backend: cài gói + build"
 cd "$ROOT/backend"
 npm ci --include=dev
 npm run build
+# Công cụ "Nhập từ website" trong admin chạy catalog-importer/ (chỉ cần gói cheerio, chưa cài thì trang báo lỗi).
+(cd "$ROOT/catalog-importer" && npm ci --omit=dev)
+chown -R "$APP_USER:$APP_USER" "$ROOT/catalog-importer" 2>/dev/null || true
 
 say "3/6  Backend: migration + seed"
 npm run db:run:prod

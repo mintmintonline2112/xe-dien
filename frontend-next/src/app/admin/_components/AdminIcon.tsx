@@ -7,6 +7,7 @@ import type { ReactNode, SVGProps } from 'react';
 export type AdminIconName =
   | 'dashboard'
   | 'product'
+  | 'import'
   | 'consult'
   | 'article'
   | 'category'
@@ -29,6 +30,7 @@ export type AdminIconName =
 const ICON_SHAPES: Record<AdminIconName, ReactNode> = {
   dashboard: <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>,
   product: <><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M5.5 17 9 9h5l4.5 8M9 9 8 6H6M14 9l1.5-3H18"/><path d="m12.5 11.5-1 2.5h2.5l-1 2.5"/></>,
+  import: <><path d="M12 3v11M7.5 9.5 12 14l4.5-4.5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></>,
   consult: <><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></>,
   article: <><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 12h6M9 16h6"/></>,
   category: <><path d="M3 6h7l2 3h9v10H3z"/><path d="M3 6V4h7l2 2"/></>,

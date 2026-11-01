@@ -1,0 +1,26 @@
+{
+  "$doc": "Hồ sơ bộ chọn cho giao diện 'gd3' (VD thegioixechaydien.com.vn): danh mục /<slug>/, phân trang /page-N-<slug>/, trang chi tiết có #gd3SpecBox, #gd3DescBox, album .gd3-album-item. Dùng bởi src/profiles/profile-loader.mjs (--profile=gd3).",
+  "name": "gd3",
+  "listing": {
+    "productLink": "a.product-item[href]",
+    "pageUrlPattern": "/page-{page}-{category}/",
+    "pageNumberPattern": "/page-(\\d+)-{category}/?$"
+  },
+  "product": {
+    "title": "h1.gd3-detail-title",
+    "code": ".gd3-detail-code b",
+    "brand": ".gd3-detail-hang b",
+    "stock": ".gd3-detail-in",
+    "outOfStockPattern": "hết hàng",
+    "priceBox": ".gd3-detail-price-box",
+    "price": ".gd3-detail-price",
+    "originalPrice": "del, s, [class*=\"old\"]",
+    "images": [
+      { "selector": "#gd3DetailMainImg", "attr": "src" },
+      { "selector": ".gd3-album-item[data-full]", "attr": "data-full" }
+    ],
+    "specTableRows": "#gd3SpecBox tr",
+    "specBox": "#gd3SpecBox",
+    "description": "#gd3DescBox"
+  }
+}

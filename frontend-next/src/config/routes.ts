@@ -17,6 +17,7 @@ export const adminRoutes = {
 
   products: adminCrudRoutes('products'),
   productCategories: adminCrudRoutes('product-categories'),
+  productImport: adminPath('product-import'),
 
   blogPosts: adminCrudRoutes('blog-posts'),
   blogCategories: adminCrudRoutes('blog-categories'),

@@ -41,6 +41,12 @@ export const adminNavigation: AdminNavGroup[] = [
         icon: 'category',
         permission: 'PRODUCT_CATEGORY_LIST',
       },
+      {
+        label: 'Nhập từ website',
+        href: adminRoutes.productImport,
+        icon: 'import',
+        permission: 'PRODUCT_CREATE',
+      },
     ],
   },
   {

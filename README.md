@@ -15,6 +15,7 @@ section quản lý trong admin.
 xe-nang/
 ├── backend/        # NestJS 11 + TypeORM/MySQL — API CMS, sản phẩm, danh mục, tin tức, yêu cầu tư vấn (xem backend/README.md)
 ├── frontend-next/  # Next.js 15 — site public tiếng Việt + trang quản trị /admin (xem frontend-next/README.md)
+├── catalog-importer/ # CLI độc lập: cào danh mục sản phẩm từ site khác + đẩy vào CMS qua API admin (xem catalog-importer/README.md)
 ├── docs/           # catalog-api.md: hợp đồng dữ liệu sản phẩm / danh mục / yêu cầu tư vấn giữa backend và frontend
 ├── .claude/rules/  # quy tắc code (comment, đặt tên) — bắt buộc khi sửa code
 └── deploy.sh       # deploy VPS bằng một lệnh (pm2: xedien_api :3018, xedien_web :3008)
@@ -44,7 +45,7 @@ Làm mới toàn bộ dữ liệu mẫu: `cd backend && npm run db:fresh && npm 
 
 ## Quản trị (`/admin`)
 
-Sản phẩm, danh mục sản phẩm, trang + section (kéo thả bố cục), menu (header / footer), bài viết, thư viện ảnh,
+Sản phẩm, danh mục sản phẩm, nhập sản phẩm từ website khác (Sản phẩm → Nhập từ website, chạy `catalog-importer/`), trang + section (kéo thả bố cục), menu (header / footer), bài viết, thư viện ảnh,
 yêu cầu tư vấn + liên hệ (xuất Excel), cài đặt (logo, màu thương hiệu, SEO), trang liên hệ (hotline, Zalo, Messenger),
 nhân viên và phân quyền.
 
