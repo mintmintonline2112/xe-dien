@@ -199,6 +199,19 @@ export const PAGES: PageDefinition[] = [
         sortOrder: 3,
       },
       {
+        sectionKey: 'o-to-dien',
+        heading: 'Ô tô điện',
+        metadata: {
+          _component: 'product-grid',
+          layout: 'split',
+          source: 'category',
+          categorySlug: 'o-to-dien',
+          limit: '8',
+          ctaLabel: 'Xem tất cả ô tô điện',
+        },
+        sortOrder: 4,
+      },
+      {
         sectionKey: 'xe-noi-bat',
         heading: 'Dòng xe chủ lực',
         metadata: {
@@ -209,7 +222,7 @@ export const PAGES: PageDefinition[] = [
           ctaLabel: 'Xem tất cả',
           ctaHref: '/san-pham/',
         },
-        sortOrder: 4,
+        sortOrder: 5,
       },
       {
         sectionKey: 'xe-dien-san-golf',
@@ -222,7 +235,7 @@ export const PAGES: PageDefinition[] = [
           limit: '8',
           ctaLabel: 'Xem tất cả xe sân golf',
         },
-        sortOrder: 5,
+        sortOrder: 6,
       },
       {
         sectionKey: 'xe-dien-resort',
@@ -235,7 +248,7 @@ export const PAGES: PageDefinition[] = [
           limit: '8',
           ctaLabel: 'Xem tất cả xe resort',
         },
-        sortOrder: 6,
+        sortOrder: 7,
       },
       {
         sectionKey: 'xe-nang-dien',
@@ -248,7 +261,7 @@ export const PAGES: PageDefinition[] = [
           limit: '8',
           ctaLabel: 'Xem tất cả xe nâng',
         },
-        sortOrder: 7,
+        sortOrder: 8,
       },
       {
         sectionKey: 'con-so',
@@ -262,7 +275,7 @@ export const PAGES: PageDefinition[] = [
             { value: '300+', label: 'Doanh nghiệp dùng xe nâng', note: 'Kho hàng, nhà máy, trung tâm phân phối', icon: 'forklift' },
           ],
         },
-        sortOrder: 8,
+        sortOrder: 9,
       },
       {
         sectionKey: 'vi-sao-chon',
@@ -279,7 +292,7 @@ export const PAGES: PageDefinition[] = [
             { icon: 'users', title: 'Đào tạo vận hành', text: 'Đào tạo lái xe, sạc pin đúng cách và bảo dưỡng cơ bản cho nhân viên khi bàn giao.' },
           ],
         },
-        sortOrder: 9,
+        sortOrder: 10,
       },
       {
         sectionKey: 'quy-trinh',
@@ -294,7 +307,7 @@ export const PAGES: PageDefinition[] = [
             { title: 'Bảo trì trọn đời', text: 'Bảo dưỡng định kỳ tại chỗ, thay pin, sửa chữa và cung cấp phụ tùng suốt vòng đời xe.' },
           ],
         },
-        sortOrder: 10,
+        sortOrder: 11,
       },
       {
         sectionKey: 'cam-ket',
@@ -302,7 +315,7 @@ export const PAGES: PageDefinition[] = [
           _component: 'service-strip',
           items: SERVICE_COMMITMENTS,
         },
-        sortOrder: 11,
+        sortOrder: 12,
       },
       {
         sectionKey: 'thuong-hieu',
@@ -311,7 +324,7 @@ export const PAGES: PageDefinition[] = [
           _component: 'marquee',
           items: ['LVTONG', 'Marshell', 'Eagle', 'Kandi', 'Club Car', 'E-Z-GO', 'Yamaha Golf-Car', 'Heli', 'Hangcha', 'EP Equipment', 'Noblelift', 'Linde', 'Jungheinrich', 'Toyota Material Handling'],
         },
-        sortOrder: 12,
+        sortOrder: 13,
       },
       {
         sectionKey: 'tin-tuc',
@@ -323,7 +336,7 @@ export const PAGES: PageDefinition[] = [
           ctaLabel: 'Xem tất cả tin tức',
           ctaHref: '/tin-tuc/',
         },
-        sortOrder: 13,
+        sortOrder: 14,
       },
       {
         sectionKey: 'hoi-dap',
@@ -334,7 +347,7 @@ export const PAGES: PageDefinition[] = [
           headingAccent: 'thường gặp',
           items: HOME_FAQ,
         },
-        sortOrder: 14,
+        sortOrder: 15,
       },
       {
         sectionKey: 'showroom',
@@ -348,7 +361,7 @@ export const PAGES: PageDefinition[] = [
           ctaLabel: 'Xem tất cả showroom',
           ctaHref: '/he-thong-showroom/',
         },
-        sortOrder: 15,
+        sortOrder: 16,
       },
       {
         sectionKey: 'tu-van',
@@ -363,7 +376,7 @@ export const PAGES: PageDefinition[] = [
           submitLabel: 'Gửi yêu cầu báo giá',
           backdropImage: 'uploads/hero/hero-3.webp',
         },
-        sortOrder: 16,
+        sortOrder: 17,
       },
     ],
   },

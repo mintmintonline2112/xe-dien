@@ -1,5 +1,5 @@
 /**
- * Seed menu của website: menu chính (header — Trang chủ, 3 dòng chủ đạo Xe sân golf / Xe resort / Xe nâng điện, Sản phẩm khác,
+ * Seed menu của website: menu chính (header — Trang chủ, Ô tô điện, 3 dòng chủ đạo Xe sân golf / Xe resort / Xe nâng điện, Sản phẩm khác,
  * Giới thiệu, Tin tức, Liên hệ)
  * và 2 cột link chân trang (footer — Hỗ trợ khách hàng, Về Trạm Xe Điện).
  * Dùng bởi: database/seeding/seeding.service.ts.
@@ -41,6 +41,7 @@ const OTHER_PRODUCT_LINKS: SeedMenuChild[] = [
 const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
   header: [
     { label: 'Trang chủ', href: '/', showSubmenu: false },
+    { label: 'Ô tô điện', href: '/danh-muc/o-to-dien', showSubmenu: false },
     { label: 'Xe sân golf', href: '/danh-muc/xe-dien-san-golf', showSubmenu: false },
     { label: 'Xe resort', href: '/danh-muc/xe-dien-du-lich', showSubmenu: false },
     {

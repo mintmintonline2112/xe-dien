@@ -133,6 +133,29 @@
       {
         "id": 5,
         "pageId": 1,
+        "sectionKey": "o-to-dien",
+        "heading": "Ô tô điện",
+        "subheading": null,
+        "content": null,
+        "mediaPath": null,
+        "metadata": {
+          "_component": "product-grid",
+          "layout": "split",
+          "source": "category",
+          "categorySlug": "o-to-dien",
+          "limit": "8",
+          "ctaLabel": "Xem tất cả ô tô điện"
+        },
+        "isActive": true,
+        "sortOrder": 4,
+        "createdAt": "2026-01-01T00:00:00.000Z",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "deletedAt": null,
+        "translations": null
+      },
+      {
+        "id": 6,
+        "pageId": 1,
         "sectionKey": "xe-noi-bat",
         "heading": "Dòng xe chủ lực",
         "subheading": null,
@@ -147,14 +170,14 @@
           "ctaHref": "/san-pham/"
         },
         "isActive": true,
-        "sortOrder": 4,
+        "sortOrder": 5,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 6,
+        "id": 7,
         "pageId": 1,
         "sectionKey": "xe-dien-san-golf",
         "heading": "Xe điện sân golf",
@@ -170,14 +193,14 @@
           "ctaLabel": "Xem tất cả xe sân golf"
         },
         "isActive": true,
-        "sortOrder": 5,
+        "sortOrder": 6,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 7,
+        "id": 8,
         "pageId": 1,
         "sectionKey": "xe-dien-resort",
         "heading": "Xe điện du lịch – resort",
@@ -193,14 +216,14 @@
           "ctaLabel": "Xem tất cả xe resort"
         },
         "isActive": true,
-        "sortOrder": 6,
+        "sortOrder": 7,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 8,
+        "id": 9,
         "pageId": 1,
         "sectionKey": "xe-nang-dien",
         "heading": "Xe nâng điện",
@@ -216,14 +239,14 @@
           "ctaLabel": "Xem tất cả xe nâng"
         },
         "isActive": true,
-        "sortOrder": 7,
+        "sortOrder": 8,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 9,
+        "id": 10,
         "pageId": 1,
         "sectionKey": "con-so",
         "heading": "Đội xe đang vận hành cùng khách hàng",
@@ -260,14 +283,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 8,
+        "sortOrder": 9,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 10,
+        "id": 11,
         "pageId": 1,
         "sectionKey": "vi-sao-chon",
         "heading": "Vì sao sân golf, resort và nhà máy chọn Trạm Xe Điện",
@@ -310,14 +333,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 9,
+        "sortOrder": 10,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 11,
+        "id": 12,
         "pageId": 1,
         "sectionKey": "quy-trinh",
         "heading": "Triển khai đội xe trong 4 bước",
@@ -347,14 +370,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 10,
+        "sortOrder": 11,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 12,
+        "id": 13,
         "pageId": 1,
         "sectionKey": "cam-ket",
         "heading": null,
@@ -387,14 +410,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 11,
+        "sortOrder": 12,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 13,
+        "id": 14,
         "pageId": 1,
         "sectionKey": "thuong-hieu",
         "heading": "Thương hiệu phân phối",
@@ -421,14 +444,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 12,
+        "sortOrder": 13,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 14,
+        "id": 15,
         "pageId": 1,
         "sectionKey": "tin-tuc",
         "heading": "Tin tức & kinh nghiệm",
@@ -443,14 +466,14 @@
           "ctaHref": "/tin-tuc/"
         },
         "isActive": true,
-        "sortOrder": 13,
+        "sortOrder": 14,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 15,
+        "id": 16,
         "pageId": 1,
         "sectionKey": "hoi-dap",
         "heading": "Câu hỏi thường gặp",
@@ -489,14 +512,14 @@
           ]
         },
         "isActive": true,
-        "sortOrder": 14,
+        "sortOrder": 15,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 16,
+        "id": 17,
         "pageId": 1,
         "sectionKey": "showroom",
         "heading": "Showroom & kho xe",
@@ -540,14 +563,14 @@
           "ctaHref": "/he-thong-showroom/"
         },
         "isActive": true,
-        "sortOrder": 15,
+        "sortOrder": 16,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
         "translations": null
       },
       {
-        "id": 17,
+        "id": 18,
         "pageId": 1,
         "sectionKey": "tu-van",
         "heading": "Nhận báo giá dự án & tư vấn đội xe",
@@ -569,7 +592,7 @@
           "backdropImage": "/images/hero/hero-3.webp"
         },
         "isActive": true,
-        "sortOrder": 16,
+        "sortOrder": 17,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
@@ -578,7 +601,7 @@
     ]
   },
   "contact": {
-    "id": 18,
+    "id": 19,
     "title": "Liên hệ",
     "slug": "contact",
     "status": "published",
@@ -596,8 +619,8 @@
     "translations": null,
     "sections": [
       {
-        "id": 19,
-        "pageId": 18,
+        "id": 20,
+        "pageId": 19,
         "sectionKey": "thong-tin",
         "heading": "Thông tin liên hệ",
         "subheading": null,
@@ -621,8 +644,8 @@
         "translations": null
       },
       {
-        "id": 20,
-        "pageId": 18,
+        "id": 21,
+        "pageId": 19,
         "sectionKey": "showroom",
         "heading": "Hệ thống showroom",
         "subheading": null,

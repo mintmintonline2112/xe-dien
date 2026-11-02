@@ -1,6 +1,6 @@
 /**
- * Seed cây danh mục sản phẩm mặc định (11 danh mục gốc + danh mục con) kèm ảnh ô danh mục, icon, mô tả và SEO; 3 dòng chủ đạo đứng đầu:
- * xe điện sân golf, xe điện du lịch – resort, xe nâng điện.
+ * Seed cây danh mục sản phẩm mặc định (12 danh mục gốc + danh mục con) kèm ảnh ô danh mục, icon, mô tả và SEO; ô tô điện đứng đầu,
+ * tiếp theo 3 dòng chủ đạo: xe điện sân golf, xe điện du lịch – resort, xe nâng điện.
  * Dùng bởi: database/seeding/seeding.service.ts (chạy trước product.seed.ts — sản phẩm gắn danh mục theo slug).
  * Lưu ý: chỉ thêm theo slug — danh mục đã có (kể cả admin đã sửa / ẩn / xoá mềm) giữ nguyên, chạy lại an toàn.
  * imagePath trỏ backend/uploads/categories/<slug>.webp (hiện trong Thư viện admin).
@@ -20,6 +20,15 @@ type SeedCategory = {
 };
 
 const CATEGORY_TREE: SeedCategory[] = [
+  {
+    slug: 'o-to-dien',
+    name: 'Ô tô điện',
+    icon: 'ev-car',
+    description:
+      'Ô tô điện, xe điện 4 bánh chở người và chở hàng cho khu đô thị, khu công nghiệp, doanh nghiệp — vận hành êm, không khí thải, sạc điện dân dụng, chi phí vận hành thấp.',
+    metaDescription:
+      'Ô tô điện, xe điện 4 bánh chở người, chở hàng, xe điện chuyên dụng đô thị chính hãng. Báo giá dự án, bảo trì tận nơi, giao xe toàn quốc.',
+  },
   {
     slug: 'xe-dien-san-golf',
     name: 'Xe điện sân golf',
