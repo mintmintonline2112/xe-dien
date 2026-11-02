@@ -17,6 +17,7 @@ import { RichTextEditor } from '@/app/admin/_components/rich-text-editor/RichTex
 import { LibraryPicker } from '@/app/admin/_components/library-picker/LibraryPicker';
 import { VideoInput, type VideoOrientation } from './VideoInput';
 import { ImageListInput, PairListInput, StringListInput, type PairItem } from './ListFields';
+import { IconSelectInput } from './IconSelectInput';
 import { useImageCompressConfirm } from '@/app/admin/_components/image-compress-dialog/useImageCompressConfirm';
 import type { GenericFormField, GenericFormGroup } from './types';
 
@@ -262,6 +263,15 @@ export function GenericForm<T extends FieldValues>({
               </option>
             ))}
           </select>
+        ) : field.type === 'iconSelect' ? (
+          <IconSelectInput
+            value={String((watch(field.key as never) as unknown as string) ?? '')}
+            onChange={(nextValue) => setValue(field.key as never, nextValue as never, { shouldDirty: true })}
+            options={field.options ?? []}
+            emptyLabel={field.placeholder}
+            renderOptionIcon={field.renderOptionIcon}
+            disabled={isDisabled(field)}
+          />
         ) : field.type === 'checkbox' ? (
           <label className="gf-check">
             <input

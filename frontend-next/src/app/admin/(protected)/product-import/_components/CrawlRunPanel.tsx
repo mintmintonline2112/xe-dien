@@ -114,7 +114,7 @@ export function CrawlRunPanel({ runId, isBusy, onStarted }: CrawlRunPanelProps) 
         text: `Bắt đầu tạo ${run?.productCount ?? 0} sản phẩm (trạng thái ${status === 'draft' ? 'Nháp' : 'Hiển thị'}) và upload ảnh lên Thư viện. Theo dõi ở khung Tiến trình.`,
         icon: 'question',
         confirmButtonText: 'Nhập',
-        confirmButtonColor: '#1a2744',
+        tone: 'primary',
       },
       () => requestPush(false),
     );

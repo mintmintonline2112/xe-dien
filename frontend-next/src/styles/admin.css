@@ -3322,3 +3322,136 @@ body .swal2-html-container {
   gap: 8px;
   align-items: center;
 }
+
+.admin-root .admin-swal {
+  border: 1px solid var(--admin-line);
+  border-radius: 18px;
+  background: var(--admin-surface-solid);
+  color: var(--admin-text);
+  font-family: var(--font-barlow), "Barlow", system-ui, sans-serif;
+  padding: 28px 24px 24px;
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--navy-900) 25%, transparent);
+}
+.admin-root .admin-swal .swal2-title {
+  color: var(--admin-text);
+  font-family: var(--font-barlow-cond), "Barlow Condensed", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+.admin-root .admin-swal .swal2-html-container {
+  color: var(--admin-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.admin-root .admin-swal .swal2-icon.swal2-question,
+.admin-root .admin-swal .swal2-icon.swal2-info {
+  border-color: var(--navy-600);
+  color: var(--navy-700);
+}
+.admin-root .admin-swal .swal2-icon.swal2-warning {
+  border-color: var(--gold-400);
+  color: var(--gold-500);
+}
+.admin-root .admin-swal .swal2-icon.swal2-success {
+  border-color: var(--navy-600);
+  color: var(--navy-700);
+}
+.admin-root .admin-swal .swal2-icon.swal2-success [class^="swal2-success-line"] {
+  background-color: var(--navy-700);
+}
+.admin-root .admin-swal .swal2-icon.swal2-success .swal2-success-ring {
+  border-color: color-mix(in srgb, var(--navy-700) 30%, transparent);
+}
+.admin-root .admin-swal .swal2-actions {
+  gap: 10px;
+  margin-top: 22px;
+}
+.admin-root .admin-swal-button {
+  min-width: 96px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+.admin-root .admin-swal-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--gold-400) 55%, transparent);
+  outline-offset: 2px;
+}
+.admin-root .admin-swal-button--primary {
+  background: var(--navy-700);
+  color: var(--light);
+}
+.admin-root .admin-swal-button--primary:hover {
+  background: var(--navy-800);
+}
+.admin-root .admin-swal-button--danger {
+  background: var(--admin-danger);
+  color: #fff;
+}
+.admin-root .admin-swal-button--danger:hover {
+  background: color-mix(in oklab, var(--admin-danger) 82%, #000);
+}
+.admin-root .admin-swal-button--ghost {
+  border-color: var(--admin-line);
+  background: transparent;
+  color: var(--admin-text);
+}
+.admin-root .admin-swal-button--ghost:hover {
+  border-color: var(--navy-700);
+  color: var(--navy-700);
+}
+
+.gf-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 8px;
+}
+.gf-icon-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 86px;
+  border: 1px solid var(--admin-line);
+  border-radius: 12px;
+  background: var(--admin-surface-solid);
+  padding: 12px 6px 10px;
+  color: var(--admin-muted);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+.gf-icon-option:hover:not(:disabled) {
+  border-color: var(--navy-600);
+  color: var(--navy-700);
+}
+.gf-icon-option.is-selected {
+  border-color: var(--navy-700);
+  background: var(--navy-50);
+  color: var(--navy-700);
+  box-shadow: inset 0 0 0 1px var(--navy-700);
+}
+.gf-icon-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.gf-icon-option-art {
+  display: grid;
+  place-items: center;
+  height: 30px;
+  font-size: 20px;
+  line-height: 1;
+}
+.gf-icon-option-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+}
+.gf-icon-option-art svg {
+  width: 28px;
+  height: 28px;
+}

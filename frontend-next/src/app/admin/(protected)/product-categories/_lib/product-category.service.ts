@@ -28,11 +28,12 @@ export interface ProductCategory {
 }
 
 export const CATEGORY_ICON_OPTIONS: GenericSelectOption[] = [
+  { label: 'Ô tô điện', value: 'ev-car' },
   { label: 'Xe đạp điện', value: 'bike' },
   { label: 'Xe máy điện', value: 'moped' },
   { label: 'Scooter / xe điện 2 bánh', value: 'kick-scooter' },
   { label: 'Xe điện 3 bánh', value: 'tricycle' },
-  { label: 'Ô tô điện', value: 'car' },
+  { label: 'Ô tô (không tia sét)', value: 'car' },
   { label: 'Xe điện trẻ em', value: 'kid' },
   { label: 'Xe chuyên dụng / tải', value: 'truck' },
   { label: 'Xe nâng điện', value: 'forklift' },

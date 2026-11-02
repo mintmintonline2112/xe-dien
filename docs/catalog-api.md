@@ -18,7 +18,7 @@ truy vấn qua `?lang=en`. Site public chỉ render tiếng Việt.
 | `parentId` | int \| null | Cây 2 cấp (danh mục cha → con), FK SET NULL |
 | `description` | text \| null | Đoạn giới thiệu đầu trang danh mục (HTML hoặc văn bản thường) |
 | `imagePath` | string(500) \| null | Ảnh ô danh mục: `uploads/...` (Thư viện) hoặc `/images/...` (tĩnh) |
-| `icon` | string(40) \| null | Key icon: `bike`, `moped`, `kick-scooter`, `tricycle`, `car`, `kid`, `truck`, `battery`, `charger`, `forklift`, `bus`, `golf`, `tire`, `parts` |
+| `icon` | string(40) \| null | Key icon: `bike`, `moped`, `kick-scooter`, `tricycle`, `ev-car`, `car`, `kid`, `truck`, `battery`, `charger`, `forklift`, `bus`, `golf`, `tire`, `parts` |
 | `isActive` | boolean, mặc định true | |
 | `metaTitle`, `metaDescription`, `ogImagePath`, `canonicalUrl` | SEO | |
 | `translations` | json \| null | `{ en: { name, description, metaTitle, metaDescription } }` |

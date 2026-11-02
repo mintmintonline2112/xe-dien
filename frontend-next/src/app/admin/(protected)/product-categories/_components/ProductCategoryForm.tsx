@@ -31,6 +31,7 @@ import {
   PRODUCT_CATEGORY_QUERY_KEY,
 } from '@/app/admin/(protected)/product-categories/_lib/product-category.service';
 import { adminRoutes } from '@/config/routes';
+import { SiteIcon } from '@/app/(site)/_components/SiteIcon';
 
 interface FormValues extends SeoFormValues {
   imagePath: string | File | null;
@@ -121,9 +122,10 @@ export function ProductCategoryForm({ id }: { id?: number }) {
       {
         key: 'icon',
         label: 'Icon',
-        type: 'select',
-        placeholder: '— Không dùng icon —',
+        type: 'iconSelect',
+        placeholder: 'Không dùng icon',
         options: CATEGORY_ICON_OPTIONS,
+        renderOptionIcon: (iconName) => <SiteIcon name={iconName} className="h-7 w-7" />,
         hint: 'Icon hiện trong ô danh mục và menu danh mục của website.',
       },
       {

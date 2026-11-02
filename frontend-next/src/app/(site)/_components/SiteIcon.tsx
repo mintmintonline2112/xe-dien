@@ -46,6 +46,14 @@ export const SITE_ICON_PATHS: Record<string, ReactNode> = {
       <circle cx="17" cy="16.5" r="1.8" />
     </>
   ),
+  "ev-car": (
+    <>
+      <path d="M3 16v-2.6l1.9-3.9a2 2 0 0 1 1.8-1.1h3.1M14.2 8.4h3.1a2 2 0 0 1 1.8 1.1l1.9 3.9V16a1 1 0 0 1-1 1h-1.1M5.1 17H4a1 1 0 0 1-1-1M8.8 17h6.4M3 13.4h18" />
+      <path d="M12.8 3.5 10.4 7.4h3.2l-2.4 3.9" />
+      <circle cx="7" cy="17" r="1.8" />
+      <circle cx="17" cy="17" r="1.8" />
+    </>
+  ),
   golf: (
     <>
       <path d="M4 5h14.5M6 5v8M16.5 5v8M3 13h17.5v3H3zM6 10h5l1 3" />

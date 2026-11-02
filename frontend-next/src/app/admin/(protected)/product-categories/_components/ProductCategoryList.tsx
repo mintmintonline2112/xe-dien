@@ -22,6 +22,7 @@ import {
   type ProductCategory,
 } from '@/app/admin/(protected)/product-categories/_lib/product-category.service';
 import { adminRoutes } from '@/config/routes';
+import { SiteIcon } from '@/app/(site)/_components/SiteIcon';
 
 export function ProductCategoryList() {
   const router = useRouter();
@@ -78,7 +79,15 @@ export function ProductCategoryList() {
         label: 'Icon',
         type: 'custom',
         align: 'center',
-        render: (row) => categoryIconLabelOf(row.icon) ?? '—',
+        render: (row) =>
+          row.icon ? (
+            <span className="inline-flex items-center gap-1.5" title={categoryIconLabelOf(row.icon) ?? row.icon}>
+              <SiteIcon name={row.icon} className="h-5 w-5" />
+              {categoryIconLabelOf(row.icon) ?? row.icon}
+            </span>
+          ) : (
+            '—'
+          ),
       },
       {
         key: 'productCount',
