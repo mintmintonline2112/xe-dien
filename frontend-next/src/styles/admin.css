@@ -3455,3 +3455,119 @@ body .swal2-html-container {
   width: 28px;
   height: 28px;
 }
+
+.mo-panel {
+  margin-bottom: 20px;
+}
+.mo-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.mo-title {
+  margin: 0 0 4px;
+  font-family: var(--font-barlow-cond), "Barlow Condensed", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+.mo-head-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.mo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mo-list.is-nested {
+  margin: 6px 0 4px 34px;
+  padding-left: 12px;
+  border-left: 2px solid var(--admin-line);
+}
+.mo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  background: var(--admin-surface-solid);
+  padding: 8px 10px;
+  cursor: grab;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.mo-row:hover {
+  border-color: var(--navy-600);
+}
+.mo-row.is-dragging {
+  opacity: 0.45;
+  border-style: dashed;
+}
+.mo-row.is-hidden .mo-label {
+  color: var(--admin-muted);
+}
+.mo-grip {
+  flex-shrink: 0;
+  color: var(--admin-muted);
+}
+.mo-index {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--navy-50);
+  color: var(--navy-700);
+  font-size: 12px;
+  font-weight: 600;
+}
+.mo-label {
+  font-weight: 600;
+  color: var(--admin-text);
+}
+.mo-href {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--admin-muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mo-badge {
+  border-radius: 99px;
+  background: var(--cream-2);
+  padding: 2px 8px;
+  color: var(--admin-muted);
+  font-size: 11px;
+}
+.mo-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.mo-actions button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--admin-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--admin-text);
+  cursor: pointer;
+}
+.mo-actions button:hover:not(:disabled) {
+  border-color: var(--navy-700);
+  color: var(--navy-700);
+}
+.mo-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}

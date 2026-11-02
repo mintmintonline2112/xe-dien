@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Bảng mục menu website theo vị trí (tab header / footer): lọc theo menu cha, sắp xếp, ẩn / hiện, sửa, xoá (xoá menu gốc xoá luôn submenu).
+ * Bảng mục menu website theo vị trí (tab header / footer): khung sắp xếp kéo thả (MenuOrderPanel), lọc theo menu cha, ẩn / hiện, sửa, xoá (xoá menu gốc xoá luôn submenu).
  * Dùng bởi: menus/page.tsx.
  * Lưu ý: lọc theo vị trí qua ?location= gửi lên API (backend phải cho lọc cột location); nút thêm mở form với vị trí của tab.
  */
@@ -30,6 +30,7 @@ import {
 import { adminRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { withQuery } from '@/utils/route';
+import { MenuOrderPanel } from './MenuOrderPanel';
 
 const menuListHrefOf = (location: MenuLocation) =>
   withQuery(adminRoutes.menus.list, { location: location === 'footer' ? 'footer' : undefined });
@@ -164,6 +165,11 @@ export function MenuItemList({ location }: { location: MenuLocation }) {
           </Link>
         ))}
       </nav>
+      <MenuOrderPanel
+        items={allItems?.data ?? []}
+        location={location}
+        onSaved={() => queryClient.invalidateQueries({ queryKey: MENU_ITEM_QUERY_KEY })}
+      />
       <DataTable<MenuItem>
         title="Menu website"
         subtitle={MENU_LOCATIONS.find((tab) => tab.value === location)?.hint}
