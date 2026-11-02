@@ -24,7 +24,7 @@ export const SITE_MENU_ITEMS: SiteMenuItem[] = [
   { key: "home", label: "Trang chủ", href: siteRoutes.home },
   { key: "o-to-dien", label: "Ô tô điện", href: siteRoutes.category("o-to-dien") },
   { key: "xe-san-golf", label: "Xe sân golf", href: siteRoutes.category("xe-dien-san-golf") },
-  { key: "xe-resort", label: "Xe resort – du lịch", href: siteRoutes.category("xe-dien-du-lich") },
+  { key: "xe-resort", label: "Xe resort", href: siteRoutes.category("xe-dien-du-lich") },
   { key: "xe-nang-dien", label: "Xe nâng điện", href: siteRoutes.category("xe-nang-dien") },
   { key: "san-pham", label: "Sản phẩm khác", href: siteRoutes.products },
   { key: "gioi-thieu", label: "Giới thiệu", href: siteRoutes.page("gioi-thieu") },

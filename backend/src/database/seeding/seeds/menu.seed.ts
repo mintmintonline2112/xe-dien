@@ -42,7 +42,7 @@ const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
   header: [
     { label: 'Trang chủ', href: '/', showSubmenu: false },
     { label: 'Xe sân golf', href: '/danh-muc/xe-dien-san-golf', showSubmenu: false },
-    { label: 'Xe resort – du lịch', href: '/danh-muc/xe-dien-du-lich', showSubmenu: false },
+    { label: 'Xe resort', href: '/danh-muc/xe-dien-du-lich', showSubmenu: false },
     {
       label: 'Xe nâng điện',
       href: '/danh-muc/xe-nang-dien',
