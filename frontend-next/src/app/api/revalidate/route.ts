@@ -1,12 +1,12 @@
 /**
- * Endpoint POST /api/revalidate: xóa fetch-cache theo tag (menu, pages, blog-posts, settings) để site public cập nhật ngay.
+ * Endpoint POST /api/revalidate: xóa fetch-cache theo tag (menu, pages, blog-posts, settings, products = sản phẩm + danh mục) để site public cập nhật ngay.
  * Dùng bởi: backend gọi (fire-and-forget) mỗi khi admin sửa nội dung, kèm header x-revalidate-secret.
  * Lưu ý: cần biến môi trường REVALIDATE_SECRET khớp với backend, thiếu thì mọi yêu cầu bị từ chối 401.
  */
 import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
-const ALLOWED_TAGS = new Set(["menu", "pages", "blog-posts", "settings"]);
+const ALLOWED_TAGS = new Set(["menu", "pages", "blog-posts", "settings", "products"]);
 
 export async function POST(request: Request) {
   const secret = process.env.REVALIDATE_SECRET;
