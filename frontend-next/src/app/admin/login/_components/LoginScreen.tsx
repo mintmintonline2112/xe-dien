@@ -10,6 +10,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useAdminAuth } from '@/app/admin/_auth/AuthProvider';
 import { AdminApiError } from '@/app/admin/_lib/admin-api';
 import { adminRoutes } from '@/config/routes';
+import { BrandPinMark } from '@/components/BrandPinMark';
 
 export function LoginScreen() {
   const router = useRouter();
@@ -48,11 +49,7 @@ export function LoginScreen() {
     <main className="admin-login-page">
       <section className="admin-login-intro">
         <div className="admin-login-brand">
-          <span className="admin-sidebar-mark" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandPinMark isOnDark className="admin-sidebar-mark" />
           <span>
             <strong>Trạm Xe Điện</strong>
             <small>Xe điện chính hãng</small>

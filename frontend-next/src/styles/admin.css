@@ -111,24 +111,11 @@
 }
 
 .admin-sidebar-mark {
-  display: inline-flex;
-  height: 30px;
-  width: 33px;
-  align-items: flex-end;
-  gap: 4px;
-  color: var(--gold-400);
-}
-
-.admin-sidebar-mark i {
   display: block;
-  width: 5px;
-  background: currentColor;
-  border-radius: 1px;
+  height: 36px;
+  width: 36px;
+  flex-shrink: 0;
 }
-
-.admin-sidebar-mark i:nth-child(1) { height: 22px; }
-.admin-sidebar-mark i:nth-child(2) { height: 30px; }
-.admin-sidebar-mark i:nth-child(3) { height: 13px; }
 
 .admin-sidebar-nav {
   flex: 1;
@@ -2640,8 +2627,6 @@ body .swal2-html-container {
   padding-bottom: 18px;
   border-bottom: 1px solid color-mix(in srgb, var(--gold-400) 18%, transparent);
 }
-
-.admin-sidebar-mark { color: var(--gold-400); }
 
 .admin-nav-group a {
   border-radius: 10px;

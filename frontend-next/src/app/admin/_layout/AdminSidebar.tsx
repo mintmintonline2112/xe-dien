@@ -11,6 +11,7 @@ import { useAdminAuth } from '@/app/admin/_auth/AuthProvider';
 import { AdminIcon } from '@/app/admin/_components/AdminIcon';
 import { adminNavigation, canSeeNavItem } from './navigation';
 import { isActivePath } from '@/utils/route';
+import { BrandPinMark } from '@/components/BrandPinMark';
 
 interface AdminSidebarProps {
   isOpen: boolean;
@@ -31,11 +32,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
       />
       <aside className={`admin-sidebar ${isOpen ? 'is-open' : ''}`}>
         <div className="admin-sidebar-brand">
-          <span className="admin-sidebar-mark" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandPinMark isOnDark className="admin-sidebar-mark" />
           <span>
             <strong>Trạm Xe Điện</strong>
             <small>Hệ thống quản trị</small>
