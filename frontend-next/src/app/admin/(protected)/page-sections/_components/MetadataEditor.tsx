@@ -2,7 +2,7 @@
 
 /**
  * Khu chỉnh metadata trực quan theo danh mục component (bảng section_definitions): bố cục, danh sách chuỗi, danh sách mục
- * có ảnh / chú thích, nhóm ô chữ, ảnh đơn (kèm điểm lấy nét), JSON — thêm / xoá / di chuyển bằng nút, không cần biết JSON.
+ * có ảnh / chú thích, nhóm ô chữ, ảnh đơn (kèm điểm lấy nét), chọn + xếp danh mục sản phẩm (CategoryPickerField), JSON — thêm / xoá / di chuyển bằng nút, không cần biết JSON.
  * Dùng bởi: PageSectionForm.tsx.
  * Lưu ý: field có `layouts` chỉ hiện khi bố cục đang chọn thuộc danh sách đó. Item dạng chuỗi cũ vẫn đọc được (thành field
  * đầu tiên). textMap có key `__self__` = các ô chữ nằm thẳng ở gốc metadata.
@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp, ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { LibraryPicker } from '@/app/admin/_components/library-picker/LibraryPicker';
 import { FocalPointPicker } from '@/app/admin/(protected)/page-sections/_components/FocalPointPicker';
+import { CategoryPickerField } from '@/app/admin/(protected)/page-sections/_components/CategoryPickerField';
 import type { SectionDefinition, SectionFieldSpec } from '@/app/admin/(protected)/page-sections/_lib/page-section.service';
 
 type SectionMetadata = Record<string, unknown>;
@@ -406,6 +407,11 @@ export function MetadataEditor({
               onChange={(next) => setMetadataKey(spec.key, next)}
               onPickImage={(apply) => setImagePicker({ apply })}
             />
+          );
+        }
+        if (spec.type === 'categoryPicker') {
+          return (
+            <CategoryPickerField key={spec.key} spec={spec} value={value[spec.key]} onChange={(next) => setMetadataKey(spec.key, next)} />
           );
         }
         if (spec.type === 'textMap') {

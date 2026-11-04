@@ -28,6 +28,7 @@ export type SectionFieldSpec = FieldSpecBase &
     | { type: 'textMap'; fields: Array<{ name: string; label: string }> }
     | { type: 'image'; positionKey?: string }
     | { type: 'json' }
+    | { type: 'categoryPicker' }
     | { type: 'select'; options: Array<{ value: string; label: string; hint?: string }> }
   );
 

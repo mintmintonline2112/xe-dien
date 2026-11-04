@@ -148,13 +148,19 @@ const DEFINITIONS: DefinitionSeed[] = [
   {
     pageSlug: 'shared', sectionKey: 'category-grid', sortOrder: 4,
     label: 'Ô danh mục sản phẩm',
-    description: 'CategoryGrid.tsx — các danh mục lấy tự động từ Admin → Danh mục sản phẩm (icon, ảnh, thứ tự, số sản phẩm). "Ô icon": vòng tròn icon + tên. "Thẻ ảnh": ảnh danh mục có tên phủ dưới.',
+    description: 'CategoryGrid.tsx — ô danh mục sản phẩm (icon, ảnh, số sản phẩm lấy từ danh mục). Chọn và xếp thứ tự riêng cho khối này ở "Danh mục hiển thị"; để trống thì tự lấy theo thứ tự ở Admin → Danh mục sản phẩm. "Ô icon": vòng tròn icon + tên. "Thẻ ảnh": ảnh danh mục có tên phủ dưới.',
     fields: [
       buildLayoutField([
         { value: 'tiles', label: 'Ô icon' },
         { value: 'cards', label: 'Thẻ ảnh' },
       ]),
-      buildTextMapField('Cách lấy + nút', [
+      {
+        key: 'categorySlugs',
+        label: 'Danh mục hiển thị (thứ tự riêng của khối này)',
+        type: 'categoryPicker',
+        hint: 'Thứ tự ở đây chỉ áp dụng cho khối này, không đổi thứ tự trong Admin → Danh mục sản phẩm. Để trống = tự lấy theo 2 ô bên dưới.',
+      },
+      buildTextMapField('Lấy tự động (khi chưa chọn danh mục) + nút', [
         { name: 'parentSlug', label: 'Slug danh mục cha (trống = danh mục gốc; có = các danh mục con của nó)' },
         { name: 'limit', label: 'Số danh mục tối đa (mặc định 12)' },
         { name: 'ctaLabel', label: 'Chữ link bên phải tiêu đề (trống thì ẩn)' },

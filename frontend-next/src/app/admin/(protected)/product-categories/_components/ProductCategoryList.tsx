@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Bảng danh mục sản phẩm kèm khung sắp xếp kéo thả (TreeOrderPanel — thứ tự ô danh mục trên trang chủ, trang sản phẩm): ảnh, tên, danh mục cha, icon, số sản phẩm, hiển thị; lọc theo danh mục cha, sắp xếp, ẩn / hiện, sửa, xoá.
+ * Bảng danh mục sản phẩm kèm khung sắp xếp kéo thả (TreeOrderPanel — thứ tự danh mục trên menu, trang sản phẩm; khối category-grid tự chọn thứ tự riêng): ảnh, tên, danh mục cha, icon, số sản phẩm, hiển thị; lọc theo danh mục cha, sắp xếp, ẩn / hiện, sửa, xoá.
  * Dùng bởi: product-categories/page.tsx.
  * Lưu ý: cột số sản phẩm chỉ có số khi backend trả `productCount`; xoá danh mục thì sản phẩm thuộc nó về "Chưa phân loại".
  */
@@ -187,7 +187,7 @@ export function ProductCategoryList() {
       aboveToolbar={
         <TreeOrderPanel
           items={orderItems}
-          hint="Kéo thả hoặc bấm ↑ ↓ để đổi chỗ danh mục cùng cấp. Thứ tự này là thứ tự ô danh mục trên trang chủ và trang sản phẩm."
+          hint="Kéo thả hoặc bấm ↑ ↓ để đổi chỗ danh mục cùng cấp. Thứ tự này dùng cho menu danh mục và trang sản phẩm; khối ô danh mục trên trang chủ có thứ tự riêng ở Page section."
           emptyText="Chưa có danh mục nào."
           onSave={saveCategoryOrder}
         />

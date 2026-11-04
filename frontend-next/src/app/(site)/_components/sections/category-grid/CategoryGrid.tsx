@@ -1,8 +1,9 @@
 /**
  * Section `category-grid`: các danh mục sản phẩm lấy từ API; bố cục `tiles` (ô icon tròn + tên + số sản phẩm) hoặc `cards` (thẻ ảnh có tên phủ dưới).
  * Dùng bởi: sections/index.ts (registry) qua SectionRenderer.
- * Lưu ý: CMS đọc heading, subheading, content, metadata.parentSlug (trống = danh mục gốc, có = danh mục con của nó), limit,
- * ctaLabel, ctaHref. Icon / ảnh / thứ tự lấy từ Admin → Danh mục sản phẩm. Không có danh mục nào thì ẩn khối.
+ * Lưu ý: CMS đọc heading, subheading, content, metadata.categorySlugs (danh mục admin tự chọn cho riêng khối, đúng thứ tự đã xếp —
+ * độc lập với thứ tự ở Admin → Danh mục sản phẩm), khi trống thì lấy tự động theo parentSlug (trống = danh mục gốc, có = danh
+ * mục con của nó) + limit; ctaLabel, ctaHref. Icon / ảnh lấy từ danh mục. Slug đã xoá / ẩn thì bỏ qua; không còn danh mục nào thì ẩn khối.
  */
 import Link from "next/link";
 import { SiteIcon } from "@/app/(site)/_components/SiteIcon";
@@ -16,6 +17,7 @@ import {
   alternatingTone,
   anchorIdOf,
   layoutOf,
+  textListOf,
   textOf,
   type SectionProps,
 } from "../_shared";
@@ -30,6 +32,11 @@ function pickCategories(categories: ProductCategory[], parentSlug: string | unde
   return picked.slice(0, limit);
 }
 
+function pickChosenCategories(categories: ProductCategory[], chosenSlugs: string[]): ProductCategory[] {
+  const categoryBySlug = new Map(categories.map((category) => [category.slug, category]));
+  return chosenSlugs.flatMap((slug) => categoryBySlug.get(slug) ?? []);
+}
+
 function productCountLabel(category: ProductCategory): string | null {
   return category.productCount ? `${category.productCount} sản phẩm` : null;
 }
@@ -37,7 +44,12 @@ function productCountLabel(category: ProductCategory): string | null {
 export async function CategoryGrid({ section, index = 0 }: SectionProps) {
   const layout = layoutOf(section, LAYOUTS, "tiles");
   const limit = Number.parseInt(textOf(section, "limit") ?? "", 10) || 12;
-  const categories = pickCategories(await getProductCategories(), textOf(section, "parentSlug"), limit);
+  const allCategories = await getProductCategories();
+  const chosenSlugs = textListOf(section, "categorySlugs");
+  const categories =
+    chosenSlugs.length > 0
+      ? pickChosenCategories(allCategories, chosenSlugs)
+      : pickCategories(allCategories, textOf(section, "parentSlug"), limit);
   if (categories.length === 0) return null;
 
   return (

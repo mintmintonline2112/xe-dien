@@ -35,6 +35,7 @@ export type SectionFieldSpec = FieldSpecBase &
         positionKey?: string;
       }
     | { type: 'json' }
+    | { type: 'categoryPicker' }
     | {
         type: 'select';
         options: Array<{ value: string; label: string; hint?: string }>;
