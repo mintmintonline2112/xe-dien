@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+  Trang xem 5 phương án logo Trạm Xe Điện (nền sáng, nền tối, favicon) và chép SVG biểu tượng.
+  Dùng bởi: mở trực tiếp bằng trình duyệt; danh sách file xuất ở docs/brand/logo/README.md.
+  Lưu ý: hình biểu tượng nằm trong mảng CONCEPTS; sửa ở đây thì xuất lại PNG / SVG cho khớp.
+-->
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo Trạm Xe Điện</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand-green: #0A7D4F;
+  --brand-green-deep: #064A2F;
+  --brand-yellow: #FFB81C;
+  --brand-ink: #1A2420;
+  --page-bg: #F3F6F4;
+  --card-bg: #FFFFFF;
+  --text: #1A2420;
+  --text-soft: #5B6862;
+  --line: #DCE5E0;
+  --font-display: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
+  --font-body: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page-bg: #0E1512;
+    --card-bg: #16201C;
+    --text: #E8EFEB;
+    --text-soft: #9DADA5;
+    --line: #26332D;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page-bg: #0E1512;
+  --card-bg: #16201C;
+  --text: #E8EFEB;
+  --text-soft: #9DADA5;
+  --line: #26332D;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+.page { max-width: 1120px; margin: 0 auto; padding: 40px 20px 64px; display: grid; gap: 28px; }
+.intro { display: grid; gap: 10px; max-width: 70ch; }
+.intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.intro p { margin: 0; color: var(--text-soft); }
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.swatch { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-soft); }
+.swatch i { width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line); display: inline-block; }
+
+.concept { background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.concept-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; padding: 20px 24px 14px; }
+.concept-head h2 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 800; }
+.concept-head h2 span { color: var(--brand-green); margin-right: 8px; font-variant-numeric: tabular-nums; }
+:root[data-theme="dark"] .concept-head h2 span { color: var(--brand-yellow); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .concept-head h2 span { color: var(--brand-yellow); } }
+.concept-head p { margin: 0; color: var(--text-soft); font-size: 14px; max-width: 62ch; }
+.stage { display: grid; grid-template-columns: 1.25fr 1.25fr 0.8fr; border-top: 1px solid var(--line); }
+.tile { min-height: 168px; display: flex; align-items: center; justify-content: center; padding: 28px 20px; position: relative; }
+.tile + .tile { border-left: 1px solid var(--line); }
+.tile-light { background: #FFFFFF; }
+.tile-dark { background: var(--brand-green-deep); }
+.tile-icons { background: #F3F6F4; flex-direction: column; gap: 14px; }
+.tile-label { position: absolute; left: 12px; top: 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #7C8A83; }
+.tile-dark .tile-label { color: #8FB8A3; }
+.icon-row { display: flex; align-items: flex-end; gap: 16px; }
+.icon-row svg { display: block; }
+.copy-btn {
+  font: 600 13px/1 var(--font-body); color: var(--brand-green-deep); background: #FFFFFF;
+  border: 1px solid #C9D6CF; border-radius: 8px; padding: 9px 12px; cursor: pointer;
+}
+.copy-btn:hover { border-color: var(--brand-green); }
+.copy-btn:focus-visible { outline: 3px solid var(--brand-yellow); outline-offset: 2px; }
+
+.lockup { display: inline-flex; align-items: center; gap: 12px; }
+.lockup svg { width: 52px; height: 52px; flex-shrink: 0; display: block; }
+.lockup .words { display: flex; flex-direction: column; line-height: 1.1; }
+
+.w1 .name { font-weight: 800; font-size: 27px; letter-spacing: -.02em; color: var(--brand-green); }
+.w1 .tag { font-weight: 600; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #6B7872; margin-top: 4px; }
+.on-dark.w1 .name { color: #FFFFFF; }
+.on-dark.w1 .tag { color: #A9CDBB; }
+
+.w2 .name { font-weight: 900; font-size: 25px; letter-spacing: .01em; text-transform: uppercase; color: var(--brand-ink); }
+.w2 .name b { color: var(--brand-green); font-weight: 900; }
+.w2 .tag { font-weight: 600; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #6B7872; margin-top: 5px; }
+.on-dark.w2 .name { color: #FFFFFF; }
+.on-dark.w2 .name b { color: var(--brand-yellow); }
+.on-dark.w2 .tag { color: #A9CDBB; }
+
+.w3 .name { font-weight: 800; font-size: 31px; letter-spacing: -.03em; color: var(--brand-green); }
+.w3 .tag { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--brand-ink); margin-top: 3px; }
+.w3 .tag::before { content: ""; width: 14px; height: 4px; border-radius: 2px; background: var(--brand-yellow); }
+.on-dark.w3 .name { color: #FFFFFF; }
+.on-dark.w3 .tag { color: #D6E8DF; }
+
+.w4 .name { font-weight: 800; font-size: 27px; letter-spacing: -.035em; color: var(--brand-ink); text-transform: lowercase; }
+.w4 .name em { font-style: normal; color: var(--brand-green); }
+.w4 .tag { font-weight: 500; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6B7872; margin-top: 4px; }
+.on-dark.w4 .name { color: #FFFFFF; }
+.on-dark.w4 .name em { color: var(--brand-yellow); }
+.on-dark.w4 .tag { color: #A9CDBB; }
+
+.w5 .name { font-weight: 800; font-size: 27px; letter-spacing: -.02em; color: var(--brand-ink); }
+.w5 .name em { font-style: normal; color: var(--brand-green); }
+.w5 .tag { font-weight: 600; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #6B7872; margin-top: 6px; padding-top: 5px; border-top: 2px solid var(--brand-yellow); align-self: flex-start; }
+.on-dark.w5 .name { color: #FFFFFF; }
+.on-dark.w5 .name em { color: var(--brand-yellow); }
+.on-dark.w5 .tag { color: #A9CDBB; }
+
+.note { color: var(--text-soft); font-size: 14px; max-width: 70ch; margin: 0; }
+
+@media (max-width: 860px) {
+  .stage { grid-template-columns: 1fr; }
+  .tile + .tile { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 420px) {
+  .lockup svg { width: 42px; height: 42px; }
+  .w1 .name, .w4 .name, .w5 .name { font-size: 22px; }
+  .w2 .name { font-size: 20px; }
+  .w3 .name { font-size: 25px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <h1>5 phương án logo Trạm Xe Điện</h1>
+    <p>Cùng màu và font của website (Be Vietnam Pro, xanh lá thương hiệu, vàng tia sét). Mỗi phương án có bản trên nền sáng (header), bản trên nền tối (chân trang) và biểu tượng thu nhỏ 64 / 32 / 16 px như favicon và icon tab trình duyệt.</p>
+    <div class="swatches">
+      <span class="swatch"><i style="background:#0A7D4F"></i>Xanh chính #0A7D4F</span>
+      <span class="swatch"><i style="background:#064A2F"></i>Xanh đậm (nền tối)</span>
+      <span class="swatch"><i style="background:#FFB81C"></i>Vàng #FFB81C</span>
+      <span class="swatch"><i style="background:#1A2420"></i>Chữ #1A2420</span>
+    </div>
+  </header>
+  <div id="concepts"></div>
+  <p class="note">Nút "Sao chép SVG" chép biểu tượng dạng SVG (khung 48×48). Chữ "Trạm Xe Điện" trên website vẫn là chữ HTML dùng font Be Vietnam Pro như hiện tại, nên chỉ cần thay biểu tượng và kiểu chữ.</p>
+</main>
+<script>
+const GREEN = "#0A7D4F";
+const GREEN_DEEP = "#064A2F";
+const YELLOW = "#FFB81C";
+const WHITE = "#FFFFFF";
+
+const CONCEPTS = [
+  {
+    title: "Ghim trạm sạc",
+    idea: "Ghim bản đồ chứa tia sét: \"trạm\" là điểm đến, khách tìm tới để mua, sạc và bảo trì xe. Dễ nhận ra cả khi thu nhỏ thành favicon.",
+    wordmark: "w1",
+    words: '<span class="name">Trạm Xe Điện</span><span class="tag">Xe điện chính hãng</span>',
+    mark: (isDark) => `
+      <path d="M24 3.5C14.3 3.5 6.5 11.1 6.5 20.6 6.5 32.6 24 45 24 45s17.5-12.4 17.5-24.4C41.5 11.1 33.7 3.5 24 3.5Z" fill="${isDark ? YELLOW : GREEN}"/>
+      <circle cx="24" cy="20.5" r="11" fill="${isDark ? GREEN_DEEP : WHITE}"/>
+      <path d="M26.2 11.5 18.3 22.6h5.1l-2 8.4 8.3-11.4h-5.2l1.7-8.1Z" fill="${isDark ? YELLOW : YELLOW}"/>`,
+  },
+  {
+    title: "Chữ T tia sét",
+    idea: "Chữ T của \"Trạm\" có thân là tia sét vàng. Gọn, mạnh, hợp làm avatar mạng xã hội và biển hiệu.",
+    wordmark: "w2",
+    words: '<span class="name"><b>Trạm</b> Xe Điện</span><span class="tag">Xe điện chính hãng</span>',
+    mark: (isDark) => `
+      <rect width="48" height="48" rx="13" fill="${isDark ? YELLOW : GREEN}"/>
+      <rect x="10" y="10" width="28" height="7" rx="2.5" fill="${isDark ? GREEN_DEEP : WHITE}"/>
+      <path d="M27.6 17 19 30.2h6.4L22.6 40 31.8 26.4h-6.5l2.3-9.4Z" fill="${isDark ? GREEN_DEEP : YELLOW}"/>`,
+  },
+  {
+    title: "Xe điện sân golf",
+    idea: "Hình chiếc xe điện mui bằng: đúng dòng xe chủ lực (sân golf, resort). Mui vàng, tia sét trên thân xe nói rõ đây là xe chạy điện.",
+    wordmark: "w3",
+    words: '<span class="name">Trạm Xe Điện</span><span class="tag">Xe điện chính hãng</span>',
+    mark: (isDark) => `
+      <rect width="48" height="48" rx="13" fill="${isDark ? WHITE : GREEN}"/>
+      <rect x="9.5" y="9.5" width="29" height="4" rx="2" fill="${YELLOW}"/>
+      <rect x="12.5" y="13" width="2.6" height="13" fill="${isDark ? GREEN : WHITE}"/>
+      <rect x="32.9" y="13" width="2.6" height="13" fill="${isDark ? GREEN : WHITE}"/>
+      <path d="M12 25h24c2.8 0 4.5 1.8 4.5 4.5V33h-33v-3.5C7.5 26.8 9.2 25 12 25Z" fill="${isDark ? GREEN : WHITE}"/>
+      <path d="M25.3 26.2 21.4 31h2.4l-1 3.2 3.9-4.8h-2.4l1-3.2Z" fill="${YELLOW}"/>
+      <circle cx="15" cy="34.5" r="4.6" fill="${isDark ? GREEN_DEEP : GREEN_DEEP}" stroke="${isDark ? WHITE : WHITE}" stroke-width="2"/>
+      <circle cx="33" cy="34.5" r="4.6" fill="${isDark ? GREEN_DEEP : GREEN_DEEP}" stroke="${isDark ? WHITE : WHITE}" stroke-width="2"/>`,
+  },
+  {
+    title: "Mái trạm",
+    idea: "Mái nhà trạm che trên tia sét: gợi showroom, xưởng bảo trì, trạm sạc. Thông điệp \"có nơi phục vụ tận tình\", hợp mảng dự án resort và nhà máy.",
+    wordmark: "w4",
+    words: '<span class="name">trạm <em>xe điện</em></span><span class="tag">Xe điện chính hãng</span>',
+    mark: (isDark) => `
+      <rect width="48" height="48" rx="13" fill="${isDark ? YELLOW : GREEN_DEEP}"/>
+      <path d="M8.5 21 24 9.5 39.5 21" fill="none" stroke="${isDark ? GREEN_DEEP : YELLOW}" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M26.4 18.5 18.6 29.6h5.6L21.8 39l8.6-12h-5.7l1.7-8.5Z" fill="${isDark ? GREEN_DEEP : WHITE}"/>`,
+  },
+  {
+    title: "Lá xanh tia sét",
+    idea: "Chiếc lá xanh có tia sét vàng nằm trong: xe điện sạch, không khí thải. Không có khung nền nên mềm và thân thiện hơn các bản còn lại.",
+    wordmark: "w5",
+    words: '<span class="name">Trạm <em>Xe Điện</em></span><span class="tag">Xe điện chính hãng</span>',
+    mark: (isDark) => `
+      <path d="M41 6C22.5 6.4 8 15.6 8 30.4c0 4.3 1.5 8 4.2 10.8C30.4 40.8 41.6 28.4 41 6Z" fill="${isDark ? WHITE : GREEN}"/>
+      <path d="M8.6 43.4c2.6-6.3 7.4-12.6 14.6-18.6" fill="none" stroke="${isDark ? WHITE : GREEN}" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M29.6 12.5 20.3 25.8h6l-2.6 9.4 10-13.6h-6.2l2.1-9.1Z" fill="${YELLOW}"/>`,
+  },
+];
+
+const svgOf = (markInner, size) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="${size}" height="${size}" role="img" aria-label="Biểu tượng Trạm Xe Điện">${markInner.trim()}</svg>`;
+
+const renderConcept = (concept, index) => {
+  const number = String(index + 1).padStart(2, "0");
+  return `
+  <section class="concept" aria-labelledby="concept-${number}">
+    <div class="concept-head">
+      <h2 id="concept-${number}"><span>${number}</span>${concept.title}</h2>
+      <p>${concept.idea}</p>
+    </div>
+    <div class="stage">
+      <div class="tile tile-light">
+        <span class="tile-label">Header</span>
+        <div class="lockup ${concept.wordmark}">${svgOf(concept.mark(false), 52)}<span class="words">${concept.words}</span></div>
+      </div>
+      <div class="tile tile-dark">
+        <span class="tile-label">Chân trang</span>
+        <div class="lockup on-dark ${concept.wordmark}">${svgOf(concept.mark(true), 52)}<span class="words">${concept.words}</span></div>
+      </div>
+      <div class="tile tile-icons">
+        <span class="tile-label">Favicon</span>
+        <div class="icon-row">${svgOf(concept.mark(false), 64)}${svgOf(concept.mark(false), 32)}${svgOf(concept.mark(false), 16)}</div>
+        <button class="copy-btn" type="button" id="copy-${number}" data-index="${index}">Sao chép SVG</button>
+      </div>
+    </div>
+  </section>`;
+};
+
+const conceptsBox = document.getElementById("concepts");
+conceptsBox.style.display = "grid";
+conceptsBox.style.gap = "24px";
+conceptsBox.innerHTML = CONCEPTS.map(renderConcept).join("");
+
+conceptsBox.addEventListener("click", async (e) => {
+  const button = e.target.closest(".copy-btn");
+  if (!button) return;
+  const concept = CONCEPTS[Number(button.dataset.index)];
+  try {
+    await navigator.clipboard.writeText(svgOf(concept.mark(false), 48));
+    button.textContent = "Đã chép SVG";
+  } catch {
+    button.textContent = "Trình duyệt chặn sao chép";
+  }
+  setTimeout(() => { button.textContent = "Sao chép SVG"; }, 1800);
+});
+</script>
+</body>
+</html>
