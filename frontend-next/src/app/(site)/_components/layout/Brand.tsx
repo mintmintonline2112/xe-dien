@@ -37,7 +37,7 @@ export function Brand({ isFooter = false, logoUrl, logoHeight, brandName, taglin
       ) : (
         <>
           <BrandPinMark isOnDark={isFooter} className="h-11 w-11 shrink-0 max-[640px]:h-9 max-[640px]:w-9" />
-          <span className="flex flex-col leading-tight">
+          <span className="flex flex-col gap-1.5 leading-tight">
             <span
               className={cn(
                 "font-display text-xl font-extrabold tracking-tight max-[640px]:text-lg",
@@ -49,7 +49,7 @@ export function Brand({ isFooter = false, logoUrl, logoHeight, brandName, taglin
             {tagline ? (
               <span
                 className={cn(
-                  "text-2xs font-medium tracking-sm uppercase max-[640px]:hidden",
+                  "text-2xs leading-none font-medium tracking-sm uppercase max-[640px]:hidden",
                   isFooter ? "text-light-soft" : "text-ink-faint",
                 )}
               >
