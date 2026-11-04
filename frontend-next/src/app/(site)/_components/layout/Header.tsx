@@ -111,10 +111,6 @@ export function Header({
             ) : null}
           </div>
           <div className="flex items-center gap-5">
-            <Link className={TOPBAR_LINK} href={siteRoutes.page("he-thong-showroom")}>
-              <SiteIcon name="store" />
-              Hệ thống showroom
-            </Link>
             <SocialIcons
               links={social}
               className="inline-flex items-center gap-1.5"

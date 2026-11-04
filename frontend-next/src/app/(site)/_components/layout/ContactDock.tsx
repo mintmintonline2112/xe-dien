@@ -1,13 +1,11 @@
 /**
- * Nút liên hệ luôn hiện: desktop là cụm nút tròn góc phải dưới (Zalo, Messenger, gọi điện có vòng nháy), mobile là thanh 4 nút đáy màn hình
- * (Gọi điện, Zalo, Tổng đài / Messenger, Showroom).
+ * Nút liên hệ luôn hiện: desktop là cụm nút tròn góc phải dưới (Zalo, Messenger, gọi điện có vòng nháy), mobile là thanh nút đáy màn hình
+ * (Gọi điện, Zalo, Tổng đài / Messenger).
  * Dùng bởi: app/(site)/layout.tsx.
  * Lưu ý: thanh mobile cao 4rem nên Footer chừa đệm đáy tương ứng dưới 900px. Link Zalo / Messenger trống thì ẩn nút đó.
  * Vòng nháy dùng keyframes `ring-pulse` (styles/effects.css), tắt khi giảm chuyển động.
  */
-import Link from "next/link";
 import { SiteIcon } from "@/app/(site)/_components/SiteIcon";
-import { siteRoutes } from "@/config/routes";
 import type { SiteContact } from "@/settings/site-settings";
 import { cn } from "@/utils/cn";
 
@@ -70,10 +68,6 @@ export function ContactDock({ contact }: { contact: SiteContact }) {
             Tổng đài
           </a>
         )}
-        <Link href={siteRoutes.page("he-thong-showroom")} className={cn(DOCK_ITEM, "text-navy-700")}>
-          <SiteIcon name="store" className="h-5 w-5" />
-          Showroom
-        </Link>
       </nav>
     </>
   );

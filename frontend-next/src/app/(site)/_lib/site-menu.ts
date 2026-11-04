@@ -51,7 +51,6 @@ export const FOOTER_MENU_ITEMS: SiteMenuItem[] = [
     href: "#",
     children: [
       { label: "Giới thiệu", href: siteRoutes.page("gioi-thieu") },
-      { label: "Hệ thống showroom", href: siteRoutes.page("he-thong-showroom") },
       { label: "Tin tức", href: siteRoutes.news },
       { label: "Liên hệ", href: siteRoutes.contact },
     ],

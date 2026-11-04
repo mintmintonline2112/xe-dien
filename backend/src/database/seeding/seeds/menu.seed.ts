@@ -89,7 +89,6 @@ const MENU_TREE: Record<MenuLocation, SeedMenuItem[]> = {
       href: '#ve-xe-dien-xanh',
       children: [
         { label: 'Giới thiệu', href: '/gioi-thieu' },
-        { label: 'Hệ thống showroom', href: '/he-thong-showroom' },
         { label: 'Tin tức', href: '/tin-tuc' },
         { label: 'Tuyển dụng', href: '/tuyen-dung' },
         { label: 'Chính sách đại lý', href: '/chinh-sach-dai-ly' },

@@ -91,7 +91,7 @@
             },
             {
               "icon": "card",
-              "title": "Thuê tài chính",
+              "title": "Thuê trả góp",
               "text": "Trả góp, thuê theo tháng cho doanh nghiệp",
               "href": "/mua-tra-gop/"
             },
@@ -322,7 +322,7 @@
             },
             {
               "icon": "card",
-              "title": "Thuê tài chính linh hoạt",
+              "title": "Thuê trả góp linh hoạt",
               "text": "Mua đứt, trả góp hoặc thuê theo tháng — phù hợp ngân sách và kế hoạch đầu tư của doanh nghiệp."
             },
             {
@@ -521,57 +521,6 @@
       {
         "id": 17,
         "pageId": 1,
-        "sectionKey": "showroom",
-        "heading": "Showroom & kho xe",
-        "subheading": null,
-        "content": "<p>Ghé showroom để xem xe thực tế, chạy thử trên đường nội bộ và gặp kỹ sư tư vấn dự án.</p>",
-        "mediaPath": null,
-        "metadata": {
-          "_component": "store-list",
-          "layout": "grid",
-          "items": [
-            {
-              "title": "Showroom Quận 7",
-              "caption": "TP. Hồ Chí Minh",
-              "text": "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh",
-              "label": "0900 000 001",
-              "value": "8:00 – 21:00 hằng ngày",
-              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Quan+7",
-              "image": "/images/pages/showroom.webp"
-            },
-            {
-              "title": "Showroom Gò Vấp",
-              "caption": "TP. Hồ Chí Minh",
-              "text": "456 Quang Trung, Phường 10, Gò Vấp, TP. Hồ Chí Minh",
-              "label": "0900 000 002",
-              "value": "8:00 – 21:00 hằng ngày",
-              "href": "https://maps.google.com/?q=Quang+Trung+Go+Vap",
-              "image": "/images/pages/about.webp"
-            },
-            {
-              "title": "Showroom Biên Hòa",
-              "caption": "Đồng Nai",
-              "text": "789 Phạm Văn Thuận, Tân Mai, Biên Hòa, Đồng Nai",
-              "label": "0900 000 003",
-              "value": "8:00 – 20:30 hằng ngày",
-              "href": "https://maps.google.com/?q=Pham+Van+Thuan+Bien+Hoa",
-              "image": "/images/pages/service.webp"
-            }
-          ],
-          "mapLabel": "Xem bản đồ",
-          "ctaLabel": "Xem tất cả showroom",
-          "ctaHref": "/he-thong-showroom/"
-        },
-        "isActive": true,
-        "sortOrder": 16,
-        "createdAt": "2026-01-01T00:00:00.000Z",
-        "updatedAt": "2026-01-01T00:00:00.000Z",
-        "deletedAt": null,
-        "translations": null
-      },
-      {
-        "id": 18,
-        "pageId": 1,
         "sectionKey": "tu-van",
         "heading": "Nhận báo giá dự án & tư vấn đội xe",
         "subheading": null,
@@ -582,7 +531,7 @@
           "items": [
             "Khảo sát tận nơi, đề xuất số lượng và cấu hình xe phù hợp",
             "Báo giá dự án trong 24 giờ, giá tốt khi đặt đội xe",
-            "Hỗ trợ trả góp, thuê tài chính, thuê theo tháng cho doanh nghiệp",
+            "Hỗ trợ mua trả góp, thuê theo tháng cho doanh nghiệp",
             "Bàn giao, đào tạo lái xe và bảo trì định kỳ tận nơi"
           ],
           "defaultType": "quote",
@@ -592,7 +541,7 @@
           "backdropImage": "/images/hero/hero-3.webp"
         },
         "isActive": true,
-        "sortOrder": 17,
+        "sortOrder": 16,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
@@ -601,7 +550,7 @@
     ]
   },
   "contact": {
-    "id": 19,
+    "id": 18,
     "title": "Liên hệ",
     "slug": "contact",
     "status": "published",
@@ -619,8 +568,8 @@
     "translations": null,
     "sections": [
       {
-        "id": 20,
-        "pageId": 19,
+        "id": 19,
+        "pageId": 18,
         "sectionKey": "thong-tin",
         "heading": "Thông tin liên hệ",
         "subheading": null,
@@ -638,82 +587,6 @@
         },
         "isActive": true,
         "sortOrder": 1,
-        "createdAt": "2026-01-01T00:00:00.000Z",
-        "updatedAt": "2026-01-01T00:00:00.000Z",
-        "deletedAt": null,
-        "translations": null
-      },
-      {
-        "id": 21,
-        "pageId": 19,
-        "sectionKey": "showroom",
-        "heading": "Hệ thống showroom",
-        "subheading": null,
-        "content": null,
-        "mediaPath": null,
-        "metadata": {
-          "_component": "store-list",
-          "layout": "list",
-          "items": [
-            {
-              "title": "Showroom Quận 7",
-              "caption": "TP. Hồ Chí Minh",
-              "text": "123 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh",
-              "label": "0900 000 001",
-              "value": "8:00 – 21:00 hằng ngày",
-              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Quan+7",
-              "image": "/images/pages/showroom.webp"
-            },
-            {
-              "title": "Showroom Gò Vấp",
-              "caption": "TP. Hồ Chí Minh",
-              "text": "456 Quang Trung, Phường 10, Gò Vấp, TP. Hồ Chí Minh",
-              "label": "0900 000 002",
-              "value": "8:00 – 21:00 hằng ngày",
-              "href": "https://maps.google.com/?q=Quang+Trung+Go+Vap",
-              "image": "/images/pages/about.webp"
-            },
-            {
-              "title": "Showroom Biên Hòa",
-              "caption": "Đồng Nai",
-              "text": "789 Phạm Văn Thuận, Tân Mai, Biên Hòa, Đồng Nai",
-              "label": "0900 000 003",
-              "value": "8:00 – 20:30 hằng ngày",
-              "href": "https://maps.google.com/?q=Pham+Van+Thuan+Bien+Hoa",
-              "image": "/images/pages/service.webp"
-            },
-            {
-              "title": "Showroom Cầu Giấy",
-              "caption": "Hà Nội",
-              "text": "12 Trần Thái Tông, Dịch Vọng Hậu, Cầu Giấy, Hà Nội",
-              "label": "0900 000 004",
-              "value": "8:00 – 21:00 hằng ngày",
-              "href": "https://maps.google.com/?q=Tran+Thai+Tong+Cau+Giay",
-              "image": "/images/news/news-2.webp"
-            },
-            {
-              "title": "Showroom Hải Châu",
-              "caption": "Đà Nẵng",
-              "text": "34 Nguyễn Văn Linh, Nam Dương, Hải Châu, Đà Nẵng",
-              "label": "0900 000 005",
-              "value": "8:00 – 20:30 hằng ngày",
-              "href": "https://maps.google.com/?q=Nguyen+Van+Linh+Da+Nang",
-              "image": "/images/news/news-6.webp"
-            },
-            {
-              "title": "Showroom Ninh Kiều",
-              "caption": "Cần Thơ",
-              "text": "56 Ba Tháng Hai, Xuân Khánh, Ninh Kiều, Cần Thơ",
-              "label": "0900 000 006",
-              "value": "8:00 – 20:30 hằng ngày",
-              "href": "https://maps.google.com/?q=3+Thang+2+Ninh+Kieu",
-              "image": "/images/news/news-5.webp"
-            }
-          ],
-          "mapLabel": "Xem bản đồ"
-        },
-        "isActive": true,
-        "sortOrder": 2,
         "createdAt": "2026-01-01T00:00:00.000Z",
         "updatedAt": "2026-01-01T00:00:00.000Z",
         "deletedAt": null,
