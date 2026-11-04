@@ -1,6 +1,7 @@
 /**
- * Hàm dựng và so khớp đường dẫn: joinPath, withHash, withQuery, createCrudRoutes (list / create / edit/[id]), isActivePath.
- * Dùng bởi: config/routes.ts, app/admin/_layout (navigation.ts, AdminSidebar.tsx), app/(site)/_components/layout/Header.tsx.
+ * Hàm dựng và so khớp đường dẫn: joinPath, toRootRelativeHref, withHash, withQuery, createCrudRoutes (list / create / edit/[id]), isActivePath.
+ * Dùng bởi: config/routes.ts, app/admin/_layout (navigation.ts, AdminSidebar.tsx), app/(site)/_components/layout/Header.tsx,
+ * app/(site)/_lib/menu.ts và menus/_components/MenuItemForm.tsx (toRootRelativeHref: "danh-muc/x" → "/danh-muc/x", tránh link tương đối).
  * Lưu ý: trang chủ chỉ active khi khớp đúng "/" và href không có neo; còn lại khớp chính xác hoặc là trang con.
  */
 export type RouteId = number | string;
@@ -13,6 +14,12 @@ export function joinPath(...segments: Array<string | number>): string {
     .filter(Boolean)
     .join('/');
   return `/${joined}`;
+}
+
+export function toRootRelativeHref(href: string): string {
+  const trimmed = href.trim();
+  if (!trimmed || /^([a-z][a-z0-9+.-]*:|\/|#|\?)/i.test(trimmed)) return trimmed;
+  return `/${trimmed}`;
 }
 
 export function withHash(path: string, anchor: string): string {

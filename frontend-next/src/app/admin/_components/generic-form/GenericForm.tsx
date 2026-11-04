@@ -303,14 +303,24 @@ export function GenericForm<T extends FieldValues>({
             )}
           </div>
         ) : (
-          <input
-            type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'tel' ? 'tel' : field.type === 'email' ? 'email' : 'text'}
-            {...register(field.key as never, buildRules(field))}
-            placeholder={field.placeholder}
-            autoComplete={field.autocomplete}
-            disabled={isDisabled(field)}
-            className="gf-control"
-          />
+          <>
+            <input
+              type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : field.type === 'tel' ? 'tel' : field.type === 'email' ? 'email' : 'text'}
+              {...register(field.key as never, buildRules(field))}
+              placeholder={field.placeholder}
+              autoComplete={field.suggestions ? 'off' : field.autocomplete}
+              list={field.suggestions ? `gf-suggestions-${field.key}` : undefined}
+              disabled={isDisabled(field)}
+              className="gf-control"
+            />
+            {field.suggestions && (
+              <datalist id={`gf-suggestions-${field.key}`}>
+                {field.suggestions.map((suggestion) => (
+                  <option key={String(suggestion.value)} value={String(suggestion.value)} label={suggestion.label} />
+                ))}
+              </datalist>
+            )}
+          </>
         )}
 
         {field.hint && field.type !== 'checkbox' && (

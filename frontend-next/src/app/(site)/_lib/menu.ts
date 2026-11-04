@@ -1,9 +1,11 @@
 /**
  * Lấy menu public từ CMS (bảng menu_items, quản lý tại /admin/menus) theo vị trí: `header` (menu chính) hoặc `footer` (cột chân trang).
  * Dùng bởi: app/(site)/layout.tsx (truyền vào Header, Footer).
- * Lưu ý: lỗi API hoặc menu rỗng thì dùng menu tĩnh trong site-menu.ts (SITE_MENU_ITEMS / FOOTER_MENU_ITEMS).
+ * Lưu ý: lỗi API hoặc menu rỗng thì dùng menu tĩnh trong site-menu.ts (SITE_MENU_ITEMS / FOOTER_MENU_ITEMS). Href thiếu "/" đầu
+ * (admin gõ "danh-muc/x") được thêm "/" để không thành link tương đối theo trang đang xem.
  */
 import { apiFetch } from "@/api/api-fetch";
+import { toRootRelativeHref } from "@/utils/route";
 import { FOOTER_MENU_ITEMS, SITE_MENU_ITEMS, type MenuLocation, type SiteMenuItem } from "./site-menu";
 
 type ApiMenuItem = {
@@ -31,12 +33,12 @@ export async function getSiteMenu(location: MenuLocation = "header"): Promise<Si
     return items.map((item) => ({
       key: String(item.id),
       label: item.label,
-      href: item.href,
+      href: toRootRelativeHref(item.href),
       showSubmenu: item.showSubmenu !== false,
       children: item.children?.length
         ? item.children.map((child) => ({
             label: child.label,
-            href: child.href,
+            href: toRootRelativeHref(child.href),
           }))
         : undefined,
     }));

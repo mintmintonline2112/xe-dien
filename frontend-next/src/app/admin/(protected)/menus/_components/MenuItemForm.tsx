@@ -4,10 +4,11 @@
  * Form tạo / sửa mục menu website: vị trí (header / footer), tên, đường dẫn, menu cha, thứ tự, hiển thị, mở khung submenu.
  * Dùng bởi: menus/create/page.tsx, menus/edit/[id]/page.tsx.
  * Lưu ý: chỉ menu gốc (parentId null) được chọn làm menu cha, nên menu chỉ có 2 cấp. Chọn menu cha thì mục con lưu theo vị trí của
- * menu cha (bỏ qua ô vị trí) để một cây không bị tách sang hai vị trí.
+ * menu cha (bỏ qua ô vị trí) để một cây không bị tách sang hai vị trí. Ô đường dẫn gợi ý danh mục / trang có sẵn
+ * (useMenuLinkSuggestions), chọn gợi ý khi ô tên trống thì tự điền tên; khi lưu, đường dẫn thiếu "/" đầu được thêm "/".
  */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -22,8 +23,9 @@ import {
   toMenuLocation,
   type MenuLocation,
 } from '@/app/admin/(protected)/menus/_lib/menu-item.service';
+import { useMenuLinkSuggestions } from '@/app/admin/(protected)/menus/_lib/useMenuLinkSuggestions';
 import { adminRoutes } from '@/config/routes';
-import { withQuery } from '@/utils/route';
+import { toRootRelativeHref, withQuery } from '@/utils/route';
 
 interface FormValues {
   location: MenuLocation;
@@ -76,6 +78,8 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
     [rootItems],
   );
 
+  const { suggestions: linkSuggestions, nameByHref } = useMenuLinkSuggestions();
+
   const { data } = useQuery({
     queryKey: [...MENU_ITEM_QUERY_KEY, 'detail', id],
     queryFn: () => menuItemService.getById(id!),
@@ -118,8 +122,9 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         label: 'Đường dẫn',
         type: 'text',
         required: true,
-        placeholder: '/danh-muc/xe-dap-dien hoặc /chinh-sach-bao-hanh',
-        hint: 'Đường dẫn nội bộ (bắt đầu bằng /) hoặc link ngoài (https://...)',
+        placeholder: 'Gõ tên danh mục / trang để chọn, hoặc nhập /chinh-sach-bao-hanh, https://...',
+        hint: 'Gõ vài chữ của tên (VD "phụ tùng") rồi chọn trong danh sách gợi ý; hoặc tự nhập đường dẫn nội bộ / link ngoài (https://...).',
+        suggestions: linkSuggestions,
       },
       {
         key: 'parentId',
@@ -139,7 +144,18 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         hint: 'Bật: bấm menu mở khung danh mục con. Tắt: bấm là đi thẳng tới trang (chỉ áp dụng menu gốc ở header có submenu)',
       },
     ],
-    [parentOptions],
+    [parentOptions, linkSuggestions],
+  );
+
+  const previousHrefRef = useRef<string | null>(null);
+  const fillLabelFromChosenLink = useCallback(
+    (values: FormValues): Partial<FormValues> => {
+      if (values.href === previousHrefRef.current) return {};
+      previousHrefRef.current = values.href;
+      const linkName = nameByHref.get(values.href);
+      return linkName && !values.label?.trim() ? { label: linkName } : {};
+    },
+    [nameByHref],
   );
 
   async function handleSubmit(values: FormValues) {
@@ -151,7 +167,7 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
         {
           location,
           label: values.label,
-          href: values.href,
+          href: toRootRelativeHref(values.href),
           description: values.description,
           isActive: values.isActive,
           showSubmenu: values.showSubmenu,
@@ -188,6 +204,7 @@ export function MenuItemForm({ id, defaultLocation = 'header' }: { id?: number; 
       isLoading={isSubmitting}
       submitLabel={isEdit ? 'Cập nhật' : 'Tạo mới'}
       onSubmit={handleSubmit}
+      derive={fillLabelFromChosenLink}
       onCancel={() => router.push(listHref)}
     />
   );
