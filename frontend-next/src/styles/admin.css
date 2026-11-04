@@ -1169,6 +1169,30 @@
 .dt-action--delete { color: var(--admin-danger); }
 .dt-action--delete:hover { background: rgba(169, 75, 67, 0.1); color: var(--admin-danger); }
 
+.adm-btn--danger { border-color: rgba(169, 75, 67, 0.4); color: var(--admin-danger); }
+.adm-btn--danger:hover { background: rgba(169, 75, 67, 0.08); }
+.dt-check { width: 44px; text-align: center; }
+.dt-check input { width: 16px; height: 16px; accent-color: var(--admin-brass); cursor: pointer; vertical-align: middle; }
+.dt-table tbody tr.is-selected { background: color-mix(in srgb, var(--admin-brass) 8%, transparent); }
+.dt-bulkbar {
+  position: sticky;
+  top: 8px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid color-mix(in srgb, var(--admin-brass) 35%, transparent);
+  border-radius: 14px;
+  background: var(--admin-surface-solid);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+.dt-bulk-link { border: 0; background: none; padding: 0; color: var(--admin-brass); font-weight: 600; text-decoration: underline; cursor: pointer; }
+.dt-bulk-link:disabled { opacity: 0.5; cursor: not-allowed; }
+.dt-bulk-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+
 .pg {
   display: flex;
   flex-wrap: wrap;

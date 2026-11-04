@@ -63,3 +63,10 @@ export interface TableActionEvent<T> {
 export type TableFetcher<T> = (
   params: { page: number; limit: number; search?: string } & Record<string, unknown>,
 ) => Promise<PaginatedResponse<T>>;
+
+export interface TableBulkAction<T> {
+  key: string;
+  label: string;
+  tone?: 'danger';
+  run: (rows: T[]) => Promise<boolean | void>;
+}

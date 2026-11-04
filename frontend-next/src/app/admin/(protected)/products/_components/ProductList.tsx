@@ -1,7 +1,8 @@
 'use client';
 
 /**
- * Bảng danh sách sản phẩm: ảnh, tên (kèm mã / thương hiệu), danh mục, giá, bật / tắt "mua nhiều", trạng thái; lọc, sắp xếp, sửa, xoá.
+ * Bảng danh sách sản phẩm: ảnh, tên (kèm mã / thương hiệu), danh mục, giá, bật / tắt "mua nhiều", trạng thái; lọc, sắp xếp, sửa, xoá;
+ * chọn nhiều / chọn tất cả để xuất bản, chuyển nháp, bật / bỏ "mua nhiều" hoặc xoá hàng loạt.
  * Dùng bởi: products/page.tsx.
  */
 
@@ -12,9 +13,15 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { DataTable } from '@/app/admin/_components/data-table/DataTable';
-import type { TableActionEvent, TableColumn, TableFilterOption } from '@/app/admin/_components/data-table/types';
+import type {
+  TableActionEvent,
+  TableBulkAction,
+  TableColumn,
+  TableFilterOption,
+} from '@/app/admin/_components/data-table/types';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { confirmAction } from '@/app/admin/_lib/confirm';
+import { runInBatches } from '@/app/admin/_lib/run-in-batches';
 import { PUBLISH_STATUS_CONFIG, PUBLISH_STATUS_OPTIONS } from '@/app/admin/_lib/publish-status';
 import {
   buildCategoryOptions,
@@ -156,6 +163,62 @@ export function ProductList() {
     [categories],
   );
 
+  const bulkActions: TableBulkAction<Product>[] = useMemo(() => {
+    const confirmBulkEdit = (
+      products: Product[],
+      title: string,
+      confirmButtonText: string,
+      payload: Partial<Pick<Product, 'status' | 'isFeatured'>>,
+    ) =>
+      confirmAction(
+        { title, text: `Áp dụng cho ${products.length} sản phẩm đã chọn.`, confirmButtonText, tone: 'primary', icon: 'question' },
+        async () => {
+          await runInBatches(products, (product) => productService.edit(product.id, payload));
+          await queryClient.invalidateQueries({ queryKey: PRODUCT_QUERY_KEY });
+        },
+      );
+
+    return [
+      {
+        key: 'publish',
+        label: 'Xuất bản',
+        run: (products) => confirmBulkEdit(products, 'Xuất bản sản phẩm?', 'Xuất bản', { status: 'published' }),
+      },
+      {
+        key: 'draft',
+        label: 'Chuyển nháp',
+        run: (products) => confirmBulkEdit(products, 'Chuyển về bản nháp?', 'Chuyển nháp', { status: 'draft' }),
+      },
+      {
+        key: 'featured-on',
+        label: 'Thêm vào Mua nhiều',
+        run: (products) => confirmBulkEdit(products, 'Thêm vào Mua nhiều?', 'Thêm', { isFeatured: true }),
+      },
+      {
+        key: 'featured-off',
+        label: 'Bỏ Mua nhiều',
+        run: (products) => confirmBulkEdit(products, 'Bỏ khỏi Mua nhiều?', 'Bỏ', { isFeatured: false }),
+      },
+      {
+        key: 'delete',
+        label: 'Xoá',
+        tone: 'danger',
+        run: (products) =>
+          confirmAction(
+            {
+              title: `Xóa ${products.length} sản phẩm?`,
+              text: 'Các sản phẩm đã chọn sẽ bị gỡ khỏi website.',
+              confirmButtonText: 'Xóa',
+            },
+            async () => {
+              await runInBatches(products, (product) => productService.remove(product.id));
+              await queryClient.invalidateQueries({ queryKey: PRODUCT_QUERY_KEY });
+            },
+          ),
+      },
+    ];
+  }, [queryClient]);
+
   async function handleAction(event: TableActionEvent<Product>) {
     const item = event.item;
     switch (event.action) {
@@ -197,6 +260,7 @@ export function ProductList() {
       addLabel="Thêm sản phẩm"
       searchPlaceholder="Tìm theo tên, mã, thương hiệu…"
       filters={filters}
+      bulkActions={bulkActions}
       onAction={handleAction}
     />
   );

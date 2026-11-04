@@ -1,9 +1,10 @@
 'use client';
 
 /**
- * Bảng dữ liệu dùng chung của admin: tìm kiếm, lọc, phân trang phía server, các nút hành động theo dòng.
+ * Bảng dữ liệu dùng chung của admin: tìm kiếm, lọc, phân trang phía server, các nút hành động theo dòng; truyền bulkActions thì có
+ * cột chọn nhiều, ô chọn cả trang, nút "Chọn tất cả N mục" theo bộ lọc hiện tại và thanh thao tác hàng loạt.
  * Dùng bởi: các màn danh sách *List.tsx trong app/admin/(protected).
- * Lưu ý: cột `status` coi số 1/0 như true/false vì MySQL trả tinyint cho cột boolean. Style ở styles/admin.css (`dt-*`).
+ * Lưu ý: đổi tìm kiếm / bộ lọc thì bỏ chọn; "chọn tất cả" tải tối đa 1000 mục (giới hạn limit của backend). Cột `status` coi số 1/0 như true/false vì MySQL trả tinyint cho cột boolean. Style ở styles/admin.css (`dt-*`).
  */
 
 import { useEffect, useMemo, useState } from 'react';
@@ -28,6 +29,7 @@ import { Pagination } from './Pagination';
 import type {
   TableAction,
   TableActionEvent,
+  TableBulkAction,
   TableColumn,
   TableFetcher,
   TableFilterOption,
@@ -60,7 +62,10 @@ interface DataTableProps<T extends object> {
   showExport?: boolean;
   onExport?: () => void;
   headerActions?: React.ReactNode;
+  bulkActions?: TableBulkAction<T>[];
 }
+
+const SELECT_ALL_LIMIT = 1000;
 
 export function DataTable<T extends object>({
   columns,
@@ -81,6 +86,7 @@ export function DataTable<T extends object>({
   showExport = false,
   onExport,
   headerActions,
+  bulkActions = [],
 }: DataTableProps<T>) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(initialLimit);
@@ -88,6 +94,9 @@ export function DataTable<T extends object>({
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
   const [extraFilters, setExtraFilters] = useState<Record<string, string>>({});
+  const [selectedRows, setSelectedRows] = useState<Map<string, T>>(new Map());
+  const [isBulkBusy, setIsBulkBusy] = useState(false);
+  const hasBulkActions = bulkActions.length > 0;
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => setSearch(searchInput.trim()), 300);
@@ -96,6 +105,7 @@ export function DataTable<T extends object>({
 
   useEffect(() => {
     setPage(1);
+    setSelectedRows(new Map());
   }, [search, status, extraFilters, limit]);
 
   const params = useMemo(
@@ -116,6 +126,52 @@ export function DataTable<T extends object>({
   const total = meta?.total ?? rows.length;
   const rangeStart = total === 0 ? 0 : (currentPage - 1) * limit + 1;
   const rangeEnd = Math.min(currentPage * limit, total);
+
+  const rowKeyOf = (row: T, index = 0) => String((row as Record<string, unknown>)[rowKey] ?? index);
+  const selectedOnPageCount = rows.filter((row) => selectedRows.has(rowKeyOf(row))).length;
+  const isPageSelected = rows.length > 0 && selectedOnPageCount === rows.length;
+  const columnCount = columns.length + (hasBulkActions ? 1 : 0);
+
+  function toggleRow(row: T) {
+    setSelectedRows((current) => {
+      const next = new Map(current);
+      const key = rowKeyOf(row);
+      if (next.has(key)) next.delete(key);
+      else next.set(key, row);
+      return next;
+    });
+  }
+
+  function togglePage() {
+    setSelectedRows((current) => {
+      const next = new Map(current);
+      for (const row of rows) {
+        if (isPageSelected) next.delete(rowKeyOf(row));
+        else next.set(rowKeyOf(row), row);
+      }
+      return next;
+    });
+  }
+
+  async function selectAllMatching() {
+    setIsBulkBusy(true);
+    try {
+      const allRows = await fetcher({ ...params, page: 1, limit: Math.min(total, SELECT_ALL_LIMIT) });
+      setSelectedRows(new Map(allRows.data.map((row, index) => [rowKeyOf(row, index), row])));
+    } finally {
+      setIsBulkBusy(false);
+    }
+  }
+
+  async function runBulkAction(bulkAction: TableBulkAction<T>) {
+    setIsBulkBusy(true);
+    try {
+      const isDone = await bulkAction.run([...selectedRows.values()]);
+      if (isDone !== false) setSelectedRows(new Map());
+    } finally {
+      setIsBulkBusy(false);
+    }
+  }
 
   const emitAction = (action: TableAction, item?: T, value?: number) =>
     onAction?.({ action, item, value });
@@ -340,11 +396,52 @@ export function DataTable<T extends object>({
         ))}
       </div>
 
+      {hasBulkActions && selectedRows.size > 0 && (
+        <div className="dt-bulkbar" role="region" aria-label="Thao tác hàng loạt">
+          <strong>Đã chọn {selectedRows.size}</strong>
+          {selectedRows.size < total && total <= SELECT_ALL_LIMIT && (
+            <button type="button" className="dt-bulk-link" onClick={selectAllMatching} disabled={isBulkBusy}>
+              Chọn tất cả {total} mục
+            </button>
+          )}
+          <button type="button" className="dt-bulk-link" onClick={() => setSelectedRows(new Map())} disabled={isBulkBusy}>
+            Bỏ chọn
+          </button>
+          <div className="dt-bulk-actions">
+            {bulkActions.map((bulkAction) => (
+              <button
+                key={bulkAction.key}
+                type="button"
+                className={cn('adm-btn', bulkAction.tone === 'danger' && 'adm-btn--danger')}
+                onClick={() => runBulkAction(bulkAction)}
+                disabled={isBulkBusy}
+              >
+                {bulkAction.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="dt-card">
         <div className="dt-scroll">
           <table className="dt-table">
             <thead>
               <tr>
+                {hasBulkActions && (
+                  <th className="dt-check">
+                    <input
+                      type="checkbox"
+                      checked={isPageSelected}
+                      ref={(checkbox) => {
+                        if (checkbox) checkbox.indeterminate = selectedOnPageCount > 0 && !isPageSelected;
+                      }}
+                      onChange={togglePage}
+                      disabled={rows.length === 0}
+                      aria-label="Chọn tất cả mục trên trang này"
+                    />
+                  </th>
+                )}
                 {columns.map((column) => (
                   <th key={String(column.key)} className={alignClassOf(column.align)}>
                     {column.label}
@@ -355,27 +452,38 @@ export function DataTable<T extends object>({
             <tbody>
               {error ? (
                 <tr>
-                  <td colSpan={columns.length} className="dt-empty dt-error">
+                  <td colSpan={columnCount} className="dt-empty dt-error">
                     Không tải được dữ liệu: {formatLoadError(error)}
                   </td>
                 </tr>
               ) : isFetching && rows.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length} className="dt-empty">
+                  <td colSpan={columnCount} className="dt-empty">
                     Đang tải…
                   </td>
                 </tr>
               ) : rows.length === 0 ? (
                 <tr>
-                  <td colSpan={columns.length} className="dt-empty">
+                  <td colSpan={columnCount} className="dt-empty">
                     Không có dữ liệu
                   </td>
                 </tr>
               ) : (
                 rows.map((row, index) => {
-                  const key = (row as Record<string, unknown>)[rowKey] ?? index;
+                  const key = rowKeyOf(row, index);
+                  const isSelected = selectedRows.has(key);
                   return (
-                    <tr key={String(key)}>
+                    <tr key={key} className={cn(isSelected && 'is-selected')}>
+                      {hasBulkActions && (
+                        <td className="dt-check">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => toggleRow(row)}
+                            aria-label="Chọn dòng này"
+                          />
+                        </td>
+                      )}
                       {columns.map((column) => (
                         <td key={String(column.key)} className={alignClassOf(column.align)}>
                           {renderCell(column, row)}
