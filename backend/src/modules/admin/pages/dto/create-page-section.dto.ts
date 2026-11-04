@@ -14,6 +14,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { IsTranslations } from 'src/common/i18n/translations.decorator';
+import { ToBoolean } from 'src/common/decorators/to-boolean.decorator';
 
 export class CreatePageSectionDto {
   @ApiProperty({ example: 1 })
@@ -57,6 +58,7 @@ export class CreatePageSectionDto {
 
   @ApiPropertyOptional({ default: true })
   @IsOptional()
+  @ToBoolean()
   @IsBoolean()
   isActive?: boolean;
 

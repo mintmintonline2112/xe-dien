@@ -1,6 +1,6 @@
 /**
- * Decorator @ToBoolean() đổi giá trị chuỗi của form multipart ('1' / '0' / 'true' / 'false') thành boolean để @IsBoolean qua.
- * Dùng bởi: DTO nhận dữ liệu multipart (hiện chưa có DTO nào import).
+ * Decorator @ToBoolean() đổi '1' / '0' / 'true' / 'false' (form multipart) hoặc 1 / 0 (tinyint MySQL) thành boolean để @IsBoolean qua.
+ * Dùng bởi: pages/dto/create-page-section.dto.ts (isActive — form admin gửi lại đúng giá trị 1 / 0 đọc từ DB).
  * Lưu ý: giữ nguyên undefined / null / '' (trả undefined) để giá trị mặc định của DTO vẫn áp dụng.
  */
 import { Transform } from 'class-transformer';

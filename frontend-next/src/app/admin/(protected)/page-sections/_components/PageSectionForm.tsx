@@ -142,7 +142,7 @@ export function PageSectionForm({ id, presetPageId }: { id?: number; presetPageI
       showEyebrow: savedMetadata.showEyebrow === true,
       content: savedSection.content ?? '',
       mediaPath: savedSection.mediaPath ?? '',
-      isActive: savedSection.isActive ?? true,
+      isActive: Boolean(savedSection.isActive ?? true),
       sortOrder: savedSection.sortOrder ?? 1,
     });
     setFormKey((previousKey) => previousKey + 1);
