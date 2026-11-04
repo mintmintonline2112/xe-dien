@@ -1,6 +1,6 @@
 /**
  * Chạy một thao tác API cho nhiều mục, mỗi lượt vài mục song song, để thao tác hàng loạt (chọn nhiều trong bảng) không dồn hàng trăm request cùng lúc.
- * Dùng bởi: products/_components/ProductList.tsx (xuất bản / chuyển nháp / xoá nhiều sản phẩm).
+ * Dùng bởi: products/_components/ProductList.tsx, blog-posts/_components/BlogPostList.tsx (thao tác hàng loạt).
  */
 const DEFAULT_BATCH_SIZE = 5;
 

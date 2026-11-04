@@ -1,7 +1,8 @@
 'use client';
 
 /**
- * Bảng danh sách bài viết blog: lọc theo trạng thái / danh mục, sửa, xoá.
+ * Bảng danh sách bài viết blog: lọc theo trạng thái / danh mục, sửa, xoá; chọn nhiều / chọn tất cả để xuất bản, chuyển nháp
+ * hoặc xoá hàng loạt.
  * Dùng bởi: blog-posts/page.tsx.
  */
 
@@ -12,9 +13,11 @@ import { DataTable } from '@/app/admin/_components/data-table/DataTable';
 import type {
   TableColumn,
   TableActionEvent,
+  TableBulkAction,
   TableFilterOption,
 } from '@/app/admin/_components/data-table/types';
 import { confirmAction } from '@/app/admin/_lib/confirm';
+import { runInBatches } from '@/app/admin/_lib/run-in-batches';
 import { PUBLISH_STATUS_CONFIG, PUBLISH_STATUS_OPTIONS } from '@/app/admin/_lib/publish-status';
 import { formatDate } from '@/app/admin/_lib/format-date';
 import {
@@ -92,6 +95,47 @@ export function BlogPostList() {
     [categories],
   );
 
+  const bulkActions: TableBulkAction<BlogPost>[] = useMemo(() => {
+    const confirmBulkStatus = (posts: BlogPost[], title: string, confirmButtonText: string, status: BlogPost['status']) =>
+      confirmAction(
+        { title, text: `Áp dụng cho ${posts.length} bài viết đã chọn.`, confirmButtonText, tone: 'primary', icon: 'question' },
+        async () => {
+          await runInBatches(posts, (post) => blogPostService.edit(post.id, { status }));
+          await queryClient.invalidateQueries({ queryKey: BLOG_POST_QUERY_KEY });
+        },
+      );
+
+    return [
+      {
+        key: 'publish',
+        label: 'Xuất bản',
+        run: (posts) => confirmBulkStatus(posts, 'Xuất bản bài viết?', 'Xuất bản', 'published'),
+      },
+      {
+        key: 'draft',
+        label: 'Chuyển nháp',
+        run: (posts) => confirmBulkStatus(posts, 'Chuyển về bản nháp?', 'Chuyển nháp', 'draft'),
+      },
+      {
+        key: 'delete',
+        label: 'Xoá',
+        tone: 'danger',
+        run: (posts) =>
+          confirmAction(
+            {
+              title: `Xóa ${posts.length} bài viết?`,
+              text: 'Các bài viết đã chọn sẽ bị gỡ khỏi website.',
+              confirmButtonText: 'Xóa',
+            },
+            async () => {
+              await runInBatches(posts, (post) => blogPostService.remove(post.id));
+              await queryClient.invalidateQueries({ queryKey: BLOG_POST_QUERY_KEY });
+            },
+          ),
+      },
+    ];
+  }, [queryClient]);
+
   async function handleAction(event: TableActionEvent<BlogPost>) {
     const item = event.item;
     switch (event.action) {
@@ -127,6 +171,7 @@ export function BlogPostList() {
       addLabel="Viết bài mới"
       searchPlaceholder="Tìm theo tiêu đề, mô tả…"
       filters={filters}
+      bulkActions={bulkActions}
       onAction={handleAction}
     />
   );
