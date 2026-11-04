@@ -1,10 +1,10 @@
 'use client';
 
 /**
- * Khung sắp xếp menu dạng cây (menu gốc → submenu) cho một vị trí: kéo thả hoặc bấm ↑ ↓ để đổi chỗ trong cùng cấp, bấm Lưu để ghi.
- * Dùng bởi: MenuItemList.tsx (đặt trên bảng menu).
- * Lưu ý: chỉ đổi chỗ giữa các mục cùng cha (muốn chuyển mục sang menu cha khác thì sửa ở form); lưu xong mỗi cấp được đánh số
- * lại 1, 2, 3… và chỉ gửi những mục đổi số. Backend tự xoá cache site sau mỗi lần sửa.
+ * Khung sắp xếp dạng cây (mục gốc → mục con): kéo thả hoặc bấm ↑ ↓ để đổi chỗ trong cùng cấp, bấm Lưu để ghi thứ tự mới.
+ * Dùng bởi: menus/_components/MenuItemList.tsx (menu website), product-categories/_components/ProductCategoryList.tsx (danh mục sản phẩm).
+ * Lưu ý: chỉ đổi chỗ giữa các mục cùng cha (chuyển sang cha khác thì sửa ở form); lưu xong mỗi cấp được đánh số lại 1, 2, 3…
+ * và chỉ gửi những mục đổi số qua onSave. Style ở styles/admin.css (`mo-*`).
  */
 
 import { useEffect, useMemo, useState } from 'react';
@@ -12,19 +12,27 @@ import { ArrowDown, ArrowUp, GripVertical } from 'lucide-react';
 import { toast } from 'sonner';
 import { getErrorMessage } from '@/app/admin/_lib/api-error';
 import { cn } from '@/utils/cn';
-import {
-  menuItemService,
-  toMenuLocation,
-  type MenuItem,
-  type MenuLocation,
-} from '@/app/admin/(protected)/menus/_lib/menu-item.service';
+
+export interface TreeOrderItem {
+  id: number;
+  parentId: number | null;
+  sortOrder: number;
+  label: string;
+  detail?: string;
+  isHidden?: boolean;
+}
+
+export interface TreeOrderChange {
+  id: number;
+  sortOrder: number;
+}
 
 type SiblingOrder = Record<string, number[]>;
 
 const ROOT_GROUP = 'root';
 const groupKeyOf = (parentId: number | null) => (parentId == null ? ROOT_GROUP : String(parentId));
 
-function buildSiblingOrder(items: MenuItem[]): SiblingOrder {
+function buildSiblingOrder(items: TreeOrderItem[]): SiblingOrder {
   const order: SiblingOrder = {};
   const sorted = [...items].sort((a, b) => a.sortOrder - b.sortOrder || a.id - b.id);
   for (const item of sorted) (order[groupKeyOf(item.parentId)] ??= []).push(item.id);
@@ -38,27 +46,25 @@ function moveWithin(ids: number[], fromIndex: number, toIndex: number): number[]
   return next;
 }
 
-export function MenuOrderPanel({
+export function TreeOrderPanel({
   items,
-  location,
-  onSaved,
+  hint,
+  emptyText,
+  onSave,
 }: {
-  items: MenuItem[];
-  location: MenuLocation;
-  onSaved: () => void;
+  items: TreeOrderItem[];
+  hint: string;
+  emptyText: string;
+  onSave: (changes: TreeOrderChange[]) => Promise<void>;
 }) {
-  const locationItems = useMemo(
-    () => items.filter((item) => toMenuLocation(item.location) === location),
-    [items, location],
-  );
-  const itemById = useMemo(() => new Map(locationItems.map((item) => [item.id, item])), [locationItems]);
-  const [order, setOrder] = useState<SiblingOrder>(() => buildSiblingOrder(locationItems));
+  const itemById = useMemo(() => new Map(items.map((item) => [item.id, item])), [items]);
+  const [order, setOrder] = useState<SiblingOrder>(() => buildSiblingOrder(items));
   const [dragging, setDragging] = useState<{ group: string; id: number } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  useEffect(() => setOrder(buildSiblingOrder(locationItems)), [locationItems]);
+  useEffect(() => setOrder(buildSiblingOrder(items)), [items]);
 
-  const changedItems = useMemo(
+  const changes = useMemo(
     () =>
       Object.values(order).flatMap((ids) =>
         ids
@@ -84,11 +90,10 @@ export function MenuOrderPanel({
   async function handleSave() {
     setIsSaving(true);
     try {
-      for (const { id, sortOrder } of changedItems) await menuItemService.edit(id, { sortOrder });
-      toast.success('Đã lưu thứ tự menu');
-      onSaved();
+      await onSave(changes);
+      toast.success('Đã lưu thứ tự');
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Không lưu được thứ tự menu'));
+      toast.error(getErrorMessage(error, 'Không lưu được thứ tự'));
     } finally {
       setIsSaving(false);
     }
@@ -105,11 +110,7 @@ export function MenuOrderPanel({
           return (
             <li key={id}>
               <div
-                className={cn(
-                  'mo-row',
-                  !item.isActive && 'is-hidden',
-                  dragging?.id === id && 'is-dragging',
-                )}
+                className={cn('mo-row', item.isHidden && 'is-hidden', dragging?.id === id && 'is-dragging')}
                 draggable
                 onDragStart={(e) => {
                   e.stopPropagation();
@@ -127,8 +128,8 @@ export function MenuOrderPanel({
                 <GripVertical size={16} className="mo-grip" aria-hidden="true" />
                 <span className="mo-index">{index + 1}</span>
                 <span className="mo-label">{item.label}</span>
-                <span className="mo-href">{item.href}</span>
-                {!item.isActive && <span className="mo-badge">Đang ẩn</span>}
+                {item.detail && <span className="mo-href">{item.detail}</span>}
+                {item.isHidden && <span className="mo-badge">Đang ẩn</span>}
                 <span className="mo-actions">
                   <button
                     type="button"
@@ -161,16 +162,14 @@ export function MenuOrderPanel({
       <div className="mo-head">
         <div>
           <h2 className="mo-title">Sắp xếp thứ tự</h2>
-          <p className="gf-hint">
-            Kéo thả hoặc bấm ↑ ↓ để đổi chỗ các mục cùng cấp, thứ tự ở đây là thứ tự hiện trên website.
-          </p>
+          <p className="gf-hint">{hint}</p>
         </div>
         <div className="mo-head-actions">
-          {changedItems.length > 0 && (
+          {changes.length > 0 && (
             <button
               type="button"
               className="adm-btn"
-              onClick={() => setOrder(buildSiblingOrder(locationItems))}
+              onClick={() => setOrder(buildSiblingOrder(items))}
               disabled={isSaving}
             >
               Hoàn tác
@@ -180,13 +179,13 @@ export function MenuOrderPanel({
             type="button"
             className="adm-btn adm-btn--primary"
             onClick={handleSave}
-            disabled={isSaving || changedItems.length === 0}
+            disabled={isSaving || changes.length === 0}
           >
             {isSaving ? 'Đang lưu…' : 'Lưu thứ tự'}
           </button>
         </div>
       </div>
-      {locationItems.length > 0 ? renderGroup(ROOT_GROUP, 0) : <p className="gf-hint">Chưa có mục menu nào.</p>}
+      {items.length > 0 ? renderGroup(ROOT_GROUP, 0) : <p className="gf-hint">{emptyText}</p>}
     </section>
   );
 }

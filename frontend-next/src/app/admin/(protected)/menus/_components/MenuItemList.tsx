@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Bảng mục menu website theo vị trí (tab header / footer): khung sắp xếp kéo thả (MenuOrderPanel), lọc theo menu cha, ẩn / hiện, sửa, xoá (xoá menu gốc xoá luôn submenu).
+ * Bảng mục menu website theo vị trí (tab header / footer): khung sắp xếp kéo thả (TreeOrderPanel), lọc theo menu cha, ẩn / hiện, sửa, xoá (xoá menu gốc xoá luôn submenu).
  * Dùng bởi: menus/page.tsx.
  * Lưu ý: lọc theo vị trí qua ?location= gửi lên API (backend phải cho lọc cột location); nút thêm mở form với vị trí của tab.
  */
@@ -30,7 +30,7 @@ import {
 import { adminRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { withQuery } from '@/utils/route';
-import { MenuOrderPanel } from './MenuOrderPanel';
+import { TreeOrderPanel, type TreeOrderChange } from '@/app/admin/_components/tree-order/TreeOrderPanel';
 
 const menuListHrefOf = (location: MenuLocation) =>
   withQuery(adminRoutes.menus.list, { location: location === 'footer' ? 'footer' : undefined });
@@ -57,6 +57,26 @@ export function MenuItemList({ location }: { location: MenuLocation }) {
       ),
     [allItems, location],
   );
+
+  const orderItems = useMemo(
+    () =>
+      (allItems?.data ?? [])
+        .filter((item) => toMenuLocation(item.location) === location)
+        .map((item) => ({
+          id: item.id,
+          parentId: item.parentId,
+          sortOrder: item.sortOrder,
+          label: item.label,
+          detail: item.href,
+          isHidden: !item.isActive,
+        })),
+    [allItems, location],
+  );
+
+  async function saveMenuOrder(changes: TreeOrderChange[]) {
+    for (const { id, sortOrder } of changes) await menuItemService.edit(id, { sortOrder });
+    await queryClient.invalidateQueries({ queryKey: MENU_ITEM_QUERY_KEY });
+  }
 
   const tableQuery = useMemo(() => ({ location }), [location]);
 
@@ -165,11 +185,6 @@ export function MenuItemList({ location }: { location: MenuLocation }) {
           </Link>
         ))}
       </nav>
-      <MenuOrderPanel
-        items={allItems?.data ?? []}
-        location={location}
-        onSaved={() => queryClient.invalidateQueries({ queryKey: MENU_ITEM_QUERY_KEY })}
-      />
       <DataTable<MenuItem>
         title="Menu website"
         subtitle={MENU_LOCATIONS.find((tab) => tab.value === location)?.hint}
@@ -181,6 +196,14 @@ export function MenuItemList({ location }: { location: MenuLocation }) {
         searchPlaceholder="Tìm theo tên, đường dẫn…"
         filters={filters}
         enabledActions={['toggle', 'edit', 'delete']}
+        aboveToolbar={
+          <TreeOrderPanel
+            items={orderItems}
+            hint="Kéo thả hoặc bấm ↑ ↓ để đổi chỗ các mục cùng cấp, thứ tự ở đây là thứ tự hiện trên website."
+            emptyText="Chưa có mục menu nào."
+            onSave={saveMenuOrder}
+          />
+        }
         onAction={handleAction}
       />
     </>

@@ -63,6 +63,7 @@ interface DataTableProps<T extends object> {
   onExport?: () => void;
   headerActions?: React.ReactNode;
   bulkActions?: TableBulkAction<T>[];
+  aboveToolbar?: React.ReactNode;
 }
 
 const SELECT_ALL_LIMIT = 1000;
@@ -87,6 +88,7 @@ export function DataTable<T extends object>({
   onExport,
   headerActions,
   bulkActions = [],
+  aboveToolbar,
 }: DataTableProps<T>) {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(initialLimit);
@@ -350,6 +352,8 @@ export function DataTable<T extends object>({
           </div>
         </div>
       )}
+
+      {aboveToolbar}
 
       <div className="dt-toolbar">
         <div className="dt-search">

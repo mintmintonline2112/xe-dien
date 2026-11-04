@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Bảng danh mục sản phẩm: ảnh, tên, danh mục cha, icon, số sản phẩm, hiển thị; lọc theo danh mục cha, sắp xếp, ẩn / hiện, sửa, xoá.
+ * Bảng danh mục sản phẩm kèm khung sắp xếp kéo thả (TreeOrderPanel — thứ tự ô danh mục trên trang chủ, trang sản phẩm): ảnh, tên, danh mục cha, icon, số sản phẩm, hiển thị; lọc theo danh mục cha, sắp xếp, ẩn / hiện, sửa, xoá.
  * Dùng bởi: product-categories/page.tsx.
  * Lưu ý: cột số sản phẩm chỉ có số khi backend trả `productCount`; xoá danh mục thì sản phẩm thuộc nó về "Chưa phân loại".
  */
@@ -23,6 +23,7 @@ import {
 } from '@/app/admin/(protected)/product-categories/_lib/product-category.service';
 import { adminRoutes } from '@/config/routes';
 import { SiteIcon } from '@/app/(site)/_components/SiteIcon';
+import { TreeOrderPanel, type TreeOrderChange } from '@/app/admin/_components/tree-order/TreeOrderPanel';
 
 export function ProductCategoryList() {
   const router = useRouter();
@@ -43,6 +44,24 @@ export function ProductCategoryList() {
     () => (allCategories?.data ?? []).filter((category) => category.parentId == null),
     [allCategories],
   );
+
+  const orderItems = useMemo(
+    () =>
+      (allCategories?.data ?? []).map((category) => ({
+        id: category.id,
+        parentId: category.parentId,
+        sortOrder: category.sortOrder,
+        label: category.name,
+        detail: typeof category.productCount === 'number' ? `${category.productCount} sản phẩm` : `/${category.slug}`,
+        isHidden: !category.isActive,
+      })),
+    [allCategories],
+  );
+
+  async function saveCategoryOrder(changes: TreeOrderChange[]) {
+    for (const { id, sortOrder } of changes) await productCategoryService.edit(id, { sortOrder });
+    await queryClient.invalidateQueries({ queryKey: PRODUCT_CATEGORY_QUERY_KEY });
+  }
 
   const columns: TableColumn<ProductCategory>[] = useMemo(
     () => [
@@ -165,6 +184,14 @@ export function ProductCategoryList() {
       searchPlaceholder="Tìm theo tên…"
       filters={filters}
       enabledActions={['toggle', 'edit', 'delete']}
+      aboveToolbar={
+        <TreeOrderPanel
+          items={orderItems}
+          hint="Kéo thả hoặc bấm ↑ ↓ để đổi chỗ danh mục cùng cấp. Thứ tự này là thứ tự ô danh mục trên trang chủ và trang sản phẩm."
+          emptyText="Chưa có danh mục nào."
+          onSave={saveCategoryOrder}
+        />
+      }
       onAction={handleAction}
     />
   );
